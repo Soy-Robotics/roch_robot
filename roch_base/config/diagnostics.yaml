@@ -1,0 +1,7 @@
+analyzers:
+  roch:
+    type: diagnostic_aggregator/GenericAnalyzer
+    path: roch
+    find_and_remove_prefix: 'roch_base: '
+    expected: ['roch_base: power_status','roch_base: system_status','roch_base: safety_status','roch_base: software_status']
+    timeout: 5.0

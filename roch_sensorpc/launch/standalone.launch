@@ -1,0 +1,18 @@
+<!--
+  Example standalone launcher for the bumper/cliff to pointcloud nodelet.
+
+  Parameter pointcloud_radius gives the bumper/cliff pointcloud distance to base frame;
+  should be something like the robot radius plus plus costmap resolution plus an extra to
+  cope with robot inertia. This is a bit tricky parameter: if it's too low, costmap will
+  ignore this pointcloud (the robot footprint runs over the hit obstacle), but if it's too
+  big, hit obstacles will be mapped too far from the robot and the navigation around them
+  will probably fail.
+ -->
+<launch>
+  <node pkg="nodelet" type="nodelet" name="nodelet_manager" args="manager"/>
+  <node pkg="nodelet" type="nodelet" name="sensorpointcloud" args="load roch_sensorpc/SensorPcNodelet nodelet_manager">
+    <param name="pointcloud_radius" value="0.25"/>
+    <remap from="sensorpointcloud/pointcloud"   to="mobile_base/sensors/sensor_pointcloud"/>
+    <remap from="sensorpointcloud/core_sensors" to="mobile_base/sensors/core"/>
+  </node>
+</launch>

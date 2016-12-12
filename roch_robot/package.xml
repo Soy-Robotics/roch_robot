@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <name>roch_robot</name>
+  <version>0.0.1</version>
+  <description>Metapackage for SawYer roch robot software</description>
+  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>roch_bringup</run_depend>
+  <run_depend>roch_base</run_depend>
+  <run_depend>roch_ftdi</run_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

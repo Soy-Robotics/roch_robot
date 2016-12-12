@@ -1,0 +1,46 @@
+##############################################################################
+#
+# Source installation instructions at:
+#
+# http://www.ros.org/wiki/roch/Tutorials/indigo/Source%20Installation
+#
+##############################################################################
+
+# Make sure to install these ROCON packages as well:
+# https://raw.github.com/robotics-in-concert/rocon/indigo/rocon_app_platform.rosinstall
+
+# roch / SawYer stacks
+
+- git:
+    uri: https://github.com/GaiTech-Robotics/roch_msgs.git
+    local-name: roch_msgs
+    version: indigo
+
+
+# Roch stacks
+
+- git:
+    uri: https://github.com/GaiTech-Robotics/roch.git
+    local-name: roch
+    version: indigo
+
+- git:
+    uri: https://github.com/GaiTech-Robotics/roch_simulator.git
+    local-name: roch_simulator
+    version: indigo
+
+- git:
+    uri: https://github.com/GaiTech-Robotics/roch_viz.git
+    local-name: roch_viz
+    version: indigo
+
+- git:
+    uri: https://github.com/GaiTech-Robotics/roch_navigation.git
+    local-name: roch_navigation
+    version: indigo
+
+
+- git:
+    uri: https://github.com/roch/roch_robot.git
+    local-name: roch_robot
+    version: indigo
