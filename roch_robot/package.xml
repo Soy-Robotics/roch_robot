@@ -8,6 +8,7 @@
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>roch_description</run_depend>
   <run_depend>roch_control</run_depend>
   <run_depend>roch_msgs</run_depend>
   <run_depend>roch_base</run_depend>
