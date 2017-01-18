@@ -1,5 +1,5 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Changelog for package kobuki_ftdi
+Changelog for package roch_ftdi
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 0.6.1 (2015-05-27)

@@ -12,7 +12,7 @@
 <launch>
   <node pkg="roch_sensorpc" type="roch_sensorpc_nodelet" name="roch_sensorpc_nodelet">
     <param name="pointcloud_radius" value="0.25"/>
-    <param name="ult_enable"        value="false"/>
+    <param name="ult_enable"        value="true"/>
     <param name="psd_enable"        value="true"/>
     <param name="cliff_enable"      value="true"/>
     <remap from="/pointcloud"   to="mobile_base/sensors/sensor_pointcloud"/>

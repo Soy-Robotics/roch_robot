@@ -1,19 +1,19 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_base</name>
-  <version>0.2.5</version>
-  <description>Clearpath roch robot driver</description>
+  <version>0.0.2</version>
+  <description>Sawyer roch robot driver</description>
 
-  <author email="mpurvis@clearpathrobotics.com">Mike Purvis</author>
-  <author email="pbovbel@clearpathrobotics.com">Paul Bovbel</author>
+  <author email="wzhang@softrobotech.com">Carl</author>
 
-  <maintainer email="pbovbel@clearpathrobotics.com">Paul Bovbel</maintainer>
+  <maintainer email="wzhang@softrobotech.com">Carl</maintainer>
 
   <license>BSD</license>
 
   <url type="website">http://ros.org/wiki/roch_base</url>
-  <url type="bugtracker">https://github.com/roch/roch_robot/issues</url>
-  <url type="repository">https://github.com/husly/roch_robot</url>
+  <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
+  <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
+  <url type="website">http://ros.org/wiki/roch_base</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>controller_manager</build_depend>

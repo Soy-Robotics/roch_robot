@@ -41,6 +41,10 @@
 #include "ros/ros.h"
 #include "sensor_msgs/JointState.h"
 #include "roch_msgs/RochStatus.h"
+#include "roch_msgs/CliffEvent.h"
+#include "roch_msgs/UltEvent.h"
+#include "roch_msgs/PSDEvent.h"
+#include "roch_msgs/SensorState.h"
 #include <sensor_msgs/Imu.h>
 #include <tf/tf.h>
 #include <string>
@@ -106,6 +110,16 @@ namespace roch_base
     double angularToLinear(const double &angle) const;
 
     void limitDifferentialSpeed(double &travel_speed_left, double &travel_speed_right);
+    
+    void publishCliffEvent(const double &left, const double &right);
+    
+    void publishUltEvent(const double &left, const double &center, const double &right);
+    
+    void publishPSDEvent(const double &left, const double &center, const double &right);
+    
+    void publishWheelEvent(const float &leftOffset, const float &rightOffset);
+    
+    void publishSensorState();
 
     ros::NodeHandle nh_, private_nh_;
 
@@ -119,6 +133,8 @@ namespace roch_base
     ros::Publisher imu_data_publisher_;
     ros::Publisher raw_data_stream_publisher;
     ros::Publisher raw_data_command_publisher_;
+    ros::Publisher cliff_event_publisher_,ult_event_publisher_,psd_event_publisher_;
+    ros::Publisher sensor_state_publisher_;
     roch_msgs::RochStatus roch_status_msg_;
     diagnostic_updater::Updater diagnostic_updater_;
     rochHardwareDiagnosticTask<sawyer::DataSystemStatus> system_status_task_;
@@ -130,7 +146,17 @@ namespace roch_base
     double wheel_diameter_, max_accel_, max_speed_;
 
     double polling_timeout_;
-
+    
+    double cliff_height_; //the height of cliff can scan (meter)
+    
+    
+    double ult_length_; //the lengthh of ult can detection (meter)
+    
+    double PSD_length_; //the lengthh of PSD can detection (meter)
+    std::string gyro_link_frame_;
+    std::vector<double> cliffbottom;
+    std::vector<double> ultbottom;
+    std::vector<double> psdbottom;
     /**
     * Joint structure that is hooked to ros_control's InterfaceManager, to allow control via diff_drive_controller
     */
@@ -171,6 +197,56 @@ namespace roch_base
 	angle(0), angle_rate(0), angle_rate_offset(0), angle_offset(0)
       { }
     }sixGyro;
+    
+    struct CliffEvent{
+      enum State {
+	  Floor,
+	  Cliff
+	} state;
+      enum Sensor {
+	Left,
+	Right
+      } sensor;
+      double leftbottom;
+      double rightbottom;
+    };
+    
+    struct UltEvent{
+      enum State {
+	  Normal,
+	  Near
+	} state;
+      enum Sensor {
+	Left,
+	Center,
+	Right
+      } sensor;
+      double leftbottom;
+      double centerbottom;
+      double rightbottom;
+    };
+    
+    struct PSDEvent{
+      enum State {
+	  Normal,
+	  Near
+	} state;
+      enum Sensor {
+	Left,
+	Center,
+	Right
+      } sensor;
+      double leftbottom;
+      double centerbottom;
+      double rightbottom;
+    };
+    
+    CliffEvent leftcliffevent,rightcliffevent;
+    
+    UltEvent leftultevent, centerultevent, rightultevent;
+    
+    PSDEvent leftpsdevent, centerpsdevent, rightpsdevent;
+};
 #if 0
     struct ImuData{
       std::string name;                       ///< The name of the sensor
@@ -194,7 +270,8 @@ namespace roch_base
     }imuMsgData;
 #endif
     
-  };
+    
+};
 
-}  // namespace roch_base
-#endif  // roch_BASE_roch_HARDWARE_H
+ // namespace roch_base
+#endif  // ROCH_BASE_ROCH_HARDWARE_H

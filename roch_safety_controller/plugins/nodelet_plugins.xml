@@ -1,0 +1,8 @@
+<library path="lib/libroch_safety_controller_nodelet">
+  <class name="roch_safety_controller/SafetyControllerNodelet" type="roch::SafetyControllerNodelet" base_class_type="nodelet::Nodelet">
+    <description>
+      Nodelet for roch's safety controller
+    </description>
+  </class>
+</library>
+
