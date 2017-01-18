@@ -1,6 +1,9 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_bringup
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.6 (2017-01-17)
+------------------
+
 0.0.5 (2017-01-17)
 ------------------
 * Add new env that enable of if use 3d sensor in navigation or not is ROCH_SENSOR_NAV_ENABLE.

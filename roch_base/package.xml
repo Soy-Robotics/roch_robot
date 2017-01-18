@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_base</name>
-  <version>0.0.2</version>
+  <version>1.0.6</version>
   <description>Sawyer roch robot driver</description>
 
-  <author email="wzhang@softrobotech.com">Carl</author>
+  <author email="wzhang@softrobtech.com">Carl</author>
 
-  <maintainer email="wzhang@softrobotech.com">Carl</maintainer>
+  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
 
   <license>BSD</license>
 
