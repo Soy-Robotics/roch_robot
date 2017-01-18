@@ -55,7 +55,6 @@
 #include <std_msgs/Empty.h>
 #include <geometry_msgs/Twist.h>
 #include <roch_msgs/CliffEvent.h>
-#include <roch_msgs/WheelDropEvent.h>
 #include <roch_msgs/UltEvent.h>
 #include <roch_msgs/PSDEvent.h>
 
@@ -80,8 +79,6 @@ public:
     Controller(),
     nh_(nh),
     name_(name),
-    wheel_left_dropped_(false),
-    wheel_right_dropped_(false),
     cliff_left_detected_(false),
     cliff_right_detected_(false), 
     ult_left_detected_(false),
@@ -101,13 +98,12 @@ public:
   bool init()
   {
     //how long to keep sending messages after a bump, cliff, or wheel drop stops
-    double time_to_extend_bump_cliff_events;
-    nh_.param("time_to_extend_bump_cliff_events", time_to_extend_bump_cliff_events, 0.0);
-    time_to_extend_bump_cliff_events_ = ros::Duration(time_to_extend_bump_cliff_events);
+    double time_to_extend_ult_cliff_psd_events;
+    nh_.param("time_to_extend_ult_cliff_psd_events", time_to_extend_ult_cliff_psd_events, 0.0);
+    time_to_extend_bump_cliff_events_ = ros::Duration(time_to_extend_ult_cliff_psd_events);
     enable_controller_subscriber_ = nh_.subscribe("enable", 10, &SafetyController::enableCB, this);
     disable_controller_subscriber_ = nh_.subscribe("disable", 10, &SafetyController::disableCB, this);
-    cliff_event_subscriber_  = nh_.subscribe("events/cliff",  10, &SafetyController::cliffEventCB, this);
-    wheel_event_subscriber_  = nh_.subscribe("events/wheel_drop", 10, &SafetyController::wheelEventCB, this);
+    cliff_event_subscriber_  = nh_.subscribe("events/cliff",  10, &SafetyController::cliffEventCB, this);    
     ult_event_subscriber_ = nh_.subscribe("events/ult", 10, &SafetyController::ultEventCB, this);
     psd_event_subscriber_ = nh_.subscribe("events/psd", 10, &SafetyController::psdEventCB, this);
     reset_safety_states_subscriber_ = nh_.subscribe("reset", 10, &SafetyController::resetSafetyStatesCB, this);
@@ -124,10 +120,9 @@ private:
   ros::NodeHandle nh_;
   std::string name_;
   ros::Subscriber enable_controller_subscriber_, disable_controller_subscriber_;
-  ros::Subscriber cliff_event_subscriber_, wheel_event_subscriber_, ult_event_subscriber_, psd_event_subscriber_;
+  ros::Subscriber cliff_event_subscriber_, ult_event_subscriber_, psd_event_subscriber_;
   ros::Subscriber reset_safety_states_subscriber_;
   ros::Publisher controller_state_publisher_, velocity_command_publisher_;
-  bool wheel_left_dropped_, wheel_right_dropped_;
   bool cliff_left_detected_, cliff_right_detected_;
   bool ult_left_detected_, ult_center_detected_, ult_right_detected_;
   bool psd_left_detected_, psd_center_detected_, psd_right_detected_;
@@ -169,11 +164,6 @@ private:
    */
   void psdEventCB(const roch_msgs::PSDEventConstPtr msg);
 
-  /**
-   * @brief Keeps track of the wheel states
-   * @param msg incoming topic message
-   */
-  void wheelEventCB(const roch_msgs::WheelDropEventConstPtr msg);
 
   /**
    * @brief Callback for resetting safety variables
@@ -220,7 +210,7 @@ void SafetyController::cliffEventCB(const roch_msgs::CliffEventConstPtr msg)
     if((msg->leftState == roch_msgs::CliffEvent::CLIFF))
       cliff_left_detected_   = true; 
     if((msg->rightState == roch_msgs::CliffEvent::CLIFF))
-      cliff_left_detected_   = true; 
+      cliff_right_detected_   = true; 
   }
   else // roch_msgs::CliffEvent::FLOOR
   {
@@ -228,7 +218,7 @@ void SafetyController::cliffEventCB(const roch_msgs::CliffEventConstPtr msg)
     if((msg->leftState == roch_msgs::CliffEvent::FLOOR))
       cliff_left_detected_   = false; 
     if((msg->rightState == roch_msgs::CliffEvent::FLOOR))
-      cliff_left_detected_   = false; 
+      cliff_right_detected_   = false; 
   }
 };
 
@@ -284,59 +274,27 @@ void SafetyController::psdEventCB(const roch_msgs::PSDEventConstPtr msg)
 };
 
 
-void SafetyController::wheelEventCB(const roch_msgs::WheelDropEventConstPtr msg)
-{
-  if ((msg->leftstate == roch_msgs::WheelDropEvent::DROPPED) || (msg->rightstate == roch_msgs::WheelDropEvent::DROPPED))
-  {
-    // need to keep track of both wheels separately
-    if (msg->leftwheel == roch_msgs::WheelDropEvent::LEFT)
-    {
-      ROS_DEBUG_STREAM("Left wheel dropped. [" << name_ << "]");
-      wheel_left_dropped_ = true;
-    }
-    else // roch_msgs::WheelDropEvent::RIGHT
-    {
-      ROS_DEBUG_STREAM("Right wheel dropped. [" << name_ << "]");
-      wheel_right_dropped_ = true;
-    }
-  }
-  else // roch_msgs::WheelDropEvent::RAISED
-  {
-    // need to keep track of both wheels separately
-    if (msg->leftwheel == roch_msgs::WheelDropEvent::LEFT)
-    {
-      ROS_DEBUG_STREAM("Left wheel raised. [" << name_ << "]");
-      wheel_left_dropped_ = false;
-    }
-    else // roch_msgs::WheelDropEvent::RIGHT
-    {
-      ROS_DEBUG_STREAM("Right wheel raised. [" << name_ << "]");
-      wheel_right_dropped_ = false;
-    }
-    if (!wheel_left_dropped_ && !wheel_right_dropped_)
-    {
-      ROS_DEBUG_STREAM("Both wheels raised. Resuming normal operation. [" << name_ << "]");
-    }
-  }
-};
-
 void SafetyController::resetSafetyStatesCB(const std_msgs::EmptyConstPtr msg)
 {
-  wheel_left_dropped_    = false;
-  wheel_right_dropped_   = false;
   cliff_left_detected_   = false;
   cliff_right_detected_  = false;
+  ult_left_detected_	 = false;
+  ult_center_detected_	 = false;
+  ult_right_detected_	 = false;
+  psd_left_detected_	 = false;
+  psd_center_detected_	 = false;
+  psd_right_detected_	 = false;
   ROS_WARN_STREAM("All safety states have been reset to false. [" << name_ << "]");
 }
 
 void SafetyController::spin()
 {
   if (this->getState())
-  {
-    if (wheel_left_dropped_ || wheel_right_dropped_)
+  { 
+    if (  psd_center_detected_ || ult_center_detected_) //ult_center_detected_: disable due to the ult not stable
     {
       msg_.reset(new geometry_msgs::Twist());
-      msg_->linear.x = 0.0;
+      msg_->linear.x = -0.1;
       msg_->linear.y = 0.0;
       msg_->linear.z = 0.0;
       msg_->angular.x = 0.0;
@@ -344,9 +302,32 @@ void SafetyController::spin()
       msg_->angular.z = 0.0;
       velocity_command_publisher_.publish(msg_);
     }
-   
+    else if (cliff_left_detected_ || psd_left_detected_ || ult_left_detected_)//ult_left_detected_: ult_center_detected_ disable due to the ult not stable
+    {
+      // left bump/cliff; also spin a bit to the right to make escape easier
+      msg_.reset(new geometry_msgs::Twist());
+      msg_->linear.x = -0.1;
+      msg_->linear.y = 0.0;
+      msg_->linear.z = 0.0;
+      msg_->angular.x = 0.0;
+      msg_->angular.y = 0.0;
+      msg_->angular.z = -0.4;
+      velocity_command_publisher_.publish(msg_);
+    }
+    else if (cliff_right_detected_ || psd_right_detected_ || ult_right_detected_)//ult_right_detected_: ult_center_detected_ disable due to the ult not stable
+    {
+      // right bump/cliff; also spin a bit to the left to make escape easier
+      msg_.reset(new geometry_msgs::Twist());
+      msg_->linear.x = -0.1;
+      msg_->linear.y = 0.0;
+      msg_->linear.z = 0.0;
+      msg_->angular.x = 0.0;
+      msg_->angular.y = 0.0;
+      msg_->angular.z = 0.4;
+      velocity_command_publisher_.publish(msg_);
+    }
     //if we want to extend the safety state and we're within the time, just keep sending msg_
-    else if (time_to_extend_bump_cliff_events_ > ros::Duration(1e-10) && 
+     if (time_to_extend_bump_cliff_events_ > ros::Duration(1e-10) && 
 	     ros::Time::now() - last_event_time_ < time_to_extend_bump_cliff_events_) {
       velocity_command_publisher_.publish(msg_);
     }

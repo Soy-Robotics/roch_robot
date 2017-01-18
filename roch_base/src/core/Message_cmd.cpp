@@ -49,7 +49,7 @@ using namespace std;
 #include "roch_base/core/Logger.h"
 #endif
 #ifdef DEBUG_INFO
-#include "roch_base/roch_hardware.h"//test for ROS_INFO
+#include "roch_base/roch_hardware.h"//test for ROS_DEBUG_STREAM
 #endif
 namespace sawyer
 {
@@ -91,7 +91,7 @@ namespace sawyer
   CmdRestoreSettings::CmdRestoreSettings(enum restoreFlags flags) : CmdMessage()
   {
 #ifdef DEBUG_INFO
-    ROS_INFO("CmdRestoreSettings: flags:%x",(uint8_t) (flags));
+    ROS_DEBUG_STREAM("CmdRestoreSettings: flags:%x",(uint8_t) (flags));
 #endif
     setPayloadLength(3);
 
@@ -125,7 +125,7 @@ namespace sawyer
   SetAckermannOutput::SetAckermannOutput(double steer, double throt, double brake) : CmdMessage()
   {
 #ifdef DEBUG_INFO
-    ROS_INFO("SetAckermannOutput: steer:%.2lf, throt:%.2lf, brake:%.2lf",steer,throt,brake);
+    ROS_DEBUG_STREAM("SetAckermannOutput: steer:%.2lf, throt:%.2lf, brake:%.2lf",steer,throt,brake);
 #endif
     setPayloadLength(PAYLOAD_LEN);
 
@@ -152,7 +152,7 @@ namespace sawyer
       : CmdMessage()
   { 
 #ifdef DEBUG_INFO
-    ROS_INFO("SetDifferentialControl: P:%.2lf,I:%.2lf,D:%.2lf,feedfwd:%.2lf,stic:%.2lf,int_lim:%.2lf", p, i,
+    ROS_DEBUG_STREAM("SetDifferentialControl: P:%.2lf,I:%.2lf,D:%.2lf,feedfwd:%.2lf,stic:%.2lf,int_lim:%.2lf", p, i,
        d,
        feedfwd,
        stic,
@@ -195,7 +195,7 @@ namespace sawyer
       : CmdMessage()
   {
 #ifdef DEBUG_INFO
-    ROS_INFO("SetDifferentialControl: left_p:%.2lf,left_i:%.2lf,left_d:%.2lf,left_feedfwd:%.2lf,left_stic:%.2lf,left_int_lim:%.2lf,"
+    ROS_DEBUG_STREAM("SetDifferentialControl: left_p:%.2lf,left_i:%.2lf,left_d:%.2lf,left_feedfwd:%.2lf,left_stic:%.2lf,left_int_lim:%.2lf,"
 				     "right_p:%.2lf,right_i:%.2lf,right_d:%.2lf,right_feedfwd:%.2lf,right_stic:%.2lf,right_int_lim:%.2lf,", left_p,
        left_i,
        left_d,
@@ -238,7 +238,7 @@ namespace sawyer
   SetDifferentialOutput::SetDifferentialOutput(double left, double right) : CmdMessage()
   {
 #ifdef DEBUG_INFO
-    ROS_INFO("SetDifferentialOutput: left:%.2lf,right:%.2lf",left,right);
+    ROS_DEBUG_STREAM("SetDifferentialOutput: left:%.2lf,right:%.2lf",left,right);
 #endif
     setPayloadLength(PAYLOAD_LEN);
     ftob(getPayloadPointer(LEFT), 2, left, 100);
@@ -264,7 +264,7 @@ namespace sawyer
     ftob(getPayloadPointer(RIGHT_SPEED), 2, right_speed, 100);
     ftob(getPayloadPointer(RIGHT_ACCEL), 2, right_accel, 100);
 #ifdef DEBUG_SEND_SPEED
-    ROS_INFO("SetDifferentialSpeed: left_speed:%.2lf,right_speed:%.2lf,left_accel:%.2lf,right_accel:%.2lf",left_speed,right_speed,left_accel,right_accel);
+    ROS_DEBUG_STREAM("SetDifferentialSpeed: left_speed:%.2lf,right_speed:%.2lf,left_accel:%.2lf,right_accel:%.2lf",left_speed,right_speed,left_accel,right_accel);
 #endif
     setType(SET_DIFF_WHEEL_SPEEDS);
     makeValid();
@@ -278,7 +278,7 @@ namespace sawyer
   SetGear::SetGear(uint8_t gear) : CmdMessage()
   {
 #ifdef DEBUG_INFO 
-    ROS_INFO("SetGear: gear:%x",gear);
+    ROS_DEBUG_STREAM("SetGear: gear:%x",gear);
 #endif
     setPayloadLength(1);
     getPayloadPointer()[0] = gear;
@@ -298,7 +298,7 @@ namespace sawyer
     ftob(getPayloadPointer(MAX_FWD), 2, max_fwd, 100);
     ftob(getPayloadPointer(MAX_REV), 2, max_rev, 100);
 #ifdef DEBUG_INFO
-    ROS_INFO("SetMaxAccel: max_fwd:%.2lf, max_rev:%.2lf",max_fwd,max_rev);
+    ROS_DEBUG_STREAM("SetMaxAccel: max_fwd:%.2lf, max_rev:%.2lf",max_fwd,max_rev);
 #endif
     setType(SET_MAX_ACCEL);
     makeValid();
@@ -316,7 +316,7 @@ namespace sawyer
     ftob(getPayloadPointer(MAX_FWD), 2, max_fwd, 100);
     ftob(getPayloadPointer(MAX_REV), 2, max_rev, 100);
 #ifdef DEBUG_INFO
-    ROS_INFO("SetMaxSpeed: max_fwd:%.2lf, max_rev:%.2lf",max_fwd,max_rev);
+    ROS_DEBUG_STREAM("SetMaxSpeed: max_fwd:%.2lf, max_rev:%.2lf",max_fwd,max_rev);
 #endif
     setType(SET_MAX_SPEED);
     makeValid();
@@ -333,7 +333,7 @@ namespace sawyer
     size_t max_len = MAX_MSG_LENGTH - HEADER_LENGTH - CRC_LENGTH - 1 /* for size field */;
     if (cpy_len > max_len) { cpy_len = max_len; }
 #ifdef DEBUG_INFO
-    ROS_INFO("SetPlatformName: name:%s",name);
+    ROS_DEBUG_STREAM("SetPlatformName: name:%s",name);
 #endif
     setPayloadLength(cpy_len + 1);
     getPayloadPointer()[0] = cpy_len;
@@ -352,7 +352,7 @@ namespace sawyer
   SetPlatformTime::SetPlatformTime(uint32_t time) : CmdMessage()
   {
 #ifdef DEBUG_INFO  
-    ROS_INFO("SetPlatformTime: name:%d",time);
+    ROS_DEBUG_STREAM("SetPlatformTime: name:%d",time);
 #endif
     setPayloadLength(4);
     utob(getPayloadPointer(), 4, time);
@@ -368,7 +368,7 @@ namespace sawyer
   SetSafetySystem::SetSafetySystem(uint16_t flags) : CmdMessage()
   {
 #ifdef DEBUG_INFO 
-    ROS_INFO("SetSafetySystem: flags:%x",flags);
+    ROS_DEBUG_STREAM("SetSafetySystem: flags:%x",flags);
 #endif 
     setPayloadLength(2);
     utob(getPayloadPointer(), 2, flags);
@@ -385,7 +385,7 @@ namespace sawyer
   {
     setPayloadLength(PAYLOAD_LEN);
 #ifdef DEBUG_INFO 
-    ROS_INFO("SetTurn: rad:%.2lf, accel:%.2lf",trans,accel);
+    ROS_DEBUG_STREAM("SetTurn: rad:%.2lf, accel:%.2lf",trans,accel);
 #endif 
   
     ftob(getPayloadPointer(TRANSLATIONAL), 2, trans, 100);
@@ -405,7 +405,7 @@ namespace sawyer
   {
     setPayloadLength(PAYLOAD_LEN);
 #ifdef DEBUG_INFO 
-    ROS_INFO("SetVelocity: trans:%.2lf, rot:%.2lf, accel:%.2lf",trans,rot,accel);
+    ROS_DEBUG_STREAM("SetVelocity: trans:%.2lf, rot:%.2lf, accel:%.2lf",trans,rot,accel);
 #endif 
     
     ftob(getPayloadPointer(TRANSLATIONAL), 2, trans, 100);

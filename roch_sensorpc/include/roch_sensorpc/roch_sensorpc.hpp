@@ -65,11 +65,13 @@ namespace roch_sensorpc
 class SensorPcNodelet 
 {
 public:
-  SensorPcNodelet()
+  SensorPcNodelet(ros::NodeHandle nh_, ros::NodeHandle private_nh)
     : P_INF_X(+100*sin(0.34906585)),
       P_INF_Y(+100*cos(0.34906585)),
       N_INF_Y(-100*cos(0.34906585)),
-      ZERO(0),  prev_leftcliff(0), prev_rightcliff(0), prev_leftult(0), prev_centerult(0), prev_rightult(0), prev_leftpsd(0), prev_centerpsd(0), prev_rightpsd(0){ onInit(); }
+      ZERO(0),  prev_leftcliff(0), prev_rightcliff(0), prev_leftult(0), prev_centerult(0), prev_rightult(0), prev_leftpsd(0), prev_centerpsd(0), prev_rightpsd(0),
+      ult_enable_(true),psd_enable_(true),cliff_enable_(true),
+      nh(nh_),private_nh_(private_nh){ onInit(); }
   ~SensorPcNodelet() { }
 
   void onInit();
@@ -94,11 +96,16 @@ private:
   float p_side_x_;
   float p_side_y_;
   float n_side_y_;
+  
+  bool ult_enable_;
+  bool psd_enable_;
+  bool cliff_enable_;
 
   ros::Publisher  pointcloud_pub_;
   ros::Subscriber core_sensor_sub_;
 
   ros::NodeHandle nh ;
+  ros::NodeHandle private_nh_ ;
   sensor_msgs::PointCloud2 pointcloud_;
 
   /**

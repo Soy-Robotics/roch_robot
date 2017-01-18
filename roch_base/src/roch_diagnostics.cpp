@@ -103,7 +103,7 @@ namespace roch_base
     stat.add("Left Motor Temp (C)", msg_.left_motor_temp);
     stat.add("Right Motor Temp (C)", msg_.right_motor_temp);
 #ifdef DEBUG_INFO 
-     ROS_INFO("Received Uptime:%d, Battery Voltage:%.2lf, Left Motor Driver Voltage:%.2lf, Right Motor Driver Voltage:%.2lf, "
+     ROS_DEBUG_STREAM("Received Uptime:%d, Battery Voltage:%.2lf, Left Motor Driver Voltage:%.2lf, Right Motor Driver Voltage:%.2lf, "
 	     "MCU and User Port Current:%.2lf, Left Motor Driver Current:%.2lf,Right Motor Driver Current:%.2lf, "
 	     "Left Motor Driver Temp (C):%.2lf, Right Motor Driver Temp (C):%.2lf, Left Motor Temp (C):%.2lf, Right Motor Temp (C):%.2lf"
 	    ,msg_.uptime,msg_.battery_voltage,msg_.left_driver_voltage, msg_.right_driver_voltage
@@ -173,7 +173,7 @@ namespace roch_base
     stat.add("Charge (%)", msg_.charge_estimate);
     stat.add("Battery Capacity (Wh)", msg_.capacity_estimate);
 #ifdef DEBUG_INFO 
-    ROS_INFO("Received Charge (%%): %.2lf, Battery Capacity (Wh): %d", msg_.charge_estimate, msg_.capacity_estimate);
+    ROS_DEBUG_STREAM("Received Charge (%%): %.2lf, Battery Capacity (Wh): %d", msg_.charge_estimate, msg_.capacity_estimate);
 #endif     
     
     stat.summary(diagnostic_msgs::DiagnosticStatus::OK, "Power System OK");
@@ -219,7 +219,7 @@ namespace roch_base
     stat.add("No battery", static_cast<bool>(msg_.no_battery));
     stat.add("Current limit", static_cast<bool>(msg_.current_limit));
 #ifdef DEBUG_INFO 
-     ROS_INFO("Received Safety System Status, Timeout:%x, Lockout:%x, Emergency Stop:%x, ROS Pause:%x, No battery:%x, Current limit:%x.",
+     ROS_DEBUG_STREAM("Received Safety System Status, Timeout:%x, Lockout:%x, Emergency Stop:%x, ROS Pause:%x, No battery:%x, Current limit:%x.",
 	     msg_.timeout,msg_.lockout, msg_.e_stop ,msg_.ros_pause ,msg_.no_battery, msg_.current_limit);
 #endif 
       stat.summary(diagnostic_msgs::DiagnosticStatus::OK, "Safety System OK");

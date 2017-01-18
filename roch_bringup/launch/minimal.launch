@@ -27,11 +27,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <launch>
   <!-- Roch Configure -->
-  <arg name="base"		default="$(env ROCH_BASE)"			doc="mobile base type [roch]"/>
+  <arg name="base"		    default="$(env ROCH_BASE)"			doc="mobile base type [roch]"/>
   <arg name="stacks"		default="$(env ROCH_STACKS)"			doc="stack type displayed in visualisation/simulation [standard]"/>
-  <arg name="3d_sensor"		default="$(env ROCH_3D_SENSOR)"			doc="3d sensor types [kinect, asus_xtion_pro]"/>
+  <arg name="3d_sensor"		default="$(env ROCH_3D_SENSOR)"			doc="3d sensor types [kinect, asus_xtion_pro, r200]"/>
   <arg name="3d_sensor_enable"	default="$(env ROCH_3D_SENSOR_ENABLE)"		doc="3d sensor enable"/>
-  <arg name="2d_laser"		default="$(env ROCH_LASER)"			doc="2d laser types [ls01c]"/>
+  <arg name="2d_laser"		default="$(env ROCH_LASER)"			doc="2d laser types [ls01c, rplidar]"/>
   <arg name="2d_laser_enable"	default="$(env ROCH_LASER_ENABLE)"		doc="2d laser enable"/>
   <arg name="serialport"	default="$(env ROCH_SERIAL_PORT)"		doc="used by create to configure the port it is connected on [/dev/ttyUSB0, /dev/ttyS0]"/>
   <arg name="simulation"        default="$(env ROCH_SIMULATION)"  		doc="set flags to indicate this turtle is run in simulation mode."/>
@@ -55,8 +55,5 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     <arg name="base" value="$(arg base)" />
     <arg name="serialport" value="$(arg serialport)" />
     </include>
-
-  
-   
 
 </launch>

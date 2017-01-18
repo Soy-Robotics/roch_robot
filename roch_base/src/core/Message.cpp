@@ -414,9 +414,6 @@ Message::Message(uint16_t type, uint8_t *payload, size_t payload_len,
   Message *Message::factory(void *input, size_t msg_len)
   {
     uint16_t type = btou((char *) input + TYPE_OFST, 2);
-#ifdef DEBUG_INFO
-    ROS_INFO("factory type:%x",type);
-#endif
     switch (type)
     {
       case DATA_ACCEL:

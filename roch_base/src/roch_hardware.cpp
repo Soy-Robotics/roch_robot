@@ -57,6 +57,10 @@ namespace roch_base
     private_nh_.param<double>("max_accel", max_accel_, 5.0);
     private_nh_.param<double>("max_speed", max_speed_, 0.45);
     private_nh_.param<double>("polling_timeout_", polling_timeout_, 20.0);
+    private_nh_.param<double>("cliff_hegiht", cliff_height_, 0.1); //how tall can scan(meter)
+    private_nh_.param<double>("ult_length", ult_length_, 0.1); //how far can scan(meter)
+    private_nh_.param<double>("psd_length", PSD_length_, 0.1); //how far can scan(meter)
+    private_nh_.param<std::string>("imu_link_frame", gyro_link_frame_, "imu_link");
 
     std::string port;
     private_nh_.param<std::string>("port", port, "/dev/ttyUSB0");
@@ -83,7 +87,7 @@ namespace roch_base
       {
         joints_[i].position_offset = linearToAngular(enc->getTravel(i % 2));
 #ifdef DEBUG_INFO 
-	ROS_INFO("joints_[%d].position_offset:%.2lf  ",i,joints_[i].position_offset);
+	ROS_DEBUG_STREAM("joints_[%d].position_offset:%.2lf  ",i,joints_[i].position_offset);
 #endif
       }
     }
@@ -99,7 +103,7 @@ namespace roch_base
      if(imuRateData){
       ROS_DEBUG_STREAM("Received  imu rate data information (Angle:" << imuRateData->getAngle() << " Angle rate:" << imuRateData->getAngleRate() << ")");
 #ifdef DEBUG_INFO 
-    ROS_INFO("Received  imu rate data information, angle_offset:%.2lf",imuRateData->getAngle());    
+    ROS_DEBUG_STREAM("Received  imu rate data information, angle_offset:%.2lf",imuRateData->getAngle());    
 #endif 
       
       sixGyro.angle_offset = imuRateData->getAngle();
@@ -112,7 +116,7 @@ namespace roch_base
     publishRawData();
     if(getPlatformAccData){
 #ifdef DEBUG_INFO 
-    ROS_INFO("Received acc_x:%.2lf, acc_y:%.2lf, acc_z:%.2lf.",getPlatformAccData->getX(),getPlatformAccData->getY(),getPlatformAccData->getZ());
+    ROS_DEBUG_STREAM("Received acc_x:%.2lf, acc_y:%.2lf, acc_z:%.2lf.",getPlatformAccData->getX(),getPlatformAccData->getY(),getPlatformAccData->getZ());
 #endif 
       sixGyro.acc.X_Offset = getPlatformAccData->getX();
       sixGyro.acc.Y_Offset = getPlatformAccData->getY();
@@ -133,10 +137,12 @@ void rochHardware::getRangefinderData()
   publishRawData();
   if(rangefinderData){
 #ifdef DEBUG_INFO
-  ROS_INFO("Received rangefinder Data, counts:%d, data[0]:%.2lf , data[1]:%.2lf, data[2]:%.2lf , data[3]:%.2lf, data[4]:%.2lf.",
+  ROS_DEBUG_STREAM("Received rangefinder Data, counts:%d, data[0]:%.2lf , data[1]:%.2lf, data[2]:%.2lf , data[3]:%.2lf, data[4]:%.2lf.",
 	   (int)rangefinderData->getRangefinderCount(),rangefinderData->getDistance(0),rangefinderData->getDistance(1),rangefinderData->getDistance(2),rangefinderData->getDistance(3),rangefinderData->getDistance(4));
 #endif
-    
+  publishCliffEvent(rangefinderData->getDistance(6),rangefinderData->getDistance(7));
+  publishUltEvent(rangefinderData->getDistance(0),rangefinderData->getDistance(1),rangefinderData->getDistance(2));  
+  publishPSDEvent(rangefinderData->getDistance(3),rangefinderData->getDistance(4),rangefinderData->getDistance(5));
   }
   
   core::Channel<sawyer::DataRangefinderTimings>::Ptr rangefinderDataAndTime = 
@@ -144,7 +150,7 @@ void rochHardware::getRangefinderData()
   publishRawData();
   if(rangefinderDataAndTime){
 #ifdef DEBUG_INFO 
-    ROS_INFO("Received rangefinder Data and time, counts:%d, data[0]:%.2lf, time[0]:%d, data[1]:%.2lf, time[1]:%d, data[2]:%.2lf, time[2]:%d, data[3]:%.2lf, time[3]:%d, data[4]:%.2lf, time[4]:%d.",
+    ROS_DEBUG_STREAM("Received rangefinder Data and time, counts:%d, data[0]:%.2lf, time[0]:%d, data[1]:%.2lf, time[1]:%d, data[2]:%.2lf, time[2]:%d, data[3]:%.2lf, time[3]:%d, data[4]:%.2lf, time[4]:%d.",
 	   (int)rangefinderDataAndTime->getRangefinderCount(),rangefinderDataAndTime->getDistance(0),rangefinderDataAndTime->getAcquisitionTime(0),
 	   rangefinderDataAndTime->getDistance(1),rangefinderDataAndTime->getAcquisitionTime(1),
 	   rangefinderDataAndTime->getDistance(2),rangefinderDataAndTime->getAcquisitionTime(2),
@@ -162,7 +168,7 @@ void rochHardware::getPlatAccData()
   publishRawData();
   if(getPlatformAccData){
 #ifdef DEBUG_INFO 
-        ROS_INFO("Received acc_x:%.2lf, acc_y:%.2lf, acc_z:%.2lf.",getPlatformAccData->getX(),getPlatformAccData->getY(),getPlatformAccData->getZ());
+        ROS_DEBUG_STREAM("Received acc_x:%.2lf, acc_y:%.2lf, acc_z:%.2lf.",getPlatformAccData->getX(),getPlatformAccData->getY(),getPlatformAccData->getZ());
 #endif 
     sixGyro.acc.X = getPlatformAccData->getX() - sixGyro.acc.X_Offset;
     sixGyro.acc.Y = getPlatformAccData->getY() - sixGyro.acc.Y_Offset;
@@ -195,7 +201,7 @@ void rochHardware::getDifferentControlConstantData()
   publishRawData();
   if(getDifferentControlConstantData){
 #ifdef DEBUG_INFO 
-     ROS_INFO("Received Data of Differential Control Data, Left_P:%.2lf, Left_I:%.2lf, Left_D:%.2lf,"
+     ROS_DEBUG_STREAM("Received Data of Differential Control Data, Left_P:%.2lf, Left_I:%.2lf, Left_D:%.2lf,"
 	       "right_P:%.2lf, right_I:%.2lf, right_D:%.2lf.",
 	   getDifferentControlConstantData->getLeftP(),getDifferentControlConstantData->getLeftI(),getDifferentControlConstantData->getLeftD(),
 	   getDifferentControlConstantData->getRightP(),getDifferentControlConstantData->getRightI(),getDifferentControlConstantData->getRightD());
@@ -226,6 +232,12 @@ void rochHardware::getDifferentControlConstantData()
     raw_data_stream_publisher = nh_.advertise<sensor_msgs::Imu>("debug/raw_data_stream",100);
     imu_data_publisher_ = nh_.advertise<sensor_msgs::Imu>("sensor/imu_data",10);
     raw_data_command_publisher_ = nh_.advertise<std_msgs::String>("debug/raw_data_command",100);
+    
+    //Obstacle detection publish
+    cliff_event_publisher_ = nh_.advertise < roch_msgs::CliffEvent > ("events/cliff", 100);
+    psd_event_publisher_ = nh_.advertise < roch_msgs::PSDEvent > ("events/psd", 100);
+    ult_event_publisher_ = nh_.advertise < roch_msgs::UltEvent > ("events/ult", 100);
+    sensor_state_publisher_ = nh_.advertise < roch_msgs::SensorState > ("core_sensors", 100);
   }
 
 
@@ -238,7 +250,7 @@ void rochHardware::getDifferentControlConstantData()
 	 ros::V_string joint_names = boost::assign::list_of("front_left_wheel")
 	 ("front_right_wheel");//("rear_left_wheel")("rear_right_wheel");//原本 4驱
 	imuMsgData.name="roch_sensor_controller/imu/data";
-	imuMsgData.frame_id="imu_link";
+	imuMsgData.frame_id=gyro_link_frame_;
 	#if 1
 	/**/
 	orientation_covariance[0] =  1e9;//1e6;//DBL_MAX;
@@ -301,9 +313,8 @@ void rochHardware::getDifferentControlConstantData()
         joint_state_handle, &joints_[i].velocity_command);
       velocity_joint_interface_.registerHandle(joint_handle);
 #ifdef DEBUG_INFO 
-          std::cout<<"Received joint_names["<<i<<"]:"<<joint_names[i]<<std::endl;
-       ROS_INFO("Received joint[%d].position:%.2lf, joint[%d].velocity:%.2lf, joint[%d].effort:%.2lf",
-						
+       std::cout<<"Received joint_names["<<i<<"]:"<<joint_names[i]<<std::endl;
+       ROS_DEBUG_STREAM("Received joint[%d].position:%.2lf, joint[%d].velocity:%.2lf, joint[%d].effort:%.2lf",						
 						i,joints_[i].position,
 						i, joints_[i].velocity,
 						i,joints_[i].effort);
@@ -338,7 +349,7 @@ void rochHardware::getDifferentControlConstantData()
   {
 #ifdef DEBUG_INFO 
         for(int i=0;i<2;i++){ 
-      ROS_INFO("Received joint[%d].position:%.2lf, joint[%d].velocity:%.2lf, joint[%d].effort:%.2lf",						
+      ROS_DEBUG_STREAM("Received joint[%d].position:%.2lf, joint[%d].velocity:%.2lf, joint[%d].effort:%.2lf",						
 						i,joints_[i].position,
 						i, joints_[i].velocity,
 						i,joints_[i].effort);
@@ -351,21 +362,20 @@ void rochHardware::getDifferentControlConstantData()
       publishRawData();
  
     if (enc)
-    {
+    { 
+      float offset_left_encoder,offset_right_encoder;
       ROS_DEBUG_STREAM("Received travel information (L:" << enc->getTravel(LEFT) << " R:" << enc->getTravel(RIGHT) << ")");
-#ifdef DEBUG_INFO 
-      ROS_INFO("Received travel information of encoders, Left:%.2lf, Right:%.2lf.",enc->getTravel(LEFT),enc->getTravel(RIGHT));
-#endif
 		for (int i = 0; i < 2; i++) //新本 双驱
       {
         double delta = linearToAngular(enc->getTravel(i % 2)) - joints_[i].position - joints_[i].position_offset;//linearToAngular(enc->getTravel(i % 2)) - joints_[i].position - joints_[i].position_offset;  //odom.position.x
-
+	if(0 == i) offset_left_encoder = delta;
+	if(1 == i) offset_right_encoder = delta;
         // detect suspiciously large readings, possibly from encoder rollover
         if (std::abs(delta) < 1.0)
         {
           joints_[i].position += delta;
 #ifdef DEBUG_INFO 
-	  ROS_INFO("jiounts_[%d].postion:%lf,delta:%lf.",i,joints_[i].position,delta);
+	  ROS_DEBUG_STREAM("jiounts_[%d].postion:%lf,delta:%lf.",i,joints_[i].position,delta);
 #endif
         }
         else
@@ -373,11 +383,11 @@ void rochHardware::getDifferentControlConstantData()
           // suspicious! drop this measurement and update the offset for subsequent readings
           joints_[i].position_offset += delta;
 #ifdef DEBUG_INFO 
-	    ROS_INFO("jiounts_[%d].position_offset:%lf,delta:%lf.",i,joints_[i].position_offset,delta);
-          ROS_DEBUG("Dropping overflow measurement from encoder");
+	    ROS_DEBUG_STREAM("jiounts_[%d].position_offset:%lf,delta:%lf.",i,joints_[i].position_offset,delta);
 #endif
         }
       }
+      
     }
     core::Channel<sawyer::DataDifferentialSpeed>::Ptr speed = core::Channel<sawyer::DataDifferentialSpeed>::requestData(
       polling_timeout_);
@@ -385,23 +395,20 @@ void rochHardware::getDifferentControlConstantData()
     if (speed)
     {
       ROS_DEBUG_STREAM("Received linear speed information (L:" << speed->getLeftSpeed() << " R:" << speed->getRightSpeed() << ")");
- #ifdef DEBUG_INFO      
-      ROS_INFO("Received linear speed information, Left speed:%.2lf, Right speed:%.2lf.",speed->getLeftSpeed(),speed->getRightSpeed());
-#endif
  		for (int i = 0; i < 2; i++)//新本 双驱
       {
         if (i % 2 == LEFT)//原本 4驱动
         {
           joints_[i].velocity = linearToAngular(speed->getLeftSpeed());
 #ifdef DEBUG_INFO 
-	  ROS_INFO("jiounts_[%d].velocity:%lf.",i,joints_[i].velocity);
+	  ROS_DEBUG_STREAM("jiounts_[%d].velocity:%lf.",i,joints_[i].velocity);
 #endif
         }
         else
         { // assume RIGHT
 	  
 #ifdef DEBUG_INFO 
-	  ROS_INFO("jiounts_[%d].velocity:%lf.",i,joints_[i].velocity);
+	  ROS_DEBUG_STREAM("jiounts_[%d].velocity:%lf.",i,joints_[i].velocity);
 #endif
           joints_[i].velocity = linearToAngular(speed->getRightSpeed());
         }
@@ -412,10 +419,7 @@ void rochHardware::getDifferentControlConstantData()
       publishRawData();
     if (overallspeed)
     {
-      ROS_DEBUG_STREAM("Received  speed information (speed:" << overallspeed->getTranslational() << " Rotational:" << overallspeed->getRotational()<<" Acceleration:"<<overallspeed->getTransAccel() << ")");
-#ifdef DEBUG_INFO 
-      ROS_INFO("Received  speed information,  speed:%.2lf, Rotational:%.2lf, Acceleration:%.2lf",overallspeed->getTranslational(),overallspeed->getRotational(),overallspeed->getTransAccel());     
-#endif      
+      ROS_DEBUG_STREAM("Received  speed information (speed:" << overallspeed->getTranslational() << " Rotational:" << overallspeed->getRotational()<<" Acceleration:"<<overallspeed->getTransAccel() << ")");    
     }
     
     core::Channel<sawyer::Data6AxisYaw>::Ptr imuRateData = core::Channel<sawyer::Data6AxisYaw>::requestData(
@@ -423,9 +427,6 @@ void rochHardware::getDifferentControlConstantData()
      publishRawData();
      if(imuRateData){
       ROS_DEBUG_STREAM("Received  imu rate data information (Angle:" << imuRateData->getAngle() << " Angle rate:" << imuRateData->getAngleRate() << ")");
-#ifdef DEBUG_INFO 
-      ROS_INFO("Received  imu rate data information, Angle:%.2lf, Angle rate:%.2lf",imuRateData->getAngle(),imuRateData->getAngleRate());     
-#endif
       sixGyro.angle = imuRateData->getAngle() - sixGyro.angle_offset;
       sixGyro.angle_rate = imuRateData->getAngleRate();
       	
@@ -436,7 +437,7 @@ void rochHardware::getDifferentControlConstantData()
 	orientation[3] = orien.w;
 	imuMsgData.orientation = orientation;
 #ifdef DEBUG_INFO
-      ROS_INFO("Received imu msg data, orientation.x:%lf, orientation.y:%lf, orientation.z:%lf, orientation.w:%lf",
+      ROS_DEBUG_STREAM("Received imu msg data, orientation.x:%lf, orientation.y:%lf, orientation.z:%lf, orientation.w:%lf",
 		  imuMsgData.orientation[0],imuMsgData.orientation[1],imuMsgData.orientation[2],imuMsgData.orientation[3]);
 #endif
       angular_velocity[2] = sixGyro.angle_rate;      
@@ -444,7 +445,7 @@ void rochHardware::getDifferentControlConstantData()
       // Publish as shared pointer to leverage the nodelets' zero-copy pub/sub feature
       sensor_msgs::ImuPtr msg(new sensor_msgs::Imu);
 
-      msg->header.frame_id = "imu_link";
+      msg->header.frame_id = gyro_link_frame_;
       msg->header.stamp = ros::Time::now();
 
       msg->orientation = tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, sixGyro.angle);
@@ -484,7 +485,7 @@ void rochHardware::getDifferentControlConstantData()
   
       // Each sensor reading has id, that circulate 0 to 255.
       //msg->header.frame_id = std::string("imu_link_" + boost::lexical_cast<std::string>((unsigned int)data.frame_id+i));
-      msg->header.frame_id = "imu_link";
+      msg->header.frame_id = gyro_link_frame_;
 
       // Update rate of 3d gyro sensor is 100 Hz, but robot's update rate is 50 Hz.
       // So, here is some compensation.
@@ -516,12 +517,14 @@ void rochHardware::getDifferentControlConstantData()
 
     double diff_speed_right = angularToLinear(joints_[RIGHT].velocity_command);
 #ifdef DEBUG_INFO 
-    ROS_INFO("diff_speed_left:%lf,joints_[LEFT].velocity_command:%lf.",diff_speed_left,joints_[LEFT].velocity_command);
-    ROS_INFO("diff_speed_right:%lf,joints_[RIGHT].velocity_command:%lf.",diff_speed_left,joints_[RIGHT].velocity_command);
+    ROS_DEBUG_STREAM("diff_speed_left:%lf,joints_[LEFT].velocity_command:%lf.",diff_speed_left,joints_[LEFT].velocity_command);
+    ROS_DEBUG_STREAM("diff_speed_right:%lf,joints_[RIGHT].velocity_command:%lf.",diff_speed_left,joints_[RIGHT].velocity_command);
 #endif
     limitDifferentialSpeed(diff_speed_left, diff_speed_right);
     core::controlSpeed(diff_speed_left, diff_speed_right, max_accel_, max_accel_);
     publishRawData();
+    
+    publishSensorState();
   }
    /**
   * Get latest velocity commands from ros_control via joint structure, and send overall speed to MCU
@@ -556,6 +559,185 @@ void rochHardware::publishRawData()
     }
 }
 
+void rochHardware::publishCliffEvent(const double &left, const double &right)
+{
+  leftcliffevent.sensor = CliffEvent::Left;    
+  if(left>cliff_height_)
+     leftcliffevent.state = CliffEvent::Cliff;
+  else    
+     leftcliffevent.state = CliffEvent::Floor;
+  leftcliffevent.leftbottom = left;
+  
+  rightcliffevent.sensor = CliffEvent::Right;
+  if(right>cliff_height_)
+     rightcliffevent.state = CliffEvent::Cliff;
+  else    
+     rightcliffevent.state = CliffEvent::Floor;
+  rightcliffevent.rightbottom = right;   
+  
+    if (cliff_event_publisher_.getNumSubscribers()>0)
+  {
+    roch_msgs::CliffEventPtr msg(new roch_msgs::CliffEvent);
+    switch(leftcliffevent.state) {
+      case(CliffEvent::Floor) : { msg->leftState = roch_msgs::CliffEvent::FLOOR; break; }
+      case(CliffEvent::Cliff) : { msg->leftState = roch_msgs::CliffEvent::CLIFF; break; }
+      default: break;
+    }
+    switch(rightcliffevent.state) {
+      case(CliffEvent::Floor) : { msg->rightState = roch_msgs::CliffEvent::FLOOR; break; }
+      case(CliffEvent::Cliff) : { msg->rightState = roch_msgs::CliffEvent::CLIFF; break; }
+      default: break;
+    }
+    msg->leftSensor = roch_msgs::CliffEvent::LEFT;
+    msg->rightSensor = roch_msgs::CliffEvent::RIGHT;
+    msg->leftBottom = leftcliffevent.leftbottom;
+    msg->rightBottom = rightcliffevent.rightbottom;
+    cliff_event_publisher_.publish(msg);
+  }
+}
+void rochHardware::publishUltEvent(const double &left, const double &center, const double &right){
+  
+  leftultevent.sensor = UltEvent::Left;    
+  if(left<ult_length_)
+     leftultevent.state = UltEvent::Near;
+  else    
+     leftultevent.state = UltEvent::Normal;
+  leftultevent.leftbottom = left;
+
+  centerultevent.sensor = UltEvent::Center;    
+  if(center<ult_length_)
+     centerultevent.state = UltEvent::Near;
+  else    
+     centerultevent.state = UltEvent::Normal;
+  centerultevent.centerbottom = center;
+  
+  rightultevent.sensor = UltEvent::Right;
+  if(right<ult_length_)
+     rightultevent.state = UltEvent::Near;
+  else    
+     rightultevent.state = UltEvent::Normal;
+  rightultevent.rightbottom = right;   
+  
+    if (ult_event_publisher_.getNumSubscribers()>0)
+  {
+    roch_msgs::UltEventPtr msg(new roch_msgs::UltEvent);
+    switch(leftultevent.state) {
+      case(UltEvent::Normal) : { msg->leftState = roch_msgs::UltEvent::NORMAL; break; }
+      case(UltEvent::Near) : { msg->leftState = roch_msgs::UltEvent::NEAR; break; }
+      default: break;
+    }
+    switch(centerultevent.state) {
+      case(UltEvent::Normal) : { msg->centerState = roch_msgs::UltEvent::NORMAL; break; }
+      case(UltEvent::Near) : { msg->centerState = roch_msgs::UltEvent::NEAR; break; }
+      default: break;
+    }
+    switch(rightultevent.state) {
+      case(UltEvent::Normal) : { msg->rightState = roch_msgs::UltEvent::NORMAL; break; }
+      case(UltEvent::Near) : { msg->rightState = roch_msgs::UltEvent::NEAR; break; }
+      default: break;
+    }
+    msg->leftSensor = roch_msgs::UltEvent::LEFT;
+    msg->centerSensor = roch_msgs::UltEvent::CENTER;
+    msg->rightSensor = roch_msgs::UltEvent::RIGHT;
+    msg->leftBottom = leftultevent.leftbottom;
+    msg->centerBottom = centerultevent.centerbottom;
+    msg->rightBottom = rightultevent.rightbottom;
+    ult_event_publisher_.publish(msg);
+  }
+}
+
+
+/*****************************************************************************
+** Publish Sensor Stream Workers
+*****************************************************************************/
+void rochHardware::publishSensorState()
+{
+  if(sensor_state_publisher_.getNumSubscribers()>0){
+    cliffbottom.clear();
+    ultbottom.clear();
+    psdbottom.clear();
+    roch_msgs::SensorState statecore;
+    statecore.header.stamp = ros::Time::now();
+    statecore.leftcliff = leftcliffevent.state;
+    statecore.rightcliff = rightcliffevent.state;
+    statecore.leftult = leftultevent.state;
+    statecore.centerult = centerultevent.state;
+    statecore.rightult = rightultevent.state;
+    statecore.leftpsd = leftpsdevent.state;
+    statecore.centerpsd = centerpsdevent.state;
+    statecore.rightpsd = rightpsdevent.state;
+
+    cliffbottom.push_back(leftcliffevent.leftbottom);
+    cliffbottom.push_back(rightcliffevent.rightbottom);
+    
+    ultbottom.push_back(leftultevent.leftbottom);
+    ultbottom.push_back(centerultevent.centerbottom);
+    ultbottom.push_back(rightultevent.rightbottom);
+    
+    psdbottom.push_back(leftpsdevent.leftbottom);
+    psdbottom.push_back(centerpsdevent.centerbottom);
+    psdbottom.push_back(rightpsdevent.rightbottom);
+    statecore.cliffbottom = cliffbottom;
+    statecore.ultbottom = ultbottom;
+    statecore.psdbottom = psdbottom;
+    sensor_state_publisher_.publish(statecore);  
+    
+  }
+  
+}
+
+void rochHardware::publishPSDEvent(const double& left, const double& center, const double& right)
+{
+  
+  leftpsdevent.sensor = PSDEvent::Left;    
+  if(left<PSD_length_)
+     leftpsdevent.state = PSDEvent::Near;
+  else    
+     leftpsdevent.state = PSDEvent::Normal;
+  leftpsdevent.leftbottom = left;
+
+  centerpsdevent.sensor = PSDEvent::Center;    
+  if(center<PSD_length_)
+     centerpsdevent.state = PSDEvent::Near;
+  else    
+     centerpsdevent.state = PSDEvent::Normal;
+  centerpsdevent.centerbottom = center;
+  
+  rightpsdevent.sensor = PSDEvent::Right;
+  if(right<PSD_length_)
+     rightpsdevent.state = PSDEvent::Near;
+  else    
+     rightpsdevent.state = PSDEvent::Normal;
+  rightpsdevent.rightbottom = right;   
+  
+    if (psd_event_publisher_.getNumSubscribers()>0)
+  {
+    roch_msgs::PSDEventPtr msg(new roch_msgs::PSDEvent);
+    switch(leftpsdevent.state) {
+      case(PSDEvent::Normal) : { msg->leftState = roch_msgs::PSDEvent::NORMAL; break; }
+      case(PSDEvent::Near) : { msg->leftState = roch_msgs::PSDEvent::NEAR; break; }
+      default: break;
+    }
+    switch(centerpsdevent.state) {
+      case(PSDEvent::Normal) : { msg->centerState = roch_msgs::PSDEvent::NORMAL; break; }
+      case(PSDEvent::Near) : { msg->centerState = roch_msgs::PSDEvent::NEAR; break; }
+      default: break;
+    }
+    switch(rightpsdevent.state) {
+      case(PSDEvent::Normal) : { msg->rightState = roch_msgs::PSDEvent::NORMAL; break; }
+      case(PSDEvent::Near) : { msg->rightState = roch_msgs::PSDEvent::NEAR; break; }
+      default: break;
+    }
+    msg->leftSensor = roch_msgs::PSDEvent::LEFT;
+    msg->centerSensor = roch_msgs::PSDEvent::CENTER;
+    msg->rightSensor = roch_msgs::PSDEvent::RIGHT;
+    msg->leftBottom = leftpsdevent.leftbottom;
+    msg->centerBottom = centerpsdevent.centerbottom;
+    msg->rightBottom = rightpsdevent.rightbottom;
+    psd_event_publisher_.publish(msg);
+  }
+}
+
   /**
   * Update diagnostics with control loop timing information
   */
@@ -583,7 +765,7 @@ void rochHardware::publishRawData()
   */
   double rochHardware::linearToAngular(const double &travel) const
   {
-//    ROS_INFO("linear To angular :%lf.",travel / wheel_diameter_ * 2);
+//    ROS_DEBUG_STREAM("linear To angular :%lf.",travel / wheel_diameter_ * 2);
     return travel / wheel_diameter_ * 2;
   }
 
@@ -592,7 +774,7 @@ void rochHardware::publishRawData()
   */
   double rochHardware::angularToLinear(const double &angle) const
   {
-//    ROS_INFO("angular To linear :%lf.",angle * wheel_diameter_ / 2);
+//    ROS_DEBUG_STREAM("angular To linear :%lf.",angle * wheel_diameter_ / 2);
     return angle * wheel_diameter_ / 2;
   }
 

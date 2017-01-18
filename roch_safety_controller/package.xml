@@ -1,21 +1,24 @@
 <package>
   <name>roch_safety_controller</name>
-  <version>0.6.8</version>
+  <version>0.0.2</version>
   <description>
-    A controller ensuring the safe operation of Kobuki.
+    A controller ensuring the safe operation of roch.
 
-    The SafetyController keeps track of bumper, cliff and wheel drop events. In case of the first two,
-    Kobuki is commanded to move back. In the latter case, Kobuki is stopped.
-    
+    The SafetyController keeps track of ult, psd and cliff events. In case of the first three,
+    roch is commanded to move back. 
     This controller can be enabled/disabled.
     The safety states (bumper pressed etc.) can be reset. WARNING: Dangerous!
+    Refrence with yujinrobot' kobuki.
   </description>
   <author email="marcus.liebhardt@yujinrobot.com">Marcus Liebhardt</author>
   <maintainer email="marcus.liebhardt@yujinrobot.com">Marcus Liebhardt</maintainer>
+  <author email="wzhang@softrobtech.com">Carl</author>
+
   <license>BSD</license>
-  <url type="bugtracker">https://github.com/yujinrobot/kobuki/issues</url>
-  <url type="repository">https://github.com/yujinrobot/kobuki</url>
-  <url type="website">http://ros.org/wiki/kobuki_safety_controller</url>
+
+  <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
+  <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
+  <url type="website">http://ros.org/wiki/roch_safety_controller</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 
