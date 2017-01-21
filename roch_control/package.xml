@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_control</name>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <description>SawYer roch controller configurations</description>
 
   <author email="wzhang@softrobtech.com">Carl</author>
@@ -11,8 +11,8 @@
   <license>BSD</license>
 
   <url type="website">http://ros.org/wiki/roch_control</url>
-  <url type="bugtracker">https://github.com/GaiTech-Robotics/roch/issues</url>
-  <url type="repository">https://github.com/GaiTech-Robotics/roch</url>
+  <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
+  <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>roscpp</build_depend>

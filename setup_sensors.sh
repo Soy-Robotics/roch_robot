@@ -9,8 +9,9 @@
 
 export ROCH_BASE=roch			#for now only have one [roch]
 export ROCH_STACKS=standard		#for now only have one [standard]
-export ROCH_3D_SENSOR=asus_xtion_pro	#for now support two sensor [ asus_xtion_pro, kinect]
-export ROCH_3D_SENSOR_ENABLE=true	#3d sensor enable
-export ROCH_LASER=ls01c			#for now only support ls01c
-export ROCH_LASER_ENABLE=false		#laser enable
+export ROCH_3D_SENSOR=r200	#for now support three sensors [ asus_xtion_pro, kinect, r200]
+export ROCH_3D_SENSOR_ENABLE=false	#3d sensor enable
+export ROCH_3D_SENSOR_NAV_ENABLE=false	#3d sensor enable with navigation
+export ROCH_LASER=ls01c			#for now support two lasers [ls01c, rplidar]
+export ROCH_LASER_ENABLE=true		#laser enable
 export ROCH_SIMULATION=false

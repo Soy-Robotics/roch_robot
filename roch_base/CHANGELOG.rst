@@ -1,6 +1,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.7 (2017-01-21)
+------------------
+* fixed bug that will cause can not compile without tf package.
+
 1.0.6 (2017-01-17)
 ------------------
 

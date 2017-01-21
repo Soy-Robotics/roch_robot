@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_description</name>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <description>SawYer Roch URDF description</description>
 
 
@@ -10,8 +10,9 @@
   <maintainer email="carl@softrobtech.com">Carl</maintainer>
 
 
-  <url type="bugtracker">https://github.com/SawYer-Robotics/roch_description/issues</url>
-  <url type="repository">https://github.com/SawYer-Robotics/roch_description</url>
+  <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
+  <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
+  <url type="website">http://ros.org/wiki/roch_descrption</url>
 
   <license>BSD</license>
 

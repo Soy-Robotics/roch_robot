@@ -6,36 +6,26 @@
 #
 ##############################################################################
 
-# Make sure to install these ROCON packages as well:
-# https://raw.github.com/robotics-in-concert/rocon/indigo/rocon_app_platform.rosinstall
-
-# roch / SawYer stacks
-
-- git:
-    uri: https://github.com/GaiTech-Robotics/roch_msgs.git
-    local-name: roch_msgs
-    version: indigo
-
 
 # Roch stacks
 
 - git:
-    uri: https://github.com/GaiTech-Robotics/roch.git
+    uri: https://github.com/SawYer-Robotics/roch.git
     local-name: roch
     version: indigo
 
 - git:
-    uri: https://github.com/GaiTech-Robotics/roch_simulator.git
+    uri: https://github.com/SawYer-Robotics/roch_simulator.git
     local-name: roch_simulator
     version: indigo
 
 - git:
-    uri: https://github.com/GaiTech-Robotics/roch_viz.git
+    uri: https://github.com/SawYer-Robotics/roch_viz.git
     local-name: roch_viz
     version: indigo
 
 - git:
-    uri: https://github.com/GaiTech-Robotics/roch_navigation.git
+    uri: https://github.com/SawYer-Robotics/roch_navigation.git
     local-name: roch_navigation
     version: indigo
 

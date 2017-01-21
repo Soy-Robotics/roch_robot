@@ -1,6 +1,6 @@
 <package>
   <name>roch_ftdi</name>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <description>
 	    Utilities for flashing and enabling roch's USB connection.
 	    This package contains tools for flashing the roch's FTDI chip (usually done at the factory).
@@ -9,6 +9,10 @@
   </description>
   <author email="yhju@yujinrobot.com">Younghun Ju</author>
   <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
+
+  <url type="website">http://ros.org/wiki/roch_ftdi</url>
+  <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
+  <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
   <license>BSD</license>
 
   <buildtool_depend>catkin</buildtool_depend>

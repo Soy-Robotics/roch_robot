@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_base</name>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <description>Sawyer roch robot driver</description>
 
   <author email="wzhang@softrobtech.com">Carl</author>
@@ -13,7 +13,6 @@
   <url type="website">http://ros.org/wiki/roch_base</url>
   <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
   <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
-  <url type="website">http://ros.org/wiki/roch_base</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>controller_manager</build_depend>
@@ -26,6 +25,7 @@
   <build_depend>roslint</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
+  <build_depend>tf</build_depend>
 
   <run_depend>controller_manager</run_depend>
   <run_depend>diagnostic_updater</run_depend>
@@ -41,6 +41,7 @@
   <run_depend>sensor_msgs</run_depend>
   <run_depend>topic_tools</run_depend>
   <run_depend>geometry_msgs</run_depend>
+  <run_depend>tf</run_depend>
 
   <export></export>
 </package>

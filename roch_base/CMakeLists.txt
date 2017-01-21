@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 2.8.3)
 project(roch_base)
 
 find_package(catkin REQUIRED COMPONENTS controller_manager hardware_interface roch_msgs
-  diagnostic_updater roslaunch roslint roscpp sensor_msgs geometry_msgs)
+  diagnostic_updater roslaunch roslint roscpp sensor_msgs geometry_msgs tf)
 find_package(Boost REQUIRED COMPONENTS chrono)
  
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES core
-  CATKIN_DEPENDS diagnostic_updater hardware_interface roch_msgs roscpp sensor_msgs geometry_msgs
+  CATKIN_DEPENDS diagnostic_updater hardware_interface roch_msgs roscpp sensor_msgs geometry_msgs tf
   DEPENDS Boost
 )
 
