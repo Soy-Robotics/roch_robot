@@ -1,6 +1,6 @@
 <package>
   <name>roch_sensorpc</name>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
   <description>
     Ult/psd/cliff to pointcloud:
     Publish Ult, cliff, and psd sensors events as points in a pointcloud, so navistack can use them

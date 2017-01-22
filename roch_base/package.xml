@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_base</name>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
   <description>Sawyer roch robot driver</description>
 
   <author email="wzhang@softrobtech.com">Carl</author>
@@ -26,6 +26,8 @@
   <build_depend>sensor_msgs</build_depend>
   <build_depend>geometry_msgs</build_depend>
   <build_depend>tf</build_depend>
+  <build_depend>angles</build_depend>
+  <build_depend>std_msgs</build_depend>
 
   <run_depend>controller_manager</run_depend>
   <run_depend>diagnostic_updater</run_depend>
@@ -42,6 +44,8 @@
   <run_depend>topic_tools</run_depend>
   <run_depend>geometry_msgs</run_depend>
   <run_depend>tf</run_depend>
+  <run_depend>angles</run_depend>
+  <run_depend>std_msgs</run_depend>
 
   <export></export>
 </package>

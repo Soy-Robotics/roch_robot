@@ -1,6 +1,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.8 (2017-01-22)
+------------------
+* fixed bug that will cause can not compile without angles package in rosdistro.
+
 1.0.7 (2017-01-21)
 ------------------
 * fixed bug that will cause can not compile without tf package.

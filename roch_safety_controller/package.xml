@@ -1,6 +1,6 @@
 <package>
   <name>roch_safety_controller</name>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
   <description>
     A controller ensuring the safe operation of roch.
 
