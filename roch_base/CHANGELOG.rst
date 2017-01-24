@@ -1,6 +1,14 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.10 (2017-01-23)
+------------------
+* Add author Mike Purvis and Paul Bovbel of Clearpath.
+* Modify BSD lisence.
+
+1.0.9 (2017-01-22)
+------------------
+
 1.0.8 (2017-01-22)
 ------------------
 * fixed bug that will cause can not compile without angles package in rosdistro.

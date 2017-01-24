@@ -28,6 +28,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="rplidar">
+  <xacro:include filename="$(find roch_description)/urdf/roch_gazebo.urdf.xacro"/>
+  <xacro:include filename="$(find roch_description)/urdf/roch_properties.urdf.xacro"/>
 
   <xacro:property name="laser_x" value="0.08" />
   <xacro:property name="laser_y" value="0.08" />
@@ -71,38 +73,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <parent link="base_laser_link" />
       <child link="base_laser" />
     </joint>
+    <!-- 2d laser for simulation, same as rplidar -->
+    <roch_sim_2dlaser/>
 
-    <gazebo reference="base_laser">
-      <turnGravityOff>true</turnGravityOff>
-      <sensor type="ray" name="laser">
-        <pose>0 0 0 0 0 0</pose>
-        <visualize>false</visualize>
-        <update_rate>50</update_rate>
-        <ray>
-          <scan>
-            <horizontal>
-              <samples>720</samples>
-              <resolution>1</resolution>
-              <min_angle>-2.35619</min_angle>
-              <max_angle>2.35619</max_angle>
-            </horizontal>
-          </scan>
-          <range>
-            <min>0.10</min>
-            <max>30.0</max>
-            <resolution>0.01</resolution>
-          </range>
-          <noise>
-            <type>gaussian</type>
-            <mean>0.0</mean>
-            <stddev>0.001</stddev>
-          </noise>
-        </ray>
-        <plugin name="gazebo_ros_laser" filename="libgazebo_ros_laser.so">
-          <topicName>scan</topicName>
-          <frameName>base_laser</frameName>
-        </plugin>
-      </sensor>
-    </gazebo>
   </xacro:macro>
 </robot>

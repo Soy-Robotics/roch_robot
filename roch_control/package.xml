@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_control</name>
-  <version>1.0.8</version>
+  <version>1.0.10</version>
   <description>SawYer roch controller configurations</description>
 
   <author email="wzhang@softrobtech.com">Carl</author>
-
+  <author email="pbovbel@clearpathrobotics.com">Paul Bovbel</author>
   <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
 
   <license>BSD</license>

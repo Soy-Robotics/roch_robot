@@ -1,6 +1,6 @@
 <package>
   <name>roch_ftdi</name>
-  <version>1.0.8</version>
+  <version>1.0.10</version>
   <description>
 	    Utilities for flashing and enabling roch's USB connection.
 	    This package contains tools for flashing the roch's FTDI chip (usually done at the factory).

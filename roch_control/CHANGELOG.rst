@@ -1,6 +1,13 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.10 (2017-01-23)
+------------------
+* Add author Paul Bovbel of Clearpath.
+
+1.0.9 (2017-01-22)
+------------------
+
 1.0.8 (2017-01-22)
 ------------------
 
@@ -13,4 +20,5 @@ Changelog for package roch_control
 0.0.1 (2016-09-30)
 ------------------
 * Initial development of roch_control for roch indigo release
+* Refrence husky_control.
 * Contributors: Carl

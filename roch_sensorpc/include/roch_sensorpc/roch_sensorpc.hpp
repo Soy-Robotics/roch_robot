@@ -37,6 +37,8 @@
  *
  * @author Jorge Santos, Yujin Robot
  *
+ * @author Carl, SawYer Robotics
+ *
  **/
 
 #ifndef _ROCH_SENSORPC_HPP_
@@ -115,6 +117,6 @@ private:
   void coreSensorCB(const roch_msgs::SensorState::ConstPtr& msg);
 };
 
-} // namespace kobuki_bumper2pc
+} // namespace roch_bumper2pc
 
 #endif // _ROCH_SENSORPC_HPP_

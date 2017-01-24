@@ -1,12 +1,36 @@
 <?xml version="1.0"?>
 <launch>
 
-  <arg name="base"/>
-  <arg name="stacks"/>
-  <arg name="3d_sensor"/>
+  <arg name="base"						  default="$(env ROCH_BASE)"/>
+  <arg name="stacks" 					  default="$(env ROCH_STACKS)"/>
+  <arg name="3d_sensor"					  default="$(env ROCH_3D_SENSOR)"/>  <!-- kinect, asus_xtion_pro, r200 -->
+  <arg name="2d_laser"					  default="$(env ROCH_LASER)"/>  <!-- ls01c, rplidar -->
+  <arg name="2d_laser_enable"		      default="$(env ROCH_LASER_ENABLE)"/> <!-- if add 2d laser or not -->
+  <arg name="3d_sensor_enable"		      default="$(env ROCH_3D_SENSOR_ENABLE)"/> <!-- if add 3d sensor or not -->
+  <arg name="3d_sensor_nav_enable"		  default="$(env ROCH_3D_SENSOR_NAV_ENABLE)"/> <!-- if add 3d sensor in navigation  -->
+ 
+  
+  <group if="$(arg 3d_sensor_enable)">
+    <group if="$(arg 2d_laser_enable)">
+	 <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find roch_description)/robots/$(arg base)_$(arg stacks)_$(arg 3d_sensor)_$(arg 2d_laser).urdf.xacro'" />
+ 	 <param name="robot_description" command="$(arg urdf_file)" />
+    </group>
+    <group unless="$(arg 2d_laser_enable)">
+ 	 <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find roch_description)/robots/$(arg base)_$(arg stacks)_$(arg 3d_sensor).urdf.xacro'" />
+	 <param name="robot_description" command="$(arg urdf_file)" />
+    </group>
+  </group>
 
-  <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find turtlebot_description)/robots/$(arg base)_$(arg stacks)_$(arg 3d_sensor).urdf.xacro'" />
-  <param name="robot_description" command="$(arg urdf_file)" />
+  <group if="$(arg 2d_laser_enable)">
+    <group if="$(arg 3d_sensor_enable)">
+	 <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find roch_description)/robots/$(arg base)_$(arg stacks)_$(arg 3d_sensor)_$(arg 2d_laser).urdf.xacro'" />
+ 	 <param name="robot_description" command="$(arg urdf_file)" /> 
+    </group>
+    <group unless="$(arg 3d_sensor_enable)">
+ 	 <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find roch_description)/robots/$(arg base)_$(arg stacks)_$(arg 2d_laser).urdf.xacro'" />
+ 	 <param name="robot_description" command="$(arg urdf_file)" />
+    </group>
+  </group>
 
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
     <param name="publish_frequency" type="double" value="5.0" />

@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_base</name>
-  <version>1.0.8</version>
+  <version>1.0.10</version>
   <description>Sawyer roch robot driver</description>
 
+  <author email="mpurvis@clearpathrobotics.com">Mike Purvis</author>
+  <author email="pbovbel@clearpathrobotics.com">Paul Bovbel</author>
   <author email="wzhang@softrobtech.com">Carl</author>
 
   <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
