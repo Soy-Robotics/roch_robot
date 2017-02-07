@@ -25,12 +25,6 @@
     version: indigo
 
 - git:
-    uri: https://github.com/SawYer-Robotics/roch_navigation.git
-    local-name: roch_navigation
-    version: indigo
-
-
-- git:
     uri: https://github.com/roch/roch_robot.git
     local-name: roch_robot
     version: indigo

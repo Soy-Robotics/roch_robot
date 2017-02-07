@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_base</name>
-  <version>1.0.10</version>
+  <version>1.0.11</version>
   <description>Sawyer roch robot driver</description>
 
   <author email="mpurvis@clearpathrobotics.com">Mike Purvis</author>
@@ -12,7 +12,7 @@
 
   <license>BSD</license>
 
-  <url type="website">http://ros.org/wiki/roch_base</url>
+  <url type="website">http://wiki.ros.org/roch_base</url>
   <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
   <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
 

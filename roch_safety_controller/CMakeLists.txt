@@ -18,7 +18,9 @@ add_dependencies(roch_safety_controller_nodelet roch_msgs_gencpp)
 target_link_libraries(roch_safety_controller_nodelet ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 install(TARGETS roch_safety_controller_nodelet
-        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
 install(DIRECTORY include/${PROJECT_NAME}/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}

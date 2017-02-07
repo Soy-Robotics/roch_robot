@@ -1,6 +1,11 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_sensorpc
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.11 (2017-02-07)
+------------------
+* Modify websites.
+* Add application of roch_sensorpc_nodelet used in install.
+
 1.0.10 (2017-01-23)
 ------------------
 * Add author Jorge Santos Simon.

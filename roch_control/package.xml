@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_control</name>
-  <version>1.0.10</version>
+  <version>1.0.11</version>
   <description>SawYer roch controller configurations</description>
 
   <author email="wzhang@softrobtech.com">Carl</author>
@@ -10,7 +10,7 @@
 
   <license>BSD</license>
 
-  <url type="website">http://ros.org/wiki/roch_control</url>
+  <url type="website">http://wiki.ros.org/roch_control</url>
   <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
   <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
 
@@ -33,6 +33,8 @@
   <run_depend>controller_manager</run_depend>
   <run_depend>teleop_twist_joy</run_depend>
   <run_depend>twist_mux</run_depend>
+  <run_depend>create_node</run_depend>
+
 
   <export>
   </export>

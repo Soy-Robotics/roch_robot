@@ -15,7 +15,9 @@ add_dependencies(roch_sensorpc_nodelet sensor_msgs_gencpp roch_msgs_gencpp)
 target_link_libraries(roch_sensorpc_nodelet ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 install(TARGETS roch_sensorpc_nodelet
-        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
 install(DIRECTORY include/${PROJECT_NAME}/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}

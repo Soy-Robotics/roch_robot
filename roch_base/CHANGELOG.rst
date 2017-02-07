@@ -1,6 +1,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.11 (2017-02-07)
+------------------
+* Add install executable of test application.
+
 1.0.10 (2017-01-23)
 ------------------
 * Add author Mike Purvis and Paul Bovbel of Clearpath.

@@ -1,6 +1,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.11 (2017-02-07)
+------------------
+* Add mesh of rplidar.
+
 1.0.10 (2017-01-23)
 ------------------
 * Add Gazebo plugin of ros control for Roch model.

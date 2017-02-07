@@ -1,6 +1,6 @@
 <package>
   <name>roch_sensorpc</name>
-  <version>1.0.10</version>
+  <version>1.0.11</version>
   <description>
     Ult/psd/cliff to pointcloud:
     Publish Ult, cliff, and psd sensors events as points in a pointcloud, so navistack can use them
@@ -15,7 +15,7 @@
 
   <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
   <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
-  <url type="website">http://ros.org/wiki/roch_sensorpc</url>
+  <url type="website">http://wiki.ros.org/roch_sensorpc</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 

@@ -1,6 +1,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_control
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.11 (2017-02-07)
+------------------
+* Add missing dependence: create_node
+
 1.0.10 (2017-01-23)
 ------------------
 * Add author Paul Bovbel of Clearpath.

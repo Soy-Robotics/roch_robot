@@ -1,6 +1,6 @@
 <package>
   <name>roch_safety_controller</name>
-  <version>1.0.10</version>
+  <version>1.0.11</version>
   <description>
     A controller ensuring the safe operation of roch.
 
@@ -18,7 +18,7 @@
 
   <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
   <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
-  <url type="website">http://ros.org/wiki/roch_safety_controller</url>
+  <url type="website">http://wiki.ros.org/roch_safety_controller</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 

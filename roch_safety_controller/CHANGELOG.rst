@@ -1,6 +1,11 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_safety_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.11 (2017-02-07)
+------------------
+* Modify website.
+* Add application of roch_safety_controoler used in install.
+
 1.0.10 (2017-01-23)
 ------------------
 

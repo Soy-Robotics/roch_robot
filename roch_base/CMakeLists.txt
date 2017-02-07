@@ -64,7 +64,7 @@ roslint_cpp(
 
 roslaunch_add_file_check(launch)
 
-install(TARGETS core roch_node
+install(TARGETS core roch_node test_rangefinder test_speed test_imu test_encoder 
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})

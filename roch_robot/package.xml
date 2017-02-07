@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_robot</name>
-  <version>1.0.10</version>
+  <version>1.0.11</version>
   <description>Metapackage for SawYer roch robot software</description>
 
   <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
@@ -11,7 +11,7 @@
 
   <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
   <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
-  <url type="website">http://ros.org/wiki/roch_robot</url>
+  <url type="website">http://wiki.ros.org/roch_robot</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>roch_description</run_depend>
