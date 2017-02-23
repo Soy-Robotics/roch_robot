@@ -1,0 +1,12 @@
+%YAML 1.1
+---
+name: RochCliff
+spec_version: 1
+spec_type: interface
+description: "Check Cliff"
+interface:
+  topics:
+    provides:
+      '/roch_cliff_event':
+        type: 'roch_msgs/CliffEvent'
+        description: "Event is always contains state and data"

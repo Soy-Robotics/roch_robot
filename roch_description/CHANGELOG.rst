@@ -1,6 +1,11 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.12 (2017-02-16)
+------------------
+* Add Orbbec Astra model.
+* Contributors: Carl
+
 1.0.11 (2017-02-07)
 ------------------
 * Add mesh of rplidar.
@@ -9,7 +14,7 @@ Changelog for package roch_description
 ------------------
 * Add Gazebo plugin of ros control for Roch model.
 * Modify Gazebo plugin of laser and put into roch_gazebo.urdf.xacro.
-* Adjust context in *.urdf.xacro.
+* Adjust context in ```*```.urdf.xacro.
 * Fiex bug that model in Gazebo will shack.
 
 1.0.9 (2017-01-22)

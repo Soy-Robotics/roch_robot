@@ -1,0 +1,14 @@
+%YAML 1.1
+---
+name: navigation_2d
+spec_version: 1
+spec_type: provider
+description: 'Standard Navigation 2d on Roch.'
+implements: std_capabilities/Navigation2D
+launch_file: 'launch/navigation_2d.launch'
+depends_on:
+  'roch_capabilities/RochBringup'
+remappings:
+  topics:
+    'goal': '/move_base_simple/goal'
+    'cmd_vel': 'roch_velocity_controller/cmd_vel'

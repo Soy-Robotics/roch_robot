@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_robot</name>
-  <version>1.0.11</version>
+  <version>1.0.12</version>
+
   <description>Metapackage for SawYer roch robot software</description>
 
   <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
@@ -21,6 +22,7 @@
   <run_depend>roch_ftdi</run_depend>
   <run_depend>roch_safety_controller</run_depend>
   <run_depend>roch_sensorpc</run_depend>
+  <run_depend>roch_capabilities</run_depend>
 
   <export>
     <metapackage/>

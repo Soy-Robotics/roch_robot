@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(roch_sensorpc)
 find_package(catkin REQUIRED COMPONENTS roscpp nodelet sensor_msgs roch_msgs)
 find_package(Boost REQUIRED COMPONENTS chrono)
+
 catkin_package(
    INCLUDE_DIRS include
    CATKIN_DEPENDS roscpp nodelet  sensor_msgs roch_msgs

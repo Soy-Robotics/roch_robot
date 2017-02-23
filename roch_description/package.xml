@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_description</name>
-  <version>1.0.11</version>
+  <version>1.0.12</version>
+
   <description>SawYer Roch URDF description</description>
 
 

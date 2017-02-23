@@ -72,5 +72,5 @@ install(TARGETS core roch_node test_rangefinder test_speed test_imu test_encoder
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
-install(DIRECTORY launch config
+install(DIRECTORY launch config image
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

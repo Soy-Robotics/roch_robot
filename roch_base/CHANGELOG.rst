@@ -1,6 +1,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.12 (2017-02-16)
+------------------
+* Add Roch image in image folder.
+
 1.0.11 (2017-02-07)
 ------------------
 * Add install executable of test application.

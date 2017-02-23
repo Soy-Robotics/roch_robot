@@ -1,0 +1,10 @@
+%YAML 1.1
+---
+name: roch_bringup
+spec_version: 1
+spec_type: provider
+implements: roch_capabilities/RochBringup
+launch_file: 'launch/roch_bringup.launch'
+depends_on:
+  'std_capabilities/Diagnostics':
+    provider: 'roch_capabilities/diagnostics' 
