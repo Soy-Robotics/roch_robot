@@ -18,7 +18,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   
-  <run_depend>roch_node</run_depend>
+  <run_depend>roch_base</run_depend>
   <run_depend>roch_bringup</run_depend>
   <run_depend>roch_navigation</run_depend>
   <run_depend>nodelet</run_depend>
