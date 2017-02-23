@@ -6,7 +6,6 @@ Changelog for package roch_description
 * Add Orbbec Astra model.
 * Contributors: Carl
 
-
 1.0.11 (2017-02-07)
 ------------------
 * Add mesh of rplidar.
