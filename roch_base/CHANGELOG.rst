@@ -1,6 +1,30 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.12 (2017-02-16)
+------------------
+* Add Roch image in image folder.
+
+1.0.11 (2017-02-07)
+------------------
+* Add install executable of test application.
+
+1.0.10 (2017-01-23)
+------------------
+* Add author Mike Purvis and Paul Bovbel of Clearpath.
+* Modify BSD lisence.
+
+1.0.9 (2017-01-22)
+------------------
+
+1.0.8 (2017-01-22)
+------------------
+* fixed bug that will cause can not compile without angles package in rosdistro.
+
+1.0.7 (2017-01-21)
+------------------
+* fixed bug that will cause can not compile without tf package.
+
 1.0.6 (2017-01-17)
 ------------------
 

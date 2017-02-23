@@ -3,8 +3,7 @@ roch ftdi
 
 ### Documentation ###
 
-* [Official Web Page](http://roch.SawYerrobot.com) - home page, sales, specifications and hardware howto.
-* [Protocol, Usage and Api Documentation](http://SawYerrobot.github.com/roch/doxygen/index.html) - in doxygen.
+* [Official Web Page](http://www.softrobtech.com) - home page, sales, specifications and hardware howto.
 
 ### Important Scripts ###
 
@@ -22,7 +21,7 @@ roch ftdi
 
 * Does roch appear as USB device?
 
-> lsusb # See if there is "0403:6001 Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC"
+> lsusb # See if there is "10c4:ea60 Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC"
 
 > dmesg # See what happen when roch usb is plugged.
 

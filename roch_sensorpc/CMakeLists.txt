@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(roch_sensorpc)
 find_package(catkin REQUIRED COMPONENTS roscpp nodelet sensor_msgs roch_msgs)
 find_package(Boost REQUIRED COMPONENTS chrono)
+
 catkin_package(
    INCLUDE_DIRS include
    CATKIN_DEPENDS roscpp nodelet  sensor_msgs roch_msgs
@@ -15,7 +16,9 @@ add_dependencies(roch_sensorpc_nodelet sensor_msgs_gencpp roch_msgs_gencpp)
 target_link_libraries(roch_sensorpc_nodelet ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
 install(TARGETS roch_sensorpc_nodelet
-        DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 )
 install(DIRECTORY include/${PROJECT_NAME}/
         DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}

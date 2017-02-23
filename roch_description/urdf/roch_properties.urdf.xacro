@@ -47,4 +47,12 @@
   <property name="r200_op" value="0" />
   <property name="r200_oy" value="0" />
 
+
+<!-- Intel R200 param -->
+  <property name="astra_px" value="-0.15" />
+  <property name="astra_py" value="-0.065" />
+  <property name="astra_pz" value="0.725" />
+  <property name="astra_or" value="0" />
+  <property name="astra_op" value="0" />
+  <property name="astra_oy" value="0" />
 </robot>

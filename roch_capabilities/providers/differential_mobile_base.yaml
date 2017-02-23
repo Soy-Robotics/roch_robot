@@ -1,0 +1,9 @@
+%YAML 1.1
+---
+name: differential_mobile_base
+spec_version: 1
+spec_type: provider
+implements: std_capabilities/DifferentialMobileBase
+launch_file:
+depends_on:
+  'roch_capabilities/RochBringup'

@@ -4,6 +4,8 @@
  * @brief Bumper to pointcloud nodelet class implementation.
  *
  * @author Jorge Santos, Yujin Robot
+ * 
+ * @author Carl, SawYer Robotics
  *
  **/
 

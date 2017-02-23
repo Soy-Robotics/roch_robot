@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 2.8.3)
 project(roch_base)
 
 find_package(catkin REQUIRED COMPONENTS controller_manager hardware_interface roch_msgs
-  diagnostic_updater roslaunch roslint roscpp sensor_msgs geometry_msgs)
+  diagnostic_updater roslaunch roslint roscpp sensor_msgs geometry_msgs tf angles std_msgs)
 find_package(Boost REQUIRED COMPONENTS chrono)
  
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES core
-  CATKIN_DEPENDS diagnostic_updater hardware_interface roch_msgs roscpp sensor_msgs geometry_msgs
+  CATKIN_DEPENDS diagnostic_updater hardware_interface roch_msgs roscpp sensor_msgs geometry_msgs tf angles std_msgs
   DEPENDS Boost
 )
 
@@ -64,7 +64,7 @@ roslint_cpp(
 
 roslaunch_add_file_check(launch)
 
-install(TARGETS core roch_node
+install(TARGETS core roch_node test_rangefinder test_speed test_imu test_encoder 
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
@@ -72,5 +72,5 @@ install(TARGETS core roch_node
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
 
-install(DIRECTORY launch config
+install(DIRECTORY launch config image
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

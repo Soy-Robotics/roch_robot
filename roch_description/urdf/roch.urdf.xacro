@@ -114,18 +114,18 @@
 <!--              range_z: -0.007 ~ -0.008      -->
 <!--        if not modify in gazebo will shack  -->
 <!--                                            -->
-<!--                                            -->
-<!--                                            -->
-<!--                                            -->
-<!--                                            -->
+<!--             Fixed this Bug                 -->
+<!--             Finally param                  -->
+<!--          L:0.13 0 -0.125                   -->
+<!--          R:-0.13 0 -0.0084                 -->
 <!--                                            -->
    <joint name="fornt_wheel_joint" type="fixed">
-      <origin xyz="0.13 0 -0.0084 " rpy="${-M_PI/2} 0 0" />
+      <origin xyz="0.13 0 -0.0125 " rpy="${-M_PI/2} 0 0" />
       <parent link="base_link" />
       <child link="front_wheel_link" />
    </joint>
    <joint name="rear_wheel_joint" type="fixed">
-      <origin xyz="-0.13 0 -0.008 " rpy="${-M_PI/2} 0 0" />
+      <origin xyz="-0.13 0 -0.0084 " rpy="${-M_PI/2} 0 0" />
       <parent link="base_link" />
       <child link="rear_wheel_link" />
    </joint>
@@ -143,35 +143,11 @@
       </inertial>
     </link>
     <joint name="imu_joint" type="fixed">
-      <origin xyz="$(optenv HUSKY_IMU_XYZ 0.145 0 0.0095)" rpy="$(optenv HUSKY_IMU_RPY 0 -1.5708 3.1416)" />
+      <origin xyz=" 0.145 0 0.0095" rpy=" 0 -1.5708 3.1416" />
       <parent link="base_link" />
       <child link="imu_link" />
       <axis xyz="0 1 0"/>
     </joint>
-    <gazebo reference="imu_link">
-      <sensor type="imu" name="imu">
-      <always_on>true</always_on>
-      <update_rate>50</update_rate>
-      <visualize>false</visualize>
-        <imu>
-          <noise>
-            <type>gaussian</type>
-	          <rate>
-	            <mean>0.0</mean>
-	            <stddev>${0.0014*0.0014}</stddev> <!-- 0.25 x 0.25 (deg/s) -->
-	            <bias_mean>0.0</bias_mean>
-	            <bias_stddev>0.0</bias_stddev>
-	          </rate>
-		        <accel> <!-- not used in the plugin and real robot, hence using tutorial values -->
-			        <mean>0.0</mean>
-			        <stddev>1.7e-2</stddev>
-			        <bias_mean>0.1</bias_mean>
-			        <bias_stddev>0.001</bias_stddev>
-		        </accel>
-          </noise>
-	      </imu>
-      </sensor>  
-    </gazebo>
 
     <xacro:roch_ultrasonic ultrasonic_prefix="front_left" parent="base_link">
       <origin xyz="0.1631 0.06756 0.123" rpy="0 ${-M_PI/2} 0" />
@@ -202,33 +178,7 @@
 
  <!-- roch Gazebo simulation details -->
   <roch_robot_gazebo/>
- <!-- laser model 
-  <xacro:if value="$(arg laser_enabled)">
-
-      <joint name="base_laser_mount" type="fixed">
-        <origin xyz="0.001 0 0.1" rpy="0 0 0" />
-        <parent link="base_link" />
-        <child link="base_laser" />
-      </joint>
-
-      <xacro:sick_lms100 prefix="base" />
-  </xacro:if>  -->
-  <!-- Husky kinect macros 
-   <xacro:if value="$(arg kinect_enabled)"> 
-      <joint name="kinect_frame_joint" type="fixed">
-        <origin xyz="$(optenv HUSKY_KINECT_XYZ 0.09 0 0.072)" rpy="$(optenv HUSKY_KINECT_RPY 0 0 0)" />
-        <parent link="base_link"/>
-        <child link="camera_link"/>
-      </joint>
-
-      <xacro:kinect_camera prefix="camera"/>
-   </xacro:if> -->
-   
-  <!-- asus xtion model
-  <xacro:if value="$(arg asus_xtion_enabled)">
-     <sensor_asus_xtion_pro parent="base_link"/>
-  </xacro:if>   -->
-<!-- -->
+ 
 </xacro:macro>  
   
 </robot>
