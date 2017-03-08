@@ -280,15 +280,17 @@ void rochHardware::getDifferentControlConstantData()
 	linear_acceleration_covariance[4] = 1e9;//0;
 	linear_acceleration_covariance[5] = 0;
 	linear_acceleration_covariance[6] = 0;
-	linear_acceleration_covariance[8] = 0;
+	linear_acceleration_covariance[7] = 0;
 	linear_acceleration_covariance[8] = 1e-9;//0;
 #endif
 	geometry_msgs::Quaternion orien =  tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, sixGyro.angle);
 	orientation[0] = orien.y;
 	orientation[1] = orien.x;
-	orientation[2] = sixGyro.angle;
+	orientation[2] = orien.z;//sixGyro.angle;
 	orientation[3] = orien.w;
-	imuMsgData.orientation = orientation;
+        ROS_INFO("orientation.z: %lf.\n" ,orien.z);
+	imuMsgData.orientation =  orientation;//tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, sixGyro.angle);
+//orientation;
 	imuMsgData.orientation_covariance =  orientation_covariance;
 	imuMsgData.angular_velocity_covariance = angular_velocity_covariance;
 	imuMsgData.linear_acceleration_covariance = linear_acceleration_covariance;
@@ -433,7 +435,7 @@ void rochHardware::getDifferentControlConstantData()
       geometry_msgs::Quaternion orien =  tf::createQuaternionMsgFromRollPitchYaw(0.0, 0.0, sixGyro.angle);
 	orientation[0] = orien.x;
 	orientation[1] = orien.y;
-	orientation[2] = sixGyro.angle;
+	orientation[2] = orien.z;//sixGyro.angle;
 	orientation[3] = orien.w;
 	imuMsgData.orientation = orientation;
 #ifdef DEBUG_INFO
@@ -469,6 +471,9 @@ void rochHardware::getDifferentControlConstantData()
       msg->angular_velocity_covariance[4] = DBL_MAX;
       msg->angular_velocity_covariance[8] = 0.05;
 
+	  msg->linear_acceleration_covariance[0] = DBL_MAX ;
+	  msg->linear_acceleration_covariance[4] = DBL_MAX ;
+	  msg->linear_acceleration_covariance[8] = 1e-9 ;
       imu_data_publisher_.publish(msg);      
       }
     }
