@@ -1,6 +1,6 @@
 topics:
-- name    : sensorpc
-  topic   : twist_mux/sensorpc/cmd_vel
+- name    : safety controller
+  topic   : twist_mux/safety_controller/cmd_vel
   timeout : 1
   priority: 80
 - name    : joy
