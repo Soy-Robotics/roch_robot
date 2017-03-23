@@ -1,6 +1,9 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2.0.13 (2017-03-23)
+-------------------
+
 1.0.13 (2017-03-23)
 -------------------
 * Fixed odom rotation which combine encoders and imu, only enconders great errors.
