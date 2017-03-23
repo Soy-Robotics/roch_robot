@@ -1,6 +1,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.13 (2017-03-23)
+-------------------
+* Modified link transform of rplidar.
+
 1.0.12 (2017-02-16)
 -------------------
 * Add Orbbec Astra model.

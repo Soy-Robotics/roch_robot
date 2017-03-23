@@ -1,6 +1,11 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.13 (2017-03-23)
+-------------------
+* Fixed odom rotation which combine encoders and imu, only enconders great errors.
+* Add missing dependcies: nodelet.
+
 1.0.12 (2017-02-16)
 -------------------
 * Add Roch image in image folder.

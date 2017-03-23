@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_capabilities</name>
-  <version>1.0.12</version>
+  <version>1.0.13</version>
   <description>Capabilities for Roch</description>
 
   <author email="wzhang@softrobtech.com">Carl</author> 

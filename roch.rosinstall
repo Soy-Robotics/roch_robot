@@ -2,7 +2,7 @@
 #
 # Source installation instructions at:
 #
-# http://www.ros.org/wiki/roch/Tutorials/indigo/Source%20Installation
+# http://www.ros.org/wiki/Robots/Roch
 #
 ##############################################################################
 
@@ -27,4 +27,9 @@
 - git:
     uri: https://github.com/roch/roch_robot.git
     local-name: roch_robot
+    version: indigo
+
+- git:
+    uri: https://github.com/roch/roch_concert.git
+    local-name: roch_concert
     version: indigo

@@ -1,6 +1,6 @@
 <package>
   <name>roch_safety_controller</name>
-  <version>1.0.12</version>
+  <version>1.0.13</version>
 
   <description>
     A controller ensuring the safe operation of roch.
@@ -8,7 +8,7 @@
     The SafetyController keeps track of ult, psd and cliff events. In case of the first three,
     roch is commanded to move back. 
     This controller can be enabled/disabled.
-    The safety states (bumper pressed etc.) can be reset. WARNING: Dangerous!
+    The safety states (cliff, psd and ult etc.) can be reset. WARNING: Dangerous!
     Refrence with yujinrobot' kobuki.
   </description>
   <author email="marcus.liebhardt@yujinrobot.com">Marcus Liebhardt</author>
