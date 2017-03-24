@@ -14,16 +14,16 @@
         names of its contributors may be used to endorse or promote products
         derived from this software without specific prior written permission.
 
-		THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-		ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-		WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-		DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY
-		DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-		(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-		 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-		ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-		(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-		SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <launch>
   <!-- Roch Configure -->
@@ -37,18 +37,29 @@
   <arg name="simulation"       		default="$(env ROCH_SIMULATION)"		doc="set flags to indicate this turtle is run in simulation mode."/>
   <arg name="robot_name"		default="$(env ROCH_NAME)"			doc="used as a unique indetifier and occasionally to preconfigure root namespaces, gateway/zeroconf ids etc."/>
   <arg name="robot_type"		default="$(env ROCH_TYPE)"			doc="just in case you are considering a 'variant' and want to make use of this."/>
-
+  <arg name="robot_icon"		default="roch_base/roch_icon.png"/>
+  <arg name="robot_description"	        default="Quality platform Roch" doc="user friendly robot description"/>
+	
   <!-- Rapp manager -->
+  <arg name="auto_start_rapp"           default=""  doc="autostart a rapp, e.g. 'rocon_apps/chirp'"/>
   <arg name="rapp_package_whitelist"	default="[rocon_apps, roch_rapps]"/>
   <arg name="rapp_package_blacklist"	default="[]"/>
-  <arg name="rapp_auto_installation"	default="false"	doc="automatically install rapps from the web (not typically used)"/> <!-- http://wiki.ros.org/rocon_app_manager/Tutorials/indigo/Automatic Rapp Installation -->
-  <arg name="screen"			default="true"/>
-  <arg name="auto_rapp_installation"	default="false"/>
   <arg name="rapp_preferred_configuration_file" default="$(find roch_bringup)/param/preferred_rapp.yaml" doc="pointer to a yaml file listing preferred rapps"/>
-  <arg name="robot_icon"		default="roch_base/roch_icon.png"/>
+  <arg name="screen"			default="true"/>
+  <arg name="auto_rapp_installation"    default="false" doc="hook into automatic rapp installation"/>
 
-  <!-- Rocon Master Info -->
-  <arg name="robot_description"	        default="Quality platform Roch" doc="user friendly robot description"/>
+  <!-- zeroconf -->
+  <arg name="zeroconf"                 default="true"/>
+  <arg name="zeroconf_port"            default="11311"/>
+	 
+  <!-- Gateway -->
+  <arg name="gateway_uuids"                   default="false" doc="all gateways represent their robots with unique uuid's postfixed to the name" />
+  <arg name="gateway_watch_loop_period"       default="10"    doc="the polling period for multimaster advertising/flipping" />
+  <arg name="hub_whitelist"                   default="[]"    doc="list of hub names/regex patterns to use if zeroconf is enabled"/>
+  <arg name="hub_uri"                         default=""      doc="where the gateway can find a hub if zeroconf is disabled"/>
+  <arg name="gateway_custom_rules_file"       default=""      doc="name of a user custom parameterisation (yaml)."/>
+  <arg name="connection_cache"                default="true"  doc="whether to launch the connection cache node to cache the master state"/>
+  <arg name="connection_cache_spin_frequency" default="0.1"   doc="how fast to cache the master state (note you can 'spin it up' via service calls)"/>
 
   <!-- capabilities -->
   <arg name="capabilities"                              default="true"/>
@@ -63,30 +74,40 @@
   <!-- Interactions -->
   <arg name="interactions"         default="true" doc="start an interactions manager"/>
   <arg name="interactions_list"    default="$(env ROCH_INTERACTIONS_LIST)" doc="a list of filenames that provide interactions specifications."/>
-
-
-  <!-- Connectivity -->
-  <arg name="robot_unique_name"	        default="true"	doc="postfix a uuid to robot_name to create unique namespaces for rapps (else manully gyarantee unique names for multimaster'ing)"/>
-  <arg name="concert_whitelist"	        default="[]"	doc="list of multimaster hubs (concerts) to connect to "/>
-  <arg name="local_machine_only"	default="false"	doc="connect only to multimaster hubs (concerts) on local machine (testing option)"/>
-  <arg name="concert_watch_period"	default="10"	doc="polling loop for discovering multimaster hubs (concerts)"/>
-  <arg name="firewall"	                default="false" doc="block people from flipping (registering topics) on this master."/>
+  <arg name="rosbridge_address"    default="localhost"/>
+  <arg name="rosbridge_port"       default="9090"/>
+  <arg name="webserver_address"    default="webapp.robotconcert.org"/>
+  <arg name="auto_start_pairing"   default="" doc="auto start a pre-configured rapp for interactions, e.g. 'Talker'"/>
 
   <!-- Rapp Manager Concert Clinet mode -->
   <include file="$(find rocon_app_manager)/launch/concert_client.launch">
     
-    <!-- Rapp Manager -->
+    <!-- Robot Args -->
     <arg name="robot_name"                                value="$(arg robot_name)"/>
     <arg name="robot_type"                                value="$(arg robot_type)"/>
     <arg name="robot_icon"                                value="$(arg robot_icon)"/>
+    <arg name="robot_description"                         value="$(arg robot_description)"/>
+	  
+    <!-- Rapp Manager -->
     <arg name="rapp_package_whitelist"                    value="$(arg rapp_package_whitelist)"/>
     <arg name="rapp_package_blacklist"                    value="$(arg rapp_package_blacklist)"/>
     <arg name="rapp_preferred_configuration_file"         value="$(arg rapp_preferred_configuration_file)"/>
-    <arg name="screen"                                    value="$(arg screen)"/>
-    <arg name="rapp_auto_installation"                    value="$(arg rapp_auto_installation)"/>
+    <arg name="screen"                                    value="$(arg screen)"/> 
+    <arg name="auto_start_rapp"                           value="$(arg auto_start_rapp)"/>
+    <arg name="auto_rapp_installation"                    value="$(arg auto_rapp_installation)"/>
 
-    <!-- Rocon Master Info -->
-    <arg name="robot_description"                         value="$(arg robot_description)"/>
+    <!-- zeroconf -->
+    <arg name="zeroconf"                                  value="$(arg zeroconf)"/>
+    <arg name="zeroconf_port"                             value="$(arg zeroconf_port)"/>
+
+    <!-- Gateway -->
+    <arg name="gateway_uuids"                             value="$(arg gateway_uuids)"/>
+    <arg name="gateway_watch_loop_period"                 value="$(arg gateway_watch_loop_period)" />
+    <arg name="hub_whitelist"                             value="$(arg hub_whitelist)"/>
+    <arg name="hub_uri"                                   value="$(arg hub_uri)"/>
+    <arg name="gateway_custom_rules_file"                 value="$(arg gateway_custom_rules_file)"/>
+    <arg name="connection_cache"                          value="$(arg connection_cache)"/>
+    <arg name="connection_cache_spin_frequency"           value="$(arg connection_cache_spin_frequency)"/>
 
     <!-- Capabilities -->
     <arg name="capabilities"                              value="$(arg capabilities)"/>
@@ -97,13 +118,11 @@
     <!-- Interactions -->
     <arg name="interactions"                              value="$(arg interactions)"/>
     <arg name="interactions_list"                         value="$(arg interactions_list)"/>
+    <arg name="rosbridge_address"                         value="$(arg rosbridge_address)"/>
+    <arg name="rosbridge_port"                            value="$(arg rosbridge_port)"/>
+    <arg name="webserver_address"                         value="$(arg webserver_address)"/>
+    <arg name="auto_start_pairing"                        value="$(arg auto_start_pairing)" />
 
-    <!-- Connectivity -->
-    <arg name="firewall"                                  value="$(arg firewall)"/>
-    <arg name="robot_unique_name"                         value="$(arg robot_unique_name)"/>
-    <arg name="concert_watch_period"                      value="$(arg concert_watch_period)"/>
-    <arg name="concert_whitelist"                         value="$(arg concert_whitelist)"/>
-    <arg name="local_machine_only"                        value="$(arg local_machine_only)"/>
   </include>
 
 </launch>
