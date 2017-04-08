@@ -13,7 +13,7 @@
 
   <!-- Load create and gyro calibration  -->
   <node pkg="create_node" type="load_calib.py" name="create_load_calibration">
-    <remap from="cmd_vel" to="mobile_base/commands/velocity" />
+    <remap from="cmd_vel" to="roch_velocity_controller/cmd_vel" />
   </node> 
 
   <!-- load odom_combined to odom
