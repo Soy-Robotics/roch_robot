@@ -146,7 +146,6 @@
       <origin xyz=" 0.145 0 0.0095" rpy=" 0 -1.5708 3.1416" />
       <parent link="base_link" />
       <child link="imu_link" />
-      <axis xyz="0 1 0"/>
     </joint>
 
     <xacro:roch_ultrasonic ultrasonic_prefix="front_left" parent="base_link">
