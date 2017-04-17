@@ -5,16 +5,16 @@ world_frame: odom
 
 two_d_mode: true
 
-frequency: 50
+frequency: 10
 
 odom0: roch_velocity_controller/odom
 odom0_config: [true, true, false,
                false, false, false,
                false, false, false,
-               false, false, false,
+               false, false, true,
                false, false, false]
 odom0_differential: false
-odom0_queue_size: 50
+odom0_queue_size: 10
 
 imu0: roch_sensor_controller/imu/data
 #imu0_config: [false, false, false,
@@ -26,7 +26,7 @@ imu0: roch_sensor_controller/imu/data
 imu0_config: [false, false, false,
               false, false, true,
               false, false, false,
-              false, false, false,
+              false, false, true,
               false, false, false]
 imu0_differential: true
 imu0_queue_size: 50
