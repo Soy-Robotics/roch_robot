@@ -85,7 +85,7 @@ namespace roch_base
 		for (int i = 0; i < 2; i++)
       {
         joints_[i].position_offset = linearToAngular(enc->getTravel(i % 2));
-        ROS_DEBUG_STREAM("joints_[%d].position_offset:%.2lf  ",i,joints_[i].position_offset);
+        ROS_DEBUG_STREAM("joints_["<<i<<"].position_offset:"<<joints_[i].position_offset<<" .");
       }
     }
     else
@@ -99,7 +99,7 @@ namespace roch_base
      publishRawData();
      if(imuRateData){
       ROS_DEBUG_STREAM("Received  imu rate data information (Angle:" << imuRateData->getAngle() << " Angle rate:" << imuRateData->getAngleRate() << ")");
-      ROS_DEBUG_STREAM("Received  imu rate data information, angle_offset:%.2lf",imuRateData->getAngle());        
+      ROS_DEBUG_STREAM("Received  imu rate data information, angle_offset:"<<imuRateData->getAngle()<<" .");        
       sixGyro.angle_offset = imuRateData->getAngle();
     }
     else{
@@ -110,7 +110,7 @@ namespace roch_base
     publishRawData();
     if(getPlatformAccData){
 
-      ROS_DEBUG_STREAM("Received acc_x:%.2lf, acc_y:%.2lf, acc_z:%.2lf.",getPlatformAccData->getX(),getPlatformAccData->getY(),getPlatformAccData->getZ());
+      ROS_DEBUG_STREAM("Received acc_x:"<<getPlatformAccData->getX()<<", acc_y:"<<getPlatformAccData->getY()<<", acc_z:"<<getPlatformAccData->getZ()<<".");
  
       sixGyro.acc.X_Offset = getPlatformAccData->getX();
       sixGyro.acc.Y_Offset = getPlatformAccData->getY();
@@ -131,8 +131,7 @@ namespace roch_base
     core::Channel<sawyer::DataRangefinders>::requestData(polling_timeout_);
     publishRawData();
     if(rangefinderData){
-      ROS_DEBUG_STREAM("Received rangefinder Data, counts:%d, data[0]:%.2lf , data[1]:%.2lf, data[2]:%.2lf , data[3]:%.2lf, data[4]:%.2lf.",
-	   (int)rangefinderData->getRangefinderCount(),rangefinderData->getDistance(0),rangefinderData->getDistance(1),rangefinderData->getDistance(2),rangefinderData->getDistance(3),rangefinderData->getDistance(4));
+      ROS_DEBUG_STREAM("Received rangefinder Data, counts:"<<(int)rangefinderData->getRangefinderCount()<<", data[0]:"<<rangefinderData->getDistance(0)<<" , data[1]:"<<rangefinderData->getDistance(1)<<", data[2]:"<<rangefinderData->getDistance(2)<<" , data[3]:"<<rangefinderData->getDistance(3)<<", data[4]:"<<rangefinderData->getDistance(4)<<".");
 
       publishCliffEvent(rangefinderData->getDistance(6),rangefinderData->getDistance(7));
       publishUltEvent(rangefinderData->getDistance(0),rangefinderData->getDistance(1),rangefinderData->getDistance(2));  
@@ -143,13 +142,12 @@ namespace roch_base
     core::Channel<sawyer::DataRangefinderTimings>::requestData(polling_timeout_);
     publishRawData();
     if(rangefinderDataAndTime){
-      ROS_DEBUG_STREAM("Received rangefinder Data and time, counts:%d, data[0]:%.2lf, time[0]:%d, data[1]:%.2lf, time[1]:%d, data[2]:%.2lf, time[2]:%d, data[3]:%.2lf, time[3]:%d, data[4]:%.2lf, time[4]:%d.",
-	   (int)rangefinderDataAndTime->getRangefinderCount(),rangefinderDataAndTime->getDistance(0),rangefinderDataAndTime->getAcquisitionTime(0),
-	   rangefinderDataAndTime->getDistance(1),rangefinderDataAndTime->getAcquisitionTime(1),
-	   rangefinderDataAndTime->getDistance(2),rangefinderDataAndTime->getAcquisitionTime(2),
-	   rangefinderDataAndTime->getDistance(3),rangefinderDataAndTime->getAcquisitionTime(3),
-	   rangefinderDataAndTime->getDistance(4),rangefinderDataAndTime->getAcquisitionTime(4));
- 
+      ROS_DEBUG_STREAM("Received rangefinder Data and time, counts:"<<(int)rangefinderDataAndTime->getRangefinderCount()<<
+                     ", data[0]:"<<rangefinderDataAndTime->getDistance(0)<<", time[0]:"<<rangefinderDataAndTime->getAcquisitionTime(0)<<
+                     ", data[1]:"<<rangefinderDataAndTime->getDistance(0)<<", time[1]:"<<rangefinderDataAndTime->getAcquisitionTime(0)<<
+                     ", data[2]:"<<rangefinderDataAndTime->getDistance(0)<<", time[2]:"<<rangefinderDataAndTime->getAcquisitionTime(0)<<
+                     ", data[3]:"<<rangefinderDataAndTime->getDistance(0)<<", time[3]:"<<rangefinderDataAndTime->getAcquisitionTime(0)<<
+                     ", data[4]:"<<rangefinderDataAndTime->getDistance(0)<<", time[4]:"<<rangefinderDataAndTime->getAcquisitionTime(0)<<".");
     }
   }
 
@@ -161,7 +159,7 @@ namespace roch_base
     publishRawData();
     if(getPlatformAccData){
 
-      ROS_DEBUG_STREAM("Received acc_x:%.2lf, acc_y:%.2lf, acc_z:%.2lf.",getPlatformAccData->getX(),getPlatformAccData->getY(),getPlatformAccData->getZ());
+      ROS_DEBUG_STREAM("Received acc_x:"<<getPlatformAccData->getX()<<", acc_y:"<<getPlatformAccData->getY()<<", acc_z:"<<getPlatformAccData->getZ()<<".");
  
       sixGyro.acc.X = getPlatformAccData->getX() - sixGyro.acc.X_Offset;
       sixGyro.acc.Y = getPlatformAccData->getY() - sixGyro.acc.Y_Offset;
@@ -194,10 +192,8 @@ namespace roch_base
     core::Channel<sawyer::DataDifferentialControl>::requestData(polling_timeout_);
     publishRawData();
     if(getDifferentControlConstantData){
-       ROS_DEBUG_STREAM("Received Data of Differential Control Data, Left_P:%.2lf, Left_I:%.2lf, Left_D:%.2lf,"
-  	       "right_P:%.2lf, right_I:%.2lf, right_D:%.2lf.",
-  	   getDifferentControlConstantData->getLeftP(),getDifferentControlConstantData->getLeftI(),getDifferentControlConstantData->getLeftD(),
-	   getDifferentControlConstantData->getRightP(),getDifferentControlConstantData->getRightI(),getDifferentControlConstantData->getRightD());
+       ROS_DEBUG_STREAM("Received Data of Differential Control Data, Left_P:"<<getDifferentControlConstantData->getLeftP()<<", Left_I:"<<getDifferentControlConstantData->getLeftI()<<", Left_D:"<<getDifferentControlConstantData->getLeftD()<<
+       ",right_P:"<<getDifferentControlConstantData->getRightP()<<", right_I:"<<getDifferentControlConstantData->getRightI()<<", right_D:"<<getDifferentControlConstantData->getRightD()<<".");
  
      }
     
@@ -300,11 +296,8 @@ namespace roch_base
       hardware_interface::JointHandle joint_handle(
         joint_state_handle, &joints_[i].velocity_command);
       velocity_joint_interface_.registerHandle(joint_handle);
-       std::cout<<"Received joint_names["<<i<<"]:"<<joint_names[i]<<std::endl;
-       ROS_DEBUG_STREAM("Received joint[%d].position:%.2lf, joint[%d].velocity:%.2lf, joint[%d].effort:%.2lf",						
-						i,joints_[i].position,
-						i, joints_[i].velocity,
-						i,joints_[i].effort); 
+      std::cout<<"Received joint_names["<<i<<"]:"<<joint_names[i]<<std::endl;
+      ROS_DEBUG_STREAM("Received joint["<<i<<"].position:"<<joints_[i].position<<", joint["<<i<<"].velocity:"<<joints_[i].velocity<<", joint["<<i<<"].effort:"<<joints_[i].effort<<"."); 
     }
     hardware_interface::ImuSensorHandle imu_sensor_handle(imuMsgData);
    
@@ -332,10 +325,7 @@ namespace roch_base
   {
 
     for(int i=0;i<2;i++){ 
-      ROS_DEBUG_STREAM("Received joint[%d].position:%.2lf, joint[%d].velocity:%.2lf, joint[%d].effort:%.2lf",						
-						i,joints_[i].position,
-						i, joints_[i].velocity,
-						i,joints_[i].effort);      
+       ROS_DEBUG_STREAM("Received joint["<<i<<"].position:"<<joints_[i].position<<", joint["<<i<<"].velocity:"<<joints_[i].velocity<<", joint["<<i<<"].effort:"<<joints_[i].effort<<"."); 
     } 
 
     core::Channel<sawyer::DataEncoders>::Ptr enc = core::Channel<sawyer::DataEncoders>::requestData(
@@ -352,13 +342,13 @@ namespace roch_base
         if (std::abs(delta) < 1.0)
         {
           joints_[i].position += delta;
-	      ROS_DEBUG_STREAM("jiounts_[%d].postion:%lf,delta:%lf.",i,joints_[i].position,delta);
+	      ROS_DEBUG_STREAM("jiounts_["<<i<<"].postion:"<<joints_[i].position<<",delta:"<<delta<<".");
         }
         else
         {
           // suspicious! drop this measurement and update the offset for subsequent readings
           joints_[i].position_offset += delta;
-	      ROS_DEBUG_STREAM("jiounts_[%d].position_offset:%lf,delta:%lf.",i,joints_[i].position_offset,delta);
+	      ROS_DEBUG_STREAM("jiounts_["<<i<<"].position_offset:"<<joints_[i].position_offset<<",delta:"<<delta<<".");
         }
       }
       
@@ -374,11 +364,11 @@ namespace roch_base
         if (i % 2 == LEFT)
         {
           joints_[i].velocity = linearToAngular(speed->getLeftSpeed());
-	      ROS_DEBUG_STREAM("jiounts_[%d].velocity:%lf.",i,joints_[i].velocity);
+	      ROS_DEBUG_STREAM("jiounts_["<<i<<"].velocity:"<<joints_[i].velocity<<".");
         }
         else
         { // assume RIGHT
-	      ROS_DEBUG_STREAM("jiounts_[%d].velocity:%lf.",i,joints_[i].velocity);
+	      ROS_DEBUG_STREAM("jiounts_["<<i<<"].velocity:"<<joints_[i].velocity<<".");
           joints_[i].velocity = linearToAngular(speed->getRightSpeed());
         }
       }
@@ -405,8 +395,7 @@ namespace roch_base
       orientation[2] = orien.z;
       orientation[3] = orien.w;
       imuMsgData.orientation = orientation;
-      ROS_DEBUG_STREAM("Received imu msg data, orientation.x:%lf, orientation.y:%lf, orientation.z:%lf, orientation.w:%lf",
-		  imuMsgData.orientation[0],imuMsgData.orientation[1],imuMsgData.orientation[2],imuMsgData.orientation[3]);
+      ROS_DEBUG_STREAM("Received imu msg data, orientation.x:"<<imuMsgData.orientation[0]<<", orientation.y:"<<imuMsgData.orientation[1]<<", orientation.z:"<<imuMsgData.orientation[2]<<", orientation.w:"<<imuMsgData.orientation[3]<<".");
 
       angular_velocity[0] = 0.0;
       angular_velocity[1] = 0.0;
@@ -427,8 +416,8 @@ namespace roch_base
     double diff_speed_left = angularToLinear(joints_[LEFT].velocity_command);
     double diff_speed_right = angularToLinear(joints_[RIGHT].velocity_command);
 
-    ROS_DEBUG_STREAM("diff_speed_left:%lf,joints_[LEFT].velocity_command:%lf.",diff_speed_left,joints_[LEFT].velocity_command);
-    ROS_DEBUG_STREAM("diff_speed_right:%lf,joints_[RIGHT].velocity_command:%lf.",diff_speed_left,joints_[RIGHT].velocity_command);
+    ROS_DEBUG_STREAM("diff_speed_left:"<<diff_speed_left<<",joints_[LEFT].velocity_command:"<<joints_[LEFT].velocity_command<<".");
+    ROS_DEBUG_STREAM("diff_speed_right:"<<diff_speed_left<<",joints_[RIGHT].velocity_command:"<<joints_[RIGHT].velocity_command<<".");
 
     limitDifferentialSpeed(diff_speed_left, diff_speed_right);
     core::controlSpeed(diff_speed_left, diff_speed_right, max_accel_, max_accel_);
