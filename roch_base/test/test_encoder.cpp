@@ -85,11 +85,11 @@ void speedCallBack(const geometry_msgs::Twist::ConstPtr& speed){
 ros::Subscriber speedSubscriber_;
 int main(int argc, char** argv){
   ros::init(argc,argv,"test_encoder");
-  std::string port = "/dev/ttyUSB0";
+  std::string port = "/dev/roch";
   core::connect(port);
   
   ros::NodeHandle nh;
-  speedSubscriber_ = nh.subscribe("/roch_velocity_controller/cmd_vel",100000,&speedCallBack);
+  speedSubscriber_ = nh.subscribe("/twist_mux/keyboard_teleop/cmd_vel",100000,&speedCallBack);
 
     ROS_INFO("begin send requestData");
  

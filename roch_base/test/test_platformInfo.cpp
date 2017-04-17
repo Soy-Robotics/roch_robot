@@ -51,7 +51,7 @@ namespace
 };
 int main(int argc, char** argv){
   
-  std::string port = "/dev/ttyUSB0";
+  std::string port = "/dev/roch";
   core::connect(port);
   while(1){
     ROS_INFO("begin send requestData");
