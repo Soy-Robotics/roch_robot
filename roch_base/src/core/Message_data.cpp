@@ -6,9 +6,6 @@
 #include <string>
 #include <string.h>
 #include <sstream>
-#ifdef DEBUG_INFO 
-   #include "roch_base/roch_hardware.h"//for ROS_INFO
-#endif 
 
 using namespace std;
 
@@ -112,22 +109,7 @@ enum MessageTypes MessageClass::getTypeID() { \
   {
     return btof(getPayloadPointer(LEFT_D), 2, 100);
   }
-/*
-  double DataDifferentialControl::getLeftFeedForward()
-  {
-    return btof(getPayloadPointer(LEFT_FEEDFWD), 2, 100);
-  }
 
-  double DataDifferentialControl::getLeftStiction()
-  {
-    return btof(getPayloadPointer(LEFT_STIC), 2, 100);
-  }
-
-  double DataDifferentialControl::getLeftIntegralLimit()
-  {
-    return btof(getPayloadPointer(LEFT_INT_LIM), 2, 100);
-  }
-*/
   double DataDifferentialControl::getRightP()
   {
     return btof(getPayloadPointer(RIGHT_P), 2, 100);
@@ -142,22 +124,7 @@ enum MessageTypes MessageClass::getTypeID() { \
   {
     return btof(getPayloadPointer(RIGHT_D), 2, 100);
   }
-/*
-  double DataDifferentialControl::getRightFeedForward()
-  {
-    return btof(getPayloadPointer(RIGHT_FEEDFWD), 2, 100);
-  }
 
-  double DataDifferentialControl::getRightStiction()
-  {
-    return btof(getPayloadPointer(RIGHT_STIC), 2, 100);
-  }
-
-  double DataDifferentialControl::getRightIntegralLimit()
-  {
-    return btof(getPayloadPointer(RIGHT_INT_LIM), 2, 100);
-  }
-*/
   ostream &DataDifferentialControl::printMessage(ostream &stream)
   {
     stream << "Differential Control Constant Data" << endl;
@@ -165,15 +132,9 @@ enum MessageTypes MessageClass::getTypeID() { \
     stream << "Left P              : " << getLeftP() << endl;
     stream << "Left I              : " << getLeftI() << endl;
     stream << "Left D              : " << getLeftD() << endl;
-//    stream << "Left Feed Forward   : " << getLeftFeedForward() << endl;
-//    stream << "Left Stiction       : " << getLeftStiction() << endl;
-//    stream << "Left Integral Limit : " << getLeftIntegralLimit() << endl;
     stream << "Right P             : " << getRightP() << endl;
     stream << "Right I             : " << getRightI() << endl;
     stream << "Right D             : " << getRightD() << endl;
-//    stream << "Right Feed Forward  : " << getRightFeedForward() << endl;
-//    stream << "Right Stiction      : " << getRightStiction() << endl;
-//    stream << "Right Integral Limit: " << getRightIntegralLimit() << endl;
     return stream;
   }
 

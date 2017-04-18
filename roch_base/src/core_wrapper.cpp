@@ -99,7 +99,6 @@ namespace core
     bool success = false;
     double lin_vel = (speed_left + speed_right)*0.5;
     double ang_vel = (speed_left - speed_right)/(2*0.12);
-    ROS_INFO("speed_left:%.2lf, speed_right:%.2lf, ang_vel:%.2lf",speed_left,speed_right,ang_vel);
     
     double acc = (accel_left + accel_right)*0.5;
     

@@ -60,9 +60,7 @@
 #include "roch_base/core/Message_cmd.h"
 #include "roch_base/core/serial.h"
 #include "roch_base/core/Logger.h"
-#ifdef DEBUG_INFO 
-  #include "roch_base/roch_hardware.h"//for ROS_INFO
-#endif 
+
 using namespace std;
 
 namespace sawyer
@@ -276,7 +274,7 @@ namespace sawyer
           /* Waiting for ~length */
         case 2:
           rx_inx++;
-          msg_len = rx_buf[1] + 3;//??????????(SOH/LENGTH[0]/LENGTH[1])??????+3
+          msg_len = rx_buf[1] + 3;//
 
           /* Check for valid length */
           if (static_cast<unsigned char>(rx_buf[1] ^ rx_buf[2]) != 0xFF ||
@@ -593,9 +591,6 @@ namespace sawyer
       if ((*iter)->getType() == type)
       {
         next = *iter;
-#ifdef DEBUG_INFO 
-     ROS_INFO("Transport::popNext:type:%x",(*iter)->getType());
-#endif 	
         rx_queue.erase(iter);
         return next;
       }
@@ -719,7 +714,6 @@ namespace sawyer
     {
       if ((*iter)->getType() == type)
       {
-	std::cout<<"MessageTypes:"<<(*iter)->getType()<<std::endl;
         /* Element is of flush type.  If there's a destination
          * list, move it.  Otherwise, destroy it */
         if (queue)

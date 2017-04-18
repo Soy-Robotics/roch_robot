@@ -3,10 +3,10 @@
 *  File: Message.h
 *  Desc: Definition for the Message class. This class represents a
 *        single message which is sent or received from a platform
-*  \C3\E8\CA\F6: \B6\A8\D2\E5Message\C0࣬\D5\E2\B8\F6\C0\E0\B4\FA\B1\ED\C1\CB\CF\F2armƽ̨\B7\A2\CBͻ\F2\BD\D3\CA\D5\CF\FBϢ.
 *  Auth: R. Gariepy, Iain Peet
 *
-*  Copyright (c) 2010, sawyer Robotics, Inc.
+*  Copyright (c) 2010, Clearpath Robotics, Inc.
+*  Copyright (c) 2016, SawYer Robotics, Inc.
 *  All Rights Reserved
 *
 * Redistribution and use in source and binary forms, with or without
@@ -16,14 +16,14 @@
 *     * Redistributions in binary form must reproduce the above copyright
 *       notice, this list of conditions and the following disclaimer in the
 *       documentation and/or other materials provided with the distribution.
-*     * Neither the name of sawyer Robotics, Inc. nor the
+*     * Neither the name of Clearpath Robotics, Inc. nor the
 *       names of its contributors may be used to endorse or promote products
 *       derived from this software without specific prior written permission.
 *
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-* DISCLAIMED. IN NO EVENT SHALL sawyer ROBOTICS, INC. BE LIABLE FOR ANY
+* DISCLAIMED. IN NO EVENT SHALL Clearpath ROBOTICS, INC. BE LIABLE FOR ANY
 * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -31,7 +31,7 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* Please send comments, questions, or patches to skynet@sawyerrobotics.com
+* Please send comments, questions, or patches to skynet@clearpathrobotics.com
 *
 */
 
@@ -116,7 +116,7 @@ namespace sawyer
 
     void setFlags(uint8_t flags);
 
-    void setType(uint16_t type); //ԭ\B1\BE \D0±\BE\D3и\FC\D0\C2
+    void setType(uint16_t type); 
 	
     uint8_t *getPayloadPointer(size_t offset = 0);
 
@@ -133,7 +133,6 @@ namespace sawyer
 
     Message(const Message &other);
 
-//ԭ\B1\BE \D0±\BE\CC滻
     Message(uint16_t type, uint8_t *payload, size_t payload_len,
         uint32_t timestamp = 0, uint8_t flags = 0, uint8_t version = 0);
 	
@@ -149,12 +148,12 @@ namespace sawyer
 
     uint8_t getFlags();
 
-    uint16_t getType();//ԭ\B1\BE \D0±\BE\D3и\FC\D0\C2
-    size_t getType(void *buf, size_t max_size);//\D0±\BEadd
+    uint16_t getType();
+    size_t getType(void *buf, size_t max_size);
 
     uint16_t getChecksum();
 
-    size_t getTypeLength() //\D0±\BEadd
+    size_t getTypeLength() 
     {
 	 return ((total_len - HEADER_LENGTH - CRC_LENGTH));
     }
