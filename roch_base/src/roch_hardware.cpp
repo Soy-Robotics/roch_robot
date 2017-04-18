@@ -339,7 +339,7 @@ namespace roch_base
       {
         double delta = linearToAngular(enc->getTravel(i % 2)) - joints_[i].position - joints_[i].position_offset;
         // detect suspiciously large readings, possibly from encoder rollover
-        if (std::abs(delta) < 1.0)
+        if (std::abs(delta) < 2.0)
         {
           joints_[i].position += delta;
 	      ROS_DEBUG_STREAM("jiounts_["<<i<<"].postion:"<<joints_[i].position<<",delta:"<<delta<<".");
