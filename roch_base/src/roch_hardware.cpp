@@ -180,7 +180,7 @@ namespace roch_base
     publishRawData();
  
     if(getPlatformName){
-      std::cout<<"Received platform name:"<<getPlatformName->getName()<<std::endl;   
+      ROS_DEBUG_STREAM("Received platform name:"<<getPlatformName->getName());   
     }
 
   }
