@@ -34,6 +34,7 @@
   <run_depend>controller_manager</run_depend>
   <run_depend>teleop_twist_joy</run_depend>
   <run_depend>twist_mux</run_depend>
+  <run_depend>imu_sensor_controller</run_depend>
 
 
   <export>
