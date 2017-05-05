@@ -5,28 +5,28 @@ world_frame: odom
 
 two_d_mode: true
 
-frequency: 10
+frequency: 50
 
 odom0: roch_velocity_controller/odom
 odom0_config: [true, true, false,
                false, false, false,
+               true, true, false,
                false, false, false,
-               false, false, true,
                false, false, false]
 odom0_differential: false
-odom0_queue_size: 10
+odom0_queue_size: 50
 
 imu0: roch_sensor_controller/imu/data
-#imu0_config: [false, false, false,
-#              false, false, true,
-#              false, false, false,
-#              true, true, true,
-#              false, false, true]
-
+#imu0_config: [false, false, false,  #  x    y    z
+#              false, false, true,   # roll  pitch  yaw
+#              false, false, false,  #  x    y    z  velocity
+#              true, true, true,     # roll  pitch  yaw velocity
+#              false, false, true]   #  x    y    z acce;eration
+# true will cause woring that transform base_link to odom time .
 imu0_config: [false, false, false,
               false, false, true,
               false, false, false,
-              false, false, true,
+              false, false, false,
               false, false, false]
 imu0_differential: true
 imu0_queue_size: 50
