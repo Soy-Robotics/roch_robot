@@ -49,10 +49,20 @@ add_executable(test_speed
   src/core_wrapper.cpp)
 target_link_libraries(test_speed core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 
-add_executable(test_rangefinder
+add_executable(test_rangefinder 
   test/test_rangefinder.cpp
   src/core_wrapper.cpp)
 target_link_libraries(test_rangefinder core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(test_pid
+  test/test_pid.cpp
+  src/core_wrapper.cpp)
+target_link_libraries(test_pid core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(test_wheelinfo
+  test/test_wheelinfo.cpp
+  src/core_wrapper.cpp)
+target_link_libraries(test_wheelinfo core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 #add_dependencies(test_encoder roch_msgs_gencpp)
 roslint_cpp(
   src/roch_base.cpp

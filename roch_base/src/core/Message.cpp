@@ -109,7 +109,7 @@ Message::Message(uint16_t type, uint8_t *payload, size_t payload_len,
       /* If payload is too long, the only recourse we have in constructor
        * (other than an abort()) is to truncate silently. */
       total_len = MAX_MSG_LENGTH;
-      payload_len = (MAX_MSG_LENGTH - HEADER_LENGTH - CRC_LENGTH);// �±��и���
+      payload_len = (MAX_MSG_LENGTH - HEADER_LENGTH - CRC_LENGTH);
     }
     memset(data, 0, MAX_MSG_LENGTH);
     memcpy(data + PAYLOAD_OFST, payload, payload_len);
@@ -117,7 +117,7 @@ Message::Message(uint16_t type, uint8_t *payload, size_t payload_len,
     /* Fill header */
     data[SOH_OFST] = SOH;
     setLength(total_len - 3);
-    setType(type);//ԭ�� �±��и��� data + TYPE_OFST, messagetype,message_type_len
+    setType(type);
     setFlags(flags);
     setVersion(version);
     data[STX_OFST] = STX;
@@ -240,7 +240,7 @@ Message::Message(uint16_t type, uint8_t *payload, size_t payload_len,
     return data[FLAGS_OFST];
   }
 
-  uint16_t Message::getType() //ԭ�� �±��и���
+  uint16_t Message::getType() 
   {
     return btou(data + TYPE_OFST, 2);
   }
@@ -269,7 +269,7 @@ Message::Message(uint16_t type, uint8_t *payload, size_t payload_len,
     data[FLAGS_OFST] = flags;
   }
 
-  void Message::setType(uint16_t type)//ԭ�� �±��и���
+  void Message::setType(uint16_t type)
   {
     utob(data + TYPE_OFST, 2, type);
   }
@@ -432,7 +432,7 @@ Message::Message(uint16_t type, uint8_t *payload, size_t payload_len,
         return new DataRawAcceleration(input, msg_len);
 
       case DATA_6AXIS_YAW:
-	return new Data6AxisYaw(input, msg_len);
+        return new Data6AxisYaw(input, msg_len);
 
       case DATA_ACKERMANN_SETPTS:
         return new DataAckermannOutput(input, msg_len);
@@ -451,6 +451,9 @@ Message::Message(uint16_t type, uint8_t *payload, size_t payload_len,
 
       case DATA_DIFF_WHEEL_SETPTS:
         return new DataDifferentialOutput(input, msg_len);
+
+      case DATA_WHEEL_INFO:
+        return new DataWheelInfo(input,msg_len);
 
       case DATA_DISTANCE_DATA:
         return new DataRangefinders(input, msg_len);
@@ -478,6 +481,9 @@ Message::Message(uint16_t type, uint8_t *payload, size_t payload_len,
 
       case DATA_MAGNETOMETER_RAW:
         return new DataRawMagnetometer(input, msg_len);
+
+      case DATA_XYZ_DATA:
+        return new DataXYZData(input, msg_len);
 
       case DATA_MAX_ACCEL:
         return new DataMaxAcceleration(input, msg_len);

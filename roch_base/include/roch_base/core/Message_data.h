@@ -94,20 +94,6 @@ namespace sawyer
       RIGHT_I = 8,
       RIGHT_D = 10,
       PAYLOAD_LEN = 12
-     /* under this is for sawyer*/	
-//      LEFT_P = 0,
-//      LEFT_I = 2,
-//      LEFT_D = 4,      
-//      LEFT_FEEDFWD = 6,
-//      LEFT_STIC = 8,
-//      LEFT_INT_LIM = 10,
-//      RIGHT_P = 12,
-//      RIGHT_I = 14,
-//      RIGHT_D = 16,
-//      RIGHT_FEEDFWD = 18,
-//      RIGHT_STIC = 20,
-//      RIGHT_INT_LIM = 22,
-//      PAYLOAD_LEN = 24
     };
 
   public:
@@ -131,23 +117,11 @@ namespace sawyer
 
     double getLeftD();
 
-//    double getLeftFeedForward();
-
-//    double getLeftStiction();
-
-//    double getLeftIntegralLimit();
-
     double getRightP();
 
     double getRightI();
 
     double getRightD();
-
-//    double getRightFeedForward();
-
-//    double getRightStiction();
-
-//    double getRightIntegralLimit();
 
     virtual std::ostream &printMessage(std::ostream &stream = std::cout);
   };
@@ -218,6 +192,38 @@ namespace sawyer
     double getRightSpeed();
 
     double getRightAccel();
+
+    virtual std::ostream &printMessage(std::ostream &stream = std::cout);
+  };
+
+  class DataWheelInfo : public Message
+  {
+  public:
+    enum payloadOffsets
+    {
+      WHEEL_GAUGE = 0,
+      WHEEL_DIAMETER = 2,
+      PAYLOAD_LEN = 4
+    };
+
+  public:
+    DataWheelInfo(void *input, size_t msg_len);
+
+    DataWheelInfo(const DataWheelInfo &other);
+
+    static DataWheelInfo *popNext();
+
+    static DataWheelInfo *waitNext(double timeout = 0);
+
+    static DataWheelInfo *getUpdate(double timeout = 0);
+
+    static void subscribe(uint16_t freq);
+
+    static enum MessageTypes getTypeID();
+
+    double getWheelGauge();
+
+    double getWheelDiameter();
 
     virtual std::ostream &printMessage(std::ostream &stream = std::cout);
   };
@@ -936,6 +942,40 @@ namespace sawyer
     uint16_t getZ();
 
     virtual std::ostream &printMessage(std::ostream &stream = std::cout);
+  };
+
+  class DataXYZData : public Message
+  {
+  public:
+    enum payloadOffsets
+    {
+      X_DISTENCE = 0,
+      Y_DISTENCE = 4,
+      Z_RADIAN = 8,
+      PAYLOAD_LEN = 10
+    };
+  public:
+    DataXYZData(void *input, size_t msg_len);
+
+    DataXYZData(const DataXYZData &other);
+
+    static DataXYZData *popNext();
+
+    static DataXYZData *waitNext(double timeout = 0);
+
+    static DataXYZData *getUpdate(double timeout = 0);
+
+    static void subscribe(uint16_t freq);
+
+    static enum MessageTypes getTypeID();
+
+    double getXDistence();
+
+    double getYDistence();
+
+    double getZRadian();
+
+    virtual std::ostream &printMessage(std::ostream &stream = std::cout);    
   };
 
   class DataRawOrientation : public Message

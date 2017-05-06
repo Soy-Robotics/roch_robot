@@ -97,32 +97,32 @@ enum MessageTypes MessageClass::getTypeID() { \
 
   double DataDifferentialControl::getLeftP()
   {
-    return btof(getPayloadPointer(LEFT_P), 2, 100);
+    return btof(getPayloadPointer(LEFT_P), 2, 10000);
   }
 
   double DataDifferentialControl::getLeftI()
   {
-    return btof(getPayloadPointer(LEFT_I), 2, 100);
+    return btof(getPayloadPointer(LEFT_I), 2, 10000);
   }
 
   double DataDifferentialControl::getLeftD()
   {
-    return btof(getPayloadPointer(LEFT_D), 2, 100);
+    return btof(getPayloadPointer(LEFT_D), 2, 10000);
   }
 
   double DataDifferentialControl::getRightP()
   {
-    return btof(getPayloadPointer(RIGHT_P), 2, 100);
+    return btof(getPayloadPointer(RIGHT_P), 2, 10000);
   }
 
   double DataDifferentialControl::getRightI()
   {
-    return btof(getPayloadPointer(RIGHT_I), 2, 100);
+    return btof(getPayloadPointer(RIGHT_I), 2, 10000);
   }
 
   double DataDifferentialControl::getRightD()
   {
-    return btof(getPayloadPointer(RIGHT_D), 2, 100);
+    return btof(getPayloadPointer(RIGHT_D), 2, 10000);
   }
 
   ostream &DataDifferentialControl::printMessage(ostream &stream)
@@ -199,6 +199,29 @@ enum MessageTypes MessageClass::getTypeID() { \
     return stream;
   }
 
+
+  MESSAGE_CONSTRUCTORS(DataWheelInfo, PAYLOAD_LEN);
+
+  MESSAGE_CONVENIENCE_FNS(DataWheelInfo, DATA_WHEEL_INFO);
+
+  double DataWheelInfo::getWheelGauge()
+  {
+    return btof(getPayloadPointer(WHEEL_GAUGE), 2, 10000);
+  }
+
+  double DataWheelInfo::getWheelDiameter()
+  {
+    return btof(getPayloadPointer(WHEEL_DIAMETER), 2, 10000);
+  }
+
+  ostream &DataWheelInfo::printMessage(ostream &stream)
+  {
+    stream << "Wheel Information" << endl;
+    stream << "=======================" << endl;
+    stream << "Wheel Gauge    : " << getWheelGauge() << endl;
+    stream << "Wheel Diameter : " << getWheelDiameter() << endl;
+    return stream;
+  }
 
   MESSAGE_CONSTRUCTORS(DataEcho, 0)
 
@@ -530,6 +553,36 @@ enum MessageTypes MessageClass::getTypeID() { \
     return stream;
   }
 
+
+  
+  MESSAGE_CONSTRUCTORS(DataXYZData, PAYLOAD_LEN)
+
+  MESSAGE_CONVENIENCE_FNS(DataXYZData, DATA_XYZ_DATA)
+
+  double DataXYZData::getXDistence()
+  {
+    return btof(getPayloadPointer(X_DISTENCE), 4, 1000);
+  }
+
+  double DataXYZData::getYDistence()
+  {
+    return btof(getPayloadPointer(Y_DISTENCE), 4, 1000);
+  }
+  
+  double DataXYZData::getZRadian()
+  {
+    return btof(getPayloadPointer(Z_RADIAN), 4, 1000);
+  }
+
+  ostream &DataXYZData::printMessage(ostream &stream)
+  {
+    stream << "Waypoints: X Y Z Data" << endl;
+    stream << "=================" << endl;
+    stream << "X: " << getXDistence() << endl;
+    stream << "Y: " << getYDistence() << endl;
+    stream << "Z: " << getZRadian() << endl;
+    return stream;
+  }
 
 
   MESSAGE_CONSTRUCTORS(DataPlatformOrientation, PAYLOAD_LEN)

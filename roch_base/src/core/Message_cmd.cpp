@@ -154,35 +154,22 @@ namespace sawyer
   SetDifferentialControl::SetDifferentialControl(
       double p,
       double i,
-      double d,
-      double feedfwd,
-      double stic,
-      double int_lim)
+      double d)
       : CmdMessage()
   { 
 #ifdef DEBUG_INFO
-    ROS_DEBUG_STREAM("SetDifferentialControl: P:%.2lf,I:%.2lf,D:%.2lf,feedfwd:%.2lf,stic:%.2lf,int_lim:%.2lf", p, i,
-       d,
-       feedfwd,
-       stic,
-       int_lim);
+    ROS_DEBUG_STREAM("SetDifferentialControl: P:%.2lf,I:%.2lf,D:%.2lf.", p, i, d);
 #endif
   
     setPayloadLength(PAYLOAD_LEN);
 
-    ftob(getPayloadPointer(LEFT_P), 2, p, 100);
-    ftob(getPayloadPointer(LEFT_I), 2, i, 100);
-    ftob(getPayloadPointer(LEFT_D), 2, d, 100);
-    ftob(getPayloadPointer(LEFT_FEEDFWD), 2, feedfwd, 100);
-    ftob(getPayloadPointer(LEFT_STIC), 2, stic, 100);
-    ftob(getPayloadPointer(LEFT_INT_LIM), 2, int_lim, 100);
+    ftob(getPayloadPointer(LEFT_P), 2, p, 10000);
+    ftob(getPayloadPointer(LEFT_I), 2, i, 10000);
+    ftob(getPayloadPointer(LEFT_D), 2, d, 10000);
 
-    ftob(getPayloadPointer(RIGHT_P), 2, p, 100);
-    ftob(getPayloadPointer(RIGHT_I), 2, i, 100);
-    ftob(getPayloadPointer(RIGHT_D), 2, d, 100);
-    ftob(getPayloadPointer(RIGHT_FEEDFWD), 2, feedfwd, 100);
-    ftob(getPayloadPointer(RIGHT_STIC), 2, stic, 100);
-    ftob(getPayloadPointer(RIGHT_INT_LIM), 2, int_lim, 100);
+    ftob(getPayloadPointer(RIGHT_P), 2, p, 10000);
+    ftob(getPayloadPointer(RIGHT_I), 2, i, 10000);
+    ftob(getPayloadPointer(RIGHT_D), 2, d, 10000);
 
     setType(SET_DIFF_CTRL_CONSTS);
     makeValid();
@@ -192,47 +179,29 @@ namespace sawyer
       double left_p,
       double left_i,
       double left_d,
-      double left_feedfwd,
-      double left_stic,
-      double left_int_lim,
       double right_p,
       double right_i,
-      double right_d,
-      double right_feedfwd,
-      double right_stic,
-      double right_int_lim)
+      double right_d)
       : CmdMessage()
   {
 #ifdef DEBUG_INFO
-    ROS_DEBUG_STREAM("SetDifferentialControl: left_p:%.2lf,left_i:%.2lf,left_d:%.2lf,left_feedfwd:%.2lf,left_stic:%.2lf,left_int_lim:%.2lf,"
-				     "right_p:%.2lf,right_i:%.2lf,right_d:%.2lf,right_feedfwd:%.2lf,right_stic:%.2lf,right_int_lim:%.2lf,", left_p,
+    ROS_DEBUG_STREAM("SetDifferentialControl: left_p:%.2lf,left_i:%.2lf,left_d:%.2lf"
+				     "right_p:%.2lf,right_i:%.2lf,right_d:%.2lf.", left_p,
        left_i,
        left_d,
-       left_feedfwd,
-       left_stic,
-       left_int_lim,
        right_p,
        right_i,
-       right_d,
-       right_feedfwd,
-       right_stic,
-       right_int_lim);
+       right_d);
 #endif
     setPayloadLength(PAYLOAD_LEN);
 
-    ftob(getPayloadPointer(LEFT_P), 2, left_p, 100);
-    ftob(getPayloadPointer(LEFT_I), 2, left_i, 100);
-    ftob(getPayloadPointer(LEFT_D), 2, left_d, 100);
-    ftob(getPayloadPointer(LEFT_FEEDFWD), 2, left_feedfwd, 100);
-    ftob(getPayloadPointer(LEFT_STIC), 2, left_stic, 100);
-    ftob(getPayloadPointer(LEFT_INT_LIM), 2, left_int_lim, 100);
+    ftob(getPayloadPointer(LEFT_P), 2, left_p, 10000);
+    ftob(getPayloadPointer(LEFT_I), 2, left_i, 10000);
+    ftob(getPayloadPointer(LEFT_D), 2, left_d, 10000);
 
-    ftob(getPayloadPointer(RIGHT_P), 2, right_p, 100);
-    ftob(getPayloadPointer(RIGHT_I), 2, right_i, 100);
-    ftob(getPayloadPointer(RIGHT_D), 2, right_d, 100);
-    ftob(getPayloadPointer(RIGHT_FEEDFWD), 2, right_feedfwd, 100);
-    ftob(getPayloadPointer(RIGHT_STIC), 2, right_stic, 100);
-    ftob(getPayloadPointer(RIGHT_INT_LIM), 2, right_int_lim, 100);
+    ftob(getPayloadPointer(RIGHT_P), 2, right_p, 10000);
+    ftob(getPayloadPointer(RIGHT_I), 2, right_i, 10000);
+    ftob(getPayloadPointer(RIGHT_D), 2, right_d, 10000);
 
     setType(SET_DIFF_CTRL_CONSTS);
     makeValid();
@@ -409,6 +378,23 @@ namespace sawyer
   {
   }
 
+  SetWheelInfo::SetWheelInfo(double wheel_gauge, double wheel_diameter) : CmdMessage()
+  {
+    setPayloadLength(PAYLOAD_LEN);
+#ifdef DEBUG_INFO
+    ROS_DEBUG_STREAM("Set Wheel gauge: %.2lf, wheel diameter: %.2lf .",wheel_gauge,wheel_diameter);
+#endif
+
+    ftob(getPayloadPointer(WHEEL_GAUGE), 2, wheel_gauge, 10000);
+    ftob(getPayloadPointer(WHEEL_DIAMETER), 2, wheel_diameter, 10000);
+
+    setType(SET_WHEEL_INFO);
+    makeValid();
+  }
+ 
+  SetWheelInfo::SetWheelInfo(const SetWheelInfo &other) : CmdMessage(other)
+  {
+  }
 
   SetVelocity::SetVelocity(double trans, double rot, double accel) : CmdMessage()
   {

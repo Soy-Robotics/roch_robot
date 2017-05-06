@@ -116,38 +116,23 @@ namespace sawyer
       LEFT_P = 0,
       LEFT_I = 2,
       LEFT_D = 4,
-      LEFT_FEEDFWD = 6,
-      LEFT_STIC = 8,
-      LEFT_INT_LIM = 10,
-      RIGHT_P = 12,
-      RIGHT_I = 14,
-      RIGHT_D = 16,
-      RIGHT_FEEDFWD = 18,
-      RIGHT_STIC = 20,
-      RIGHT_INT_LIM = 22,
-      PAYLOAD_LEN = 24
+      RIGHT_P = 6,
+      RIGHT_I = 8,
+      RIGHT_D = 10,
+      PAYLOAD_LEN = 12
     };
 
   public:
     SetDifferentialControl(double p,
         double i,
-        double d,
-        double feedfwd,
-        double stic,
-        double int_lim);
+        double d);
 
     SetDifferentialControl(double left_p,
         double left_i,
         double left_d,
-        double left_feedfwd,
-        double left_stic,
-        double left_int_lim,
         double right_p,
         double right_i,
-        double right_d,
-        double right_feedfwd,
-        double right_stic,
-        double right_int_lim);
+        double right_d);
 
     SetDifferentialControl(const SetDifferentialControl &other);
   };
@@ -265,6 +250,23 @@ namespace sawyer
     SetTurn(double trans, double rad, double accel);
 
     SetTurn(const SetTurn &other);
+  };
+
+  class SetWheelInfo : public CmdMessage
+  {
+  public:
+    enum payloadOffsets
+    {      
+      WHEEL_GAUGE = 0,
+      WHEEL_DIAMETER = 2,
+      PAYLOAD_LEN = 4
+    };
+
+  public:
+    SetWheelInfo(double wheel_gauge, double Wheel_diameter);
+
+    SetWheelInfo(const SetWheelInfo &other);
+
   };
 
   class SetVelocity : public CmdMessage
