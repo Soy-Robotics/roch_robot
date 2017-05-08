@@ -1,6 +1,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.14 (2017-05-08)
+-------------------
+* Add PID and Wheel Info protocol.
+
 1.0.13 (2017-03-23)
 -------------------
 * Fixed odom rotation which combine encoders and imu, only enconders great errors.
