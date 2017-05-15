@@ -25,11 +25,11 @@
     version: indigo
 
 - git:
-    uri: https://github.com/roch/roch_robot.git
+    uri: https://github.com/SawYer-Robotics/roch_robot.git
     local-name: roch_robot
     version: indigo
 
 - git:
-    uri: https://github.com/roch/roch_concert.git
+    uri: https://github.com/SawYer-Robotics/roch_concert.git
     local-name: roch_concert
     version: indigo
