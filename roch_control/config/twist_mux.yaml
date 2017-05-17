@@ -2,15 +2,15 @@ topics:
 - name    : safety controller
   topic   : twist_mux/safety_controller/cmd_vel
   timeout : 1.0
-  priority: 80
+  priority: 60
 - name    : joy
   topic   : twist_mux/joy_teleop/cmd_vel
   timeout : 0.5
-  priority: 50
+  priority: 80
 - name    : keyboard
   topic   : twist_mux/keyboard_teleop/cmd_vel
   timeout : 0.5
-  priority: 50
+  priority: 80
 - name    : interactive_marker
   topic   : twist_mux/twist_marker_server/cmd_vel
   timeout : 0.5
