@@ -3,39 +3,26 @@
   <xacro:include filename="$(find roch_description)/urdf/roch_gazebo.urdf.xacro"/>
   <xacro:include filename="$(find roch_description)/urdf/roch_properties.urdf.xacro"/>
   
-  <xacro:property name="astra_cam_py" value="-0.0125"/>
+  <xacro:property name="astra_cam_py" value="0.0125"/>
   <!-- Parameterised in part by the values in roch_properties.urdf.xacro -->
   <xacro:macro name="sensor_astra" params="parent">
     <joint name="camera_rgb_joint" type="fixed">
-      <origin xyz="${astra_px} ${astra_cam_py} ${astra_pz}" rpy="${astra_or} ${astra_op} ${astra_oy}"/>
+      <origin xyz="${astra_px} ${astra_py} ${astra_pz}" rpy="${astra_or} ${astra_op} ${astra_oy}"/>
       <parent link="${parent}"/>
-      <child link="camera_rgb_frame" />
+      <child link="camera_link" />
     </joint>
-    <link name="camera_rgb_frame"/>
-
-    <joint name="camera_rgb_optical_joint" type="fixed">
-      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="camera_rgb_frame" />
-      <child link="camera_rgb_optical_frame" />
-    </joint>
-    <link name="camera_rgb_optical_frame"/>
-
-    <joint name="camera_joint" type="fixed">
-      <origin xyz="0 ${-astra_cam_py} 0.01" rpy="0 0 0"/>
-      <parent link="camera_rgb_frame"/>
-      <child link="camera_link"/>
-    </joint>  
-      <link name="camera_link">
+    <link name="camera_link">
       <visual>
-       <origin xyz="0 0 0" rpy="${M_PI/2} 0 ${M_PI/2}"/>
+       <origin xyz="0 0 0" rpy="1.5707963 0 1.5707963"/>
         <geometry>
-         <mesh filename="package://roch_description/meshes/sensors/astra.dae"/>
+         <mesh filename="package://roch_description/meshes/sensors/astra.dae" scale="0.5 0.5 0.5" />
         </geometry>
+	    <xacro:insert_block name="roch_black"/>
       </visual>
   	  <collision>
-        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
-  	    <geometry>
-  	      <box size="0.07271 0.27794 0.073"/>
+        <origin xyz="0.0 0.0 0.0" rpy="1.5707963 0 1.5707963"/>
+  	    <geometry>.
+         <mesh filename="package://roch_description/meshes/sensors/astra.dae" scale="0.5 0.5 0.5" />
   	    </geometry>
   	  </collision>
       <inertial>
@@ -47,11 +34,26 @@
       </inertial>
     </link>
 
+    <joint name="camera_joint" type="fixed">
+      <origin xyz="0.025 ${astra_cam_py} 0.01  " rpy="0 0 0"/>
+      <parent link="camera_link"/>
+      <child link="camera_rgb_frame"/>
+    </joint>  
+    <link name="camera_rgb_frame"/>
+
+    <joint name="camera_rgb_optical_joint" type="fixed">
+      <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
+      <parent link="camera_rgb_frame" />
+      <child link="camera_rgb_optical_frame" />
+    </joint>
+    <link name="camera_rgb_optical_frame"/>
+
+
     <!-- The fixed joints & links below are usually published by static_transformers launched by the OpenNi launch 
          files. However, for Gazebo simulation we need them, so we add them here.
          (Hence, don't publish them additionally!) -->
 	<joint name="camera_depth_joint" type="fixed">
-	  <origin xyz="0 ${2 * -astra_cam_py} 0" rpy="0 0 0" />
+	  <origin xyz="0 ${-0.03 -astra_cam_py} 0" rpy="0 0 0" />
 	  <parent link="camera_rgb_frame" />
 	  <child link="camera_depth_frame" />
 	</joint>
@@ -64,7 +66,7 @@
 	</joint>
 	<link name="camera_depth_optical_frame"/>
 	
-	<!-- Kinect sensor for simulation -->
+	<!-- astra sensor for simulation -->
 	<roch_sim_3dsensor/>
   </xacro:macro>
 </robot>
