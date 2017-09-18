@@ -55,9 +55,6 @@
 #include <termios.h> /* POSIX terminal control definitions */
 #include <stdlib.h>  /* Malloc */
 #include <assert.h>
-#ifdef DEBUG_INFO 
-   #include "roch_base/roch_hardware.h"//for ROS_INFO 
-#endif 
 
 namespace sawyer{
   

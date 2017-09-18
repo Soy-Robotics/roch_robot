@@ -24,7 +24,7 @@ void publishRawData()
       ostream << "}";
       std_msgs::StringPtr msg(new std_msgs::String);
       msg->data = ostream.str();
-      ROS_INFO("reveive command:%s",msg->data.c_str());
+      ROS_INFO_STREAM("reveive command:"<<msg->data.c_str()<<" .");
 #endif
 }
 
@@ -38,12 +38,15 @@ void controloverallSpeed(double lin_vel, double ang_vel, double accel_left, doub
     {
       try
       {
-	sawyer::SetVelocity(lin_vel,ang_vel,acc).send();
+//	sawyer::SetVelocity(lin_vel,ang_vel,acc).send();
+//    sawyer::SetDifferentialControl(0.1,0.0005,0.08,0.1,0.0005,0.08).send();
+      ROS_INFO_STREAM("Now Left_PID: "<<lin_vel<<", Right_PID: "<<ang_vel<<" .");
+      sawyer::SetDifferentialControl(lin_vel,lin_vel,lin_vel,ang_vel,ang_vel,ang_vel).send();
         success = true;
       }
       catch (sawyer::Exception *ex)
       {
-        ROS_ERROR_STREAM("Error sending velocity setpt command: " << ex->message);
+        ROS_ERROR_STREAM("Error sending Diff Contrl contets command: " << ex->message);
        
       }
     }
@@ -58,16 +61,15 @@ void speedCallBack(const geometry_msgs::Twist::ConstPtr& speed){
     controloverallSpeed(speed_x, speed_z, 0, 0);   
       
     publishRawData();
-  core::Channel<sawyer::Data6AxisYaw>::Ptr imuRateData = core::Channel<sawyer::Data6AxisYaw>::requestData(
+  core::Channel<sawyer::DataDifferentialControl>::Ptr pidData = core::Channel<sawyer::DataDifferentialControl>::requestData(
      polling_timeout_);
    publishRawData();
-     if(imuRateData){
-      ROS_DEBUG_STREAM("Received  imu rate data information (Angle:" << imuRateData->getAngle() << " Angle rate:" << imuRateData->getAngleRate() << ")");
-      ROS_INFO("Received  imu rate data information, angle:%.2lf, Angle rate:%.2lf",imuRateData->getAngle(),imuRateData->getAngleRate());    
+     if(pidData){
+      ROS_INFO_STREAM("Received  PID data information, Left_P: "<<pidData->getLeftP()<<", Left_I: "<<pidData->getLeftI()<<", Left_D: "<<pidData->getLeftD()<<"||| Right_P: "<<pidData->getRightP()<<", Right_I: "<<pidData->getRightI()<<", Right_D: "<<pidData->getRightD()<<" .");    
       
     }
     else{
-       ROS_ERROR("Could not get imu data to calibrate rate offset");
+       ROS_ERROR("Could not get PID Data form MCU.");
     }
 #if 0
     core::Channel<sawyer::DataVelocity>::Ptr overallspeed = core::Channel<sawyer::DataVelocity>::requestData(

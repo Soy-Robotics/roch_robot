@@ -3,10 +3,10 @@
 *  File: Message.h
 *  Desc: Definition for the Message class. This class represents a
 *        single message which is sent or received from a platform
-*  \C3\E8\CA\F6: \B6\A8\D2\E5Message\C0࣬\D5\E2\B8\F6\C0\E0\B4\FA\B1\ED\C1\CB\CF\F2armƽ̨\B7\A2\CBͻ\F2\BD\D3\CA\D5\CF\FBϢ.
 *  Auth: R. Gariepy, Iain Peet
 *
-*  Copyright (c) 2010, sawyer Robotics, Inc.
+*  Copyright (c) 2010, Clearpath Robotics, Inc.
+*  Copyright (c) 2016, SawYer Robotics, Inc.
 *  All Rights Reserved
 *
 * Redistribution and use in source and binary forms, with or without
@@ -16,14 +16,14 @@
 *     * Redistributions in binary form must reproduce the above copyright
 *       notice, this list of conditions and the following disclaimer in the
 *       documentation and/or other materials provided with the distribution.
-*     * Neither the name of sawyer Robotics, Inc. nor the
+*     * Neither the name of Clearpath Robotics, Inc. nor the
 *       names of its contributors may be used to endorse or promote products
 *       derived from this software without specific prior written permission.
 *
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-* DISCLAIMED. IN NO EVENT SHALL sawyer ROBOTICS, INC. BE LIABLE FOR ANY
+* DISCLAIMED. IN NO EVENT SHALL Clearpath ROBOTICS, INC. BE LIABLE FOR ANY
 * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -31,7 +31,7 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* Please send comments, questions, or patches to skynet@sawyerrobotics.com
+* Please send comments, questions, or patches to skynet@clearpathrobotics.com
 *
 */
 
@@ -116,7 +116,7 @@ namespace sawyer
 
     void setFlags(uint8_t flags);
 
-    void setType(uint16_t type); //ԭ\B1\BE \D0±\BE\D3и\FC\D0\C2
+    void setType(uint16_t type); 
 	
     uint8_t *getPayloadPointer(size_t offset = 0);
 
@@ -133,7 +133,6 @@ namespace sawyer
 
     Message(const Message &other);
 
-//ԭ\B1\BE \D0±\BE\CC滻
     Message(uint16_t type, uint8_t *payload, size_t payload_len,
         uint32_t timestamp = 0, uint8_t flags = 0, uint8_t version = 0);
 	
@@ -149,12 +148,12 @@ namespace sawyer
 
     uint8_t getFlags();
 
-    uint16_t getType();//ԭ\B1\BE \D0±\BE\D3и\FC\D0\C2
-    size_t getType(void *buf, size_t max_size);//\D0±\BEadd
+    uint16_t getType();
+    size_t getType(void *buf, size_t max_size);
 
     uint16_t getChecksum();
 
-    size_t getTypeLength() //\D0±\BEadd
+    size_t getTypeLength() 
     {
 	 return ((total_len - HEADER_LENGTH - CRC_LENGTH));
     }
@@ -219,6 +218,7 @@ namespace sawyer
     SET_ACKERMANN_SETPT = 0x0203,
     SET_VELOCITY_SETPT = 0x0204,
     SET_TURN_SETPT = 0x0205,
+    SET_WHEEL_INFO = 0x0206,
     SET_MAX_SPEED = 0x0210,
     SET_MAX_ACCEL = 0x0211,
     SET_GEAR_SETPOINT = 0x0212,
@@ -226,6 +226,7 @@ namespace sawyer
     SET_GPIO_DIRECTION = 0x0301,
     SET_GPIO_OUTPUT = 0x0302,
     SET_PTZ_POSITION = 0x0400,
+    SET_XYZ_DATA = 0x2607,
 
     /*
      * Command commands
@@ -250,6 +251,7 @@ namespace sawyer
     REQUEST_ACKERMANN_SETPTS = 0x4203,
     REQUEST_VELOCITY_SETPT = 0x4204,
     REQUEST_TURN_SETPT = 0x4205,
+    REQUEST_WHEEL_INFO = 0x4206,
     REQUEST_MAX_SPEED = 0x4210,
     REQUEST_MAX_ACCEL = 0x4211,
     REQUEST_GEAR_SETPT = 0x4212,
@@ -265,6 +267,7 @@ namespace sawyer
     REQUEST_6AXIS = 0x4603,
     REQUEST_6AXIS_ORIENT = 0x4604,
     REQUEST_6AXIS_YAW = 0x4605,
+    REQUEST_XYZ_DATA = 0x4607,
     REQUEST_ENCODER = 0x4800,
     REQUEST_ENCODER_RAW = 0x4801,
 
@@ -285,6 +288,7 @@ namespace sawyer
     DATA_ACKERMANN_SETPTS = 0x8203,
     DATA_VELOCITY_SETPT = 0x8204,
     DATA_TURN_SETPT = 0x8205,
+    DATA_WHEEL_INFO = 0x8206,
     DATA_MAX_SPEED = 0x8210,
     DATA_MAX_ACCEL = 0x8211,
     DATA_GEAR_SETPT = 0x8212,
@@ -301,6 +305,7 @@ namespace sawyer
     DATA_6AXIS_ORIENT = 0x8604,
     DATA_6AXIS_YAW = 0x8605,
     DATA_MAGNETOMETER = 0x8606,
+    DATA_XYZ_DATA = 0x8607,
     DATA_ENCODER = 0x8800,
     DATA_ENCODER_RAW = 0x8801,
     DATA_CURRENT_RAW = 0xA110,

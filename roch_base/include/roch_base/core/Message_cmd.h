@@ -2,10 +2,10 @@
 *
 *  File: Message_cmd.h
 *  Desc: Provides Set Message subclasses.
-*  ����: ��Ϣ���������ʵ��(������)
 *  Auth: Iain Peet
 *
-*  Copyright (c) 2010, sawyer Robotics, Inc.
+*  Copyright (c) 2010, Clearpath Robotics, Inc.
+*  Copyright (c) 2016, SawYer Robotics, Inc.
 *  All Rights Reserved
 *
 * Redistribution and use in source and binary forms, with or without
@@ -15,14 +15,14 @@
 *     * Redistributions in binary form must reproduce the above copyright
 *       notice, this list of conditions and the following disclaimer in the
 *       documentation and/or other materials provided with the distribution.
-*     * Neither the name of sawyer Robotics, Inc. nor the
+*     * Neither the name of Clearpath Robotics, Inc. nor the
 *       names of its contributors may be used to endorse or promote products
 *       derived from this software without specific prior written permission.
 *
 * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-* DISCLAIMED. IN NO EVENT SHALL sawyer ROBOTICS, INC. BE LIABLE FOR ANY
+* DISCLAIMED. IN NO EVENT SHALL Clearpath ROBOTICS, INC. BE LIABLE FOR ANY
 * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -30,7 +30,8 @@
 * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 *
-* Please send comments, questions, or patches to skynet@sawyerrobotics.com
+* Please send comments, questions, or patches to skynet@clearpathrobotics.com
+*
 *
 */
 
@@ -115,38 +116,23 @@ namespace sawyer
       LEFT_P = 0,
       LEFT_I = 2,
       LEFT_D = 4,
-      LEFT_FEEDFWD = 6,
-      LEFT_STIC = 8,
-      LEFT_INT_LIM = 10,
-      RIGHT_P = 12,
-      RIGHT_I = 14,
-      RIGHT_D = 16,
-      RIGHT_FEEDFWD = 18,
-      RIGHT_STIC = 20,
-      RIGHT_INT_LIM = 22,
-      PAYLOAD_LEN = 24
+      RIGHT_P = 6,
+      RIGHT_I = 8,
+      RIGHT_D = 10,
+      PAYLOAD_LEN = 12
     };
 
   public:
     SetDifferentialControl(double p,
         double i,
-        double d,
-        double feedfwd,
-        double stic,
-        double int_lim);
+        double d);
 
     SetDifferentialControl(double left_p,
         double left_i,
         double left_d,
-        double left_feedfwd,
-        double left_stic,
-        double left_int_lim,
         double right_p,
         double right_i,
-        double right_d,
-        double right_feedfwd,
-        double right_stic,
-        double right_int_lim);
+        double right_d);
 
     SetDifferentialControl(const SetDifferentialControl &other);
   };
@@ -264,6 +250,23 @@ namespace sawyer
     SetTurn(double trans, double rad, double accel);
 
     SetTurn(const SetTurn &other);
+  };
+
+  class SetWheelInfo : public CmdMessage
+  {
+  public:
+    enum payloadOffsets
+    {      
+      WHEEL_GAUGE = 0,
+      WHEEL_DIAMETER = 2,
+      PAYLOAD_LEN = 4
+    };
+
+  public:
+    SetWheelInfo(double wheel_gauge, double Wheel_diameter);
+
+    SetWheelInfo(const SetWheelInfo &other);
+
   };
 
   class SetVelocity : public CmdMessage

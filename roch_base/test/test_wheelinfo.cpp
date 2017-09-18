@@ -14,7 +14,7 @@ double speed_x;
 double speed_z;
 void publishRawData()
 {
-#if 0
+#if 1
         std::ostringstream ostream;
       sawyer::base_data::RawData data =sawyer::Transport::instance().getdata();
       ostream << " { " ;
@@ -38,12 +38,13 @@ void controloverallSpeed(double lin_vel, double ang_vel, double accel_left, doub
     {
       try
       {
-	sawyer::SetVelocity(lin_vel,ang_vel,acc).send();
+//	sawyer::SetVelocity(lin_vel,ang_vel,acc).send();
+    sawyer::SetWheelInfo(lin_vel,ang_vel).send();
         success = true;
       }
       catch (sawyer::Exception *ex)
       {
-        ROS_ERROR_STREAM("Error sending velocity setpt command: " << ex->message);
+        ROS_ERROR_STREAM("Error sending Wheel Info command: " << ex->message);
        
       }
     }
@@ -58,16 +59,15 @@ void speedCallBack(const geometry_msgs::Twist::ConstPtr& speed){
     controloverallSpeed(speed_x, speed_z, 0, 0);   
       
     publishRawData();
-  core::Channel<sawyer::Data6AxisYaw>::Ptr imuRateData = core::Channel<sawyer::Data6AxisYaw>::requestData(
+  core::Channel<sawyer::DataWheelInfo>::Ptr wheelData = core::Channel<sawyer::DataWheelInfo>::requestData(
      polling_timeout_);
    publishRawData();
-     if(imuRateData){
-      ROS_DEBUG_STREAM("Received  imu rate data information (Angle:" << imuRateData->getAngle() << " Angle rate:" << imuRateData->getAngleRate() << ")");
-      ROS_INFO("Received  imu rate data information, angle:%.2lf, Angle rate:%.2lf",imuRateData->getAngle(),imuRateData->getAngleRate());    
+     if(wheelData){
+      ROS_INFO_STREAM("Received  Wheel data information, Wheel Gauge: "<<wheelData->getWheelGauge()<<", Wheel Diameter: "<<wheelData->getWheelDiameter());    
       
     }
     else{
-       ROS_ERROR("Could not get imu data to calibrate rate offset");
+       ROS_ERROR("Could not get Wheel Data form MCU.");
     }
 #if 0
     core::Channel<sawyer::DataVelocity>::Ptr overallspeed = core::Channel<sawyer::DataVelocity>::requestData(

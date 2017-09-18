@@ -1,0 +1,8 @@
+<!-- 
+  Just for amcl and move_base in here.
+ -->
+<launch>
+    <!-- TODO: start the amcl, move_base and sensor here -->
+    <!-- rather than having it started with the amcl_demo.launch -->
+  <include file="$(find roch_navigation)/launch/amcl_demo.launch"/>
+</launch>

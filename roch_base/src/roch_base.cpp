@@ -76,15 +76,12 @@ int main(int argc, char *argv[])
   private_nh.param<double>("diagnostic_frequency", diagnostic_frequency, 1.0);
 
   // Initialize robot hardware and link to controller manager
-  // 初始化机器人控制器硬件并链接到控制管理器
   roch_base::rochHardware roch(nh, private_nh, control_frequency);
   controller_manager::ControllerManager cm(&roch, nh);
   // Setup separate queue and single-threaded spinner to process timer callbacks
   // that interface with roch hardware - libcore not threadsafe. This
   // avoids having to lock around hardware access, but precludes realtime safety
   // in the control loop.
-  //设置单独的队列和线程列表去处理roch硬件定时器回调接口
-  //——libcore不是线程安全的。这避免了锁在硬件访问,但排除了实时安全控制回路。
   ros::CallbackQueue roch_queue;
   ros::AsyncSpinner roch_spinner(1, &roch_queue);
   

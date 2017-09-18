@@ -4,7 +4,7 @@ roch_joint_publisher:
 
 roch_sensor_controller:
   type: imu_sensor_controller/ImuSensorController
-  publish_rate: 50
+  publish_rate: 10
 
 roch_velocity_controller:
   type: "diff_drive_controller/DiffDriveController"
@@ -26,7 +26,7 @@ roch_velocity_controller:
   estimate_velocity_from_position: false
 
   # Wheel separation and radius multipliers
-  wheel_separation_multiplier: 1.0 # default: 1.0
+  wheel_separation_multiplier: 1.0 #0.75 #0.465 #0.75 # default: 1.0
   wheel_radius_multiplier    : 1.0 # default: 1.0
 
   # Velocity and acceleration limits
@@ -34,16 +34,16 @@ roch_velocity_controller:
   linear:
     x:
       has_velocity_limits    : true
-      max_velocity           : 0.45   # m/s
-      min_velocity           : -0.45 # m/s
+      max_velocity           : 1.0   # m/s
+      min_velocity           : -1.0 # m/s
       has_acceleration_limits: true
-      max_acceleration       : 3.0   # m/s^2
+      max_acceleration       : 6.0   # m/s^2
       min_acceleration       : -0.4 # m/s^2
   angular:
     z:
       has_velocity_limits    : true
       max_velocity           : 2.0   # rad/s
       has_acceleration_limits: true
-      max_acceleration       : 6.0   # rad/s^2
+      max_acceleration       : 5.4   # rad/s^2
 
 

@@ -6,9 +6,6 @@
 #include <string>
 #include <string.h>
 #include <sstream>
-#ifdef DEBUG_INFO 
-   #include "roch_base/roch_hardware.h"//for ROS_INFO
-#endif 
 
 using namespace std;
 
@@ -100,64 +97,34 @@ enum MessageTypes MessageClass::getTypeID() { \
 
   double DataDifferentialControl::getLeftP()
   {
-    return btof(getPayloadPointer(LEFT_P), 2, 100);
+    return btof(getPayloadPointer(LEFT_P), 2, 10000);
   }
 
   double DataDifferentialControl::getLeftI()
   {
-    return btof(getPayloadPointer(LEFT_I), 2, 100);
+    return btof(getPayloadPointer(LEFT_I), 2, 10000);
   }
 
   double DataDifferentialControl::getLeftD()
   {
-    return btof(getPayloadPointer(LEFT_D), 2, 100);
-  }
-/*
-  double DataDifferentialControl::getLeftFeedForward()
-  {
-    return btof(getPayloadPointer(LEFT_FEEDFWD), 2, 100);
+    return btof(getPayloadPointer(LEFT_D), 2, 10000);
   }
 
-  double DataDifferentialControl::getLeftStiction()
-  {
-    return btof(getPayloadPointer(LEFT_STIC), 2, 100);
-  }
-
-  double DataDifferentialControl::getLeftIntegralLimit()
-  {
-    return btof(getPayloadPointer(LEFT_INT_LIM), 2, 100);
-  }
-*/
   double DataDifferentialControl::getRightP()
   {
-    return btof(getPayloadPointer(RIGHT_P), 2, 100);
+    return btof(getPayloadPointer(RIGHT_P), 2, 10000);
   }
 
   double DataDifferentialControl::getRightI()
   {
-    return btof(getPayloadPointer(RIGHT_I), 2, 100);
+    return btof(getPayloadPointer(RIGHT_I), 2, 10000);
   }
 
   double DataDifferentialControl::getRightD()
   {
-    return btof(getPayloadPointer(RIGHT_D), 2, 100);
-  }
-/*
-  double DataDifferentialControl::getRightFeedForward()
-  {
-    return btof(getPayloadPointer(RIGHT_FEEDFWD), 2, 100);
+    return btof(getPayloadPointer(RIGHT_D), 2, 10000);
   }
 
-  double DataDifferentialControl::getRightStiction()
-  {
-    return btof(getPayloadPointer(RIGHT_STIC), 2, 100);
-  }
-
-  double DataDifferentialControl::getRightIntegralLimit()
-  {
-    return btof(getPayloadPointer(RIGHT_INT_LIM), 2, 100);
-  }
-*/
   ostream &DataDifferentialControl::printMessage(ostream &stream)
   {
     stream << "Differential Control Constant Data" << endl;
@@ -165,15 +132,9 @@ enum MessageTypes MessageClass::getTypeID() { \
     stream << "Left P              : " << getLeftP() << endl;
     stream << "Left I              : " << getLeftI() << endl;
     stream << "Left D              : " << getLeftD() << endl;
-//    stream << "Left Feed Forward   : " << getLeftFeedForward() << endl;
-//    stream << "Left Stiction       : " << getLeftStiction() << endl;
-//    stream << "Left Integral Limit : " << getLeftIntegralLimit() << endl;
     stream << "Right P             : " << getRightP() << endl;
     stream << "Right I             : " << getRightI() << endl;
     stream << "Right D             : " << getRightD() << endl;
-//    stream << "Right Feed Forward  : " << getRightFeedForward() << endl;
-//    stream << "Right Stiction      : " << getRightStiction() << endl;
-//    stream << "Right Integral Limit: " << getRightIntegralLimit() << endl;
     return stream;
   }
 
@@ -238,6 +199,29 @@ enum MessageTypes MessageClass::getTypeID() { \
     return stream;
   }
 
+
+  MESSAGE_CONSTRUCTORS(DataWheelInfo, PAYLOAD_LEN);
+
+  MESSAGE_CONVENIENCE_FNS(DataWheelInfo, DATA_WHEEL_INFO);
+
+  double DataWheelInfo::getWheelGauge()
+  {
+    return btof(getPayloadPointer(WHEEL_GAUGE), 2, 10000);
+  }
+
+  double DataWheelInfo::getWheelDiameter()
+  {
+    return btof(getPayloadPointer(WHEEL_DIAMETER), 2, 10000);
+  }
+
+  ostream &DataWheelInfo::printMessage(ostream &stream)
+  {
+    stream << "Wheel Information" << endl;
+    stream << "=======================" << endl;
+    stream << "Wheel Gauge    : " << getWheelGauge() << endl;
+    stream << "Wheel Diameter : " << getWheelDiameter() << endl;
+    return stream;
+  }
 
   MESSAGE_CONSTRUCTORS(DataEcho, 0)
 
@@ -569,6 +553,36 @@ enum MessageTypes MessageClass::getTypeID() { \
     return stream;
   }
 
+
+  
+  MESSAGE_CONSTRUCTORS(DataXYZData, PAYLOAD_LEN)
+
+  MESSAGE_CONVENIENCE_FNS(DataXYZData, DATA_XYZ_DATA)
+
+  double DataXYZData::getXDistence()
+  {
+    return btof(getPayloadPointer(X_DISTENCE), 4, 1000);
+  }
+
+  double DataXYZData::getYDistence()
+  {
+    return btof(getPayloadPointer(Y_DISTENCE), 4, 1000);
+  }
+  
+  double DataXYZData::getZRadian()
+  {
+    return btof(getPayloadPointer(Z_RADIAN), 4, 1000);
+  }
+
+  ostream &DataXYZData::printMessage(ostream &stream)
+  {
+    stream << "Waypoints: X Y Z Data" << endl;
+    stream << "=================" << endl;
+    stream << "X: " << getXDistence() << endl;
+    stream << "Y: " << getYDistence() << endl;
+    stream << "Z: " << getZRadian() << endl;
+    return stream;
+  }
 
 
   MESSAGE_CONSTRUCTORS(DataPlatformOrientation, PAYLOAD_LEN)
