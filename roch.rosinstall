@@ -12,24 +12,24 @@
 - git:
     uri: https://github.com/SawYer-Robotics/roch.git
     local-name: roch
-    version: indigo
+    version: kinetic
 
 - git:
     uri: https://github.com/SawYer-Robotics/roch_simulator.git
     local-name: roch_simulator
-    version: indigo
+    version: kinetic
 
 - git:
     uri: https://github.com/SawYer-Robotics/roch_viz.git
     local-name: roch_viz
-    version: indigo
+    version: kinetic
 
 - git:
     uri: https://github.com/SawYer-Robotics/roch_robot.git
     local-name: roch_robot
-    version: indigo
+    version: kinetic
 
 - git:
     uri: https://github.com/SawYer-Robotics/roch_concert.git
     local-name: roch_concert
-    version: indigo
+    version: kinetic
