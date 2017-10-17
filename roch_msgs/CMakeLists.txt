@@ -18,6 +18,7 @@ add_message_files(
   PSDEvent.msg
   SensorState.msg
   EncoderEvent.msg
+  PIDEvent.msg
 )
   
 add_service_files(

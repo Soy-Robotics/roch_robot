@@ -62,6 +62,13 @@ namespace roch_base
     private_nh_.param<double>("psd_length", PSD_length_, 0.1); //how far can scan(meter)
     private_nh_.param<std::string>("imu_link_frame", gyro_link_frame_, "imu_link");
 
+    private_nh_.param<double>("left_p", left_p_, 0.1); 
+    private_nh_.param<double>("left_i", left_i_, 0.0005); 
+    private_nh_.param<double>("left_d", left_d_, 0.08); 
+    private_nh_.param<double>("right_p", right_p_, 0.1);
+    private_nh_.param<double>("right_i", right_i_, 0.0005); 
+    private_nh_.param<double>("right_d", right_d_, 0.08);
+
     std::string port;
     private_nh_.param<std::string>("port", port, "/dev/ttyUSB0");
 
@@ -70,6 +77,16 @@ namespace roch_base
     resetTravelOffset();
     initializeDiagnostics(); 
     registerControlInterfaces();
+  }
+
+  void rochHardware::reconfigure(roch_base::PIDConfig &config, uint32_t level)
+  {
+    left_p_ = config.left_p;
+    left_i_ = config.left_i;
+    left_d_ = config.left_d;
+    right_p_ = config.right_p;
+    right_i_ = config.right_i;
+    right_d_ = config.right_d;
   }
 
   /**
@@ -209,7 +226,6 @@ namespace roch_base
      }
     
    }
-
   
   /**
   * Register diagnostic tasks with updater class
@@ -236,6 +252,12 @@ namespace roch_base
     ult_event_publisher_ = nh_.advertise < roch_msgs::UltEvent > ("events/ult", 100);
     sensor_state_publisher_ = nh_.advertise < roch_msgs::SensorState > ("core_sensors", 100);
     motor_encoders_publisher_ = nh_.advertise < roch_msgs::EncoderEvent > ("events/encoder", 100);
+    motor_control_data_publisher_ = nh_.advertise < roch_msgs::PIDEvent > ("events/pid", 100);
+
+    config_srv_ = new dynamic_reconfigure::Server<roch_base::PIDConfig>(private_nh_);
+    dynamic_reconfigure::Server<roch_base::PIDConfig>::CallbackType f =
+        boost::bind(&rochHardware::reconfigure, this, _1, _2);
+    config_srv_->setCallback(f);
   }
 
 
@@ -433,6 +455,20 @@ namespace roch_base
     getPlatformName();
   }
 
+  void rochHardware::updateMotorControData(){
+    core::Channel<sawyer::DataDifferentialControl>::Ptr pidData = core::Channel<sawyer::DataDifferentialControl>::requestData(
+    polling_timeout_);
+    publishRawData();
+    if(pidData){
+      ROS_INFO_STREAM("Received  PID data information, Left_P: "<<pidData->getLeftP()<<", Left_I: "<<pidData->getLeftI()<<", Left_D: "<<pidData->getLeftD()<<"||| Right_P: "<<pidData->getRightP()<<", Right_I: "<<pidData->getRightI()<<", Right_D: "<<pidData->getRightD()<<" .");    
+      
+    }
+    else{
+       ROS_ERROR("Could not get PID Data form MCU.");
+    }
+    publishMotorControlData(pidData->getLeftP(), pidData->getLeftI(), pidData->getLeftD(), pidData->getRightP(), pidData->getRightI(), pidData->getRightD());
+  }
+
   /**
   * Get latest velocity commands from ros_control via joint structure, and send to MCU
   */
@@ -446,6 +482,7 @@ namespace roch_base
 
     limitDifferentialSpeed(diff_speed_left, diff_speed_right);
     core::controlSpeed(diff_speed_left, diff_speed_right, max_accel_, max_accel_);
+    core::setControlData(left_p_, left_i_, left_d_, right_p_, right_i_, right_d_);
     publishRawData();
     
     publishSensorState();
@@ -461,6 +498,7 @@ namespace roch_base
     limitDifferentialSpeed(diff_speed_left, diff_speed_right);
     publishRawData();
     core::controloverallSpeed(diff_speed_left, diff_speed_right, max_accel_, max_accel_);   
+    core::setControlData(left_p_, left_i_, left_d_, right_p_, right_i_, right_d_);
     publishRawData();
   }
   
@@ -620,6 +658,20 @@ namespace roch_base
       msg->rightEncoders = rightEncoders;
       motor_encoders_publisher_.publish(msg);
     }
+  }
+
+  void rochHardware::publishMotorControlData(const double &left_p, const double &left_i, const double &left_d, const double &right_p, const double &right_i, const double &right_d){
+    if(motor_control_data_publisher_.getNumSubscribers()>0){
+      roch_msgs::PIDEventPtr msg(new roch_msgs::PIDEvent);
+      msg->header.stamp = ros::Time::now();
+      msg->leftP = left_p;
+      msg->leftI = left_i;
+      msg->leftD = left_d;
+      msg->rightP = right_p;
+      msg->rightI = right_i;
+      msg->rightD = right_d;
+      motor_control_data_publisher_.publish(msg);
+    } 
   }
 
   void rochHardware::publishPSDEvent(const double& left, const double& center, const double& right)

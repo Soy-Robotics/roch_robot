@@ -54,6 +54,8 @@ namespace core
   
   void controloverallSpeed(double speed_left, double speed_right, double accel_left, double accel_right);
 
+  void setControlData(double left_p, double left_i, double left_d, double right_p, double right_i, double right_d);
+
   template<typename T>
   struct Channel
   {

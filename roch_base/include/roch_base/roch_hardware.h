@@ -47,6 +47,7 @@
 #include "roch_msgs/PSDEvent.h"
 #include "roch_msgs/SensorState.h"
 #include "roch_msgs/EncoderEvent.h"
+#include "roch_msgs/PIDEvent.h"
 #include <sensor_msgs/Imu.h>
 #include <tf/tf.h>
 #include <string>
@@ -55,6 +56,8 @@
 #include <std_msgs/String.h>
 #include "roch_base/core/Message.h"
 #include "roch_base/core/serial.h"
+#include "dynamic_reconfigure/server.h"
+#include "roch_base/PIDConfig.h"
 namespace roch_base
 {
 
@@ -69,6 +72,8 @@ namespace roch_base
     rochHardware(ros::NodeHandle nh, ros::NodeHandle private_nh, double target_control_freq);
 
     void updateJointsFromHardware();
+
+    void updateMotorControData();
 
     void writeCommandsToHardware();
 
@@ -124,7 +129,14 @@ namespace roch_base
     void publishSensorState();
 
     void publishMotorEncoders(const int &leftEncoders, const int &rightEncoders);
+
+    void publishMotorControlData(const double &left_p, const double &left_i, const double &left_d, const double &right_p, const double &right_i, const double &right_d);
+
+    void reconfigure(roch_base::PIDConfig &config, uint32_t level);
     ros::NodeHandle nh_, private_nh_;
+
+    // Dynamic reconfigure server
+    dynamic_reconfigure::Server<roch_base::PIDConfig>* config_srv_;
 
     // ROS Control interfaces
     hardware_interface::JointStateInterface joint_state_interface_;
@@ -137,6 +149,7 @@ namespace roch_base
     ros::Publisher cliff_event_publisher_,ult_event_publisher_,psd_event_publisher_;
     ros::Publisher sensor_state_publisher_;
     ros::Publisher motor_encoders_publisher_;
+    ros::Publisher motor_control_data_publisher_;
     roch_msgs::RochStatus roch_status_msg_;
     diagnostic_updater::Updater diagnostic_updater_;
     rochHardwareDiagnosticTask<sawyer::DataSystemStatus> system_status_task_;
@@ -155,6 +168,14 @@ namespace roch_base
     double ult_length_; //the lengthh of ult can detection (meter)
     
     double PSD_length_; //the lengthh of PSD can detection (meter)
+
+    double left_p_; /**< The control data p of left motor in the Roch. */
+    double left_i_; /**< The control data i of left motor in the Roch. */
+    double left_d_; /**< The control data d of left motor in the Roch. */
+    double right_p_; /**< The control data p of right motor in the Roch. */
+    double right_i_; /**< The control data i of right motor in the Roch. */
+    double right_d_; /**< The control data d of right motor in the Roch. */
+
     std::string gyro_link_frame_;
     std::vector<double> cliffbottom;
     std::vector<double> ultbottom;
