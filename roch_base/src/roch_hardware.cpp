@@ -460,7 +460,7 @@ namespace roch_base
     polling_timeout_);
     publishRawData();
     if(pidData){
-      ROS_INFO_STREAM("Received  PID data information, Left_P: "<<pidData->getLeftP()<<", Left_I: "<<pidData->getLeftI()<<", Left_D: "<<pidData->getLeftD()<<"||| Right_P: "<<pidData->getRightP()<<", Right_I: "<<pidData->getRightI()<<", Right_D: "<<pidData->getRightD()<<" .");    
+      ROS_DEBUG_STREAM("Received  PID data information, Left_P: "<<pidData->getLeftP()<<", Left_I: "<<pidData->getLeftI()<<", Left_D: "<<pidData->getLeftD()<<"||| Right_P: "<<pidData->getRightP()<<", Right_I: "<<pidData->getRightI()<<", Right_D: "<<pidData->getRightD()<<" .");    
       
     }
     else{
