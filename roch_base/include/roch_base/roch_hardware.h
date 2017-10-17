@@ -46,6 +46,7 @@
 #include "roch_msgs/UltEvent.h"
 #include "roch_msgs/PSDEvent.h"
 #include "roch_msgs/SensorState.h"
+#include "roch_msgs/EncoderEvent.h"
 #include <sensor_msgs/Imu.h>
 #include <tf/tf.h>
 #include <string>
@@ -122,6 +123,7 @@ namespace roch_base
     
     void publishSensorState();
 
+    void publishMotorEncoders(const int &leftEncoders, const int &rightEncoders);
     ros::NodeHandle nh_, private_nh_;
 
     // ROS Control interfaces
@@ -134,6 +136,7 @@ namespace roch_base
     ros::Publisher raw_data_command_publisher_;
     ros::Publisher cliff_event_publisher_,ult_event_publisher_,psd_event_publisher_;
     ros::Publisher sensor_state_publisher_;
+    ros::Publisher motor_encoders_publisher_;
     roch_msgs::RochStatus roch_status_msg_;
     diagnostic_updater::Updater diagnostic_updater_;
     rochHardwareDiagnosticTask<sawyer::DataSystemStatus> system_status_task_;
@@ -239,6 +242,16 @@ namespace roch_base
       double centerbottom;
       double rightbottom;
     };
+
+    struct Encoders
+    {
+      int ticks;
+      int ticks_offset;
+
+      Encoders() :
+        ticks(0), ticks_offset(0)
+      { }
+    } moterEncoders_[2];
     
     CliffEvent leftcliffevent,rightcliffevent;
     

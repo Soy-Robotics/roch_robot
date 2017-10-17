@@ -93,6 +93,17 @@ namespace roch_base
       ROS_ERROR("Could not get encoder data to calibrate travel offset");
     }
     
+    core::Channel<sawyer::DataEncodersRaw>::Ptr encoderraw = core::Channel<sawyer::DataEncodersRaw>::requestData(
+    polling_timeout_);
+    if(encoderraw){
+		for (int i = 0; i < 2; i++){
+        moterEncoders_[i].ticks_offset = encoderraw->getTicks(i % 2);
+	  ROS_DEBUG_STREAM("moterEncoders_["<<i<<"].ticks_offset:"<<moterEncoders_[i].ticks_offset<<" .");
+      }
+    }else{      
+	  ROS_ERROR("Could not get encoder raw data to calibrate travel offset");	
+    }
+
     //add imu data from IMU
    core::Channel<sawyer::Data6AxisYaw>::Ptr imuRateData = core::Channel<sawyer::Data6AxisYaw>::requestData(
      polling_timeout_);
@@ -224,6 +235,7 @@ namespace roch_base
     psd_event_publisher_ = nh_.advertise < roch_msgs::PSDEvent > ("events/psd", 100);
     ult_event_publisher_ = nh_.advertise < roch_msgs::UltEvent > ("events/ult", 100);
     sensor_state_publisher_ = nh_.advertise < roch_msgs::SensorState > ("core_sensors", 100);
+    motor_encoders_publisher_ = nh_.advertise < roch_msgs::EncoderEvent > ("events/encoder", 100);
   }
 
 
@@ -353,6 +365,19 @@ namespace roch_base
       }
       
     }
+
+    core::Channel<sawyer::DataEncodersRaw>::Ptr encoderraw = core::Channel<sawyer::DataEncodersRaw>::requestData(
+    polling_timeout_);
+    if(encoderraw){
+      for (int i = 0; i < 2; i++){
+        moterEncoders_[i].ticks = encoderraw->getTicks(i % 2) - moterEncoders_[i].ticks_offset;
+	    ROS_DEBUG_STREAM("moterEncoders_["<<i<<"].ticks:"<<moterEncoders_[i].ticks<<" .");
+      }
+      publishMotorEncoders(moterEncoders_[LEFT].ticks, moterEncoders_[RIGHT].ticks);
+    }else{      
+	    ROS_ERROR("Could not get encoder raw data to calibrate travel offset");	
+    }
+
     core::Channel<sawyer::DataDifferentialSpeed>::Ptr speed = core::Channel<sawyer::DataDifferentialSpeed>::requestData(
       polling_timeout_);
     publishRawData();
@@ -581,6 +606,19 @@ namespace roch_base
       statecore.ultbottom = ultbottom;
       statecore.psdbottom = psdbottom;
       sensor_state_publisher_.publish(statecore);  
+    }
+  }
+
+  /*****************************************************************************
+  ** Publish Motor Encoders
+  *****************************************************************************/
+  void rochHardware::publishMotorEncoders(const int &leftEncoders, const int &rightEncoders){
+    if(motor_encoders_publisher_.getNumSubscribers()>0){
+      roch_msgs::EncoderEventPtr msg(new roch_msgs::EncoderEvent);
+      msg->header.stamp = ros::Time::now();
+      msg->leftEncoders = leftEncoders;
+      msg->rightEncoders = rightEncoders;
+      motor_encoders_publisher_.publish(msg);
     }
   }
 
