@@ -1,6 +1,11 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.16 (2017-11-16)
+-------------------
+* Add PID publish for Roch.
+* Add motor encoders publish.
+
 1.0.15 (2017-09-18)
 -------------------
 
