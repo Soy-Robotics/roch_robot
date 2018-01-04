@@ -3,7 +3,7 @@ roch ftdi
 
 ### Documentation ###
 
-* [Official Web Page](http://www.softrobtech.com) - home page, sales, specifications and hardware howto.
+* [Official Web Page](http://www.soyrobotics.com/) - home page, sales, specifications and hardware howto.
 
 ### Important Scripts ###
 
