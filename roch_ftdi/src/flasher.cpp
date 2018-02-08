@@ -63,7 +63,7 @@ int main(int argc, char** argv)
 
     std::string new_id = "roch_" + serial_id; // should be less than 20 character.
     // find the device that serial nummber is 'serial_id', and replace it with 'new_id.substr(0,20)'
-    ret_val = writer.write( serial_id, new_id.substr(0,20), "SawYer Robot", "iClebo Kobuki" );
+    ret_val = writer.write( serial_id, new_id.substr(0,20), "Soy Robot", "iClebo Kobuki" );
     if (ret_val < 0) {
       std::cout << ret_val << ": ";
       std::cout << "Something went wrong." << std::endl;
