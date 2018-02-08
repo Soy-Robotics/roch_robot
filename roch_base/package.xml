@@ -2,19 +2,19 @@
 <package>
   <name>roch_base</name>
   <version>1.0.16</version>
-  <description>Sawyer Roch robot driver</description>
+  <description>Soy Roch robot driver</description>
 
   <author email="mpurvis@clearpathrobotics.com">Mike Purvis</author>
   <author email="pbovbel@clearpathrobotics.com">Paul Bovbel</author>
-  <author email="wzhang@softrobtech.com">Carl</author>
+  <author email="carlzhang@soyrobotics.com">Carl</author>
 
-  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
+  <maintainer email="carlzhang@soyrobotics.com">Carl</maintainer>
 
   <license>BSD</license>
 
   <url type="website">http://wiki.ros.org/roch_base</url>
-  <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
-  <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
+  <url type="bugtracker">https://github.com/Soy-Robotics/roch_robot/issues</url>
+  <url type="repository">https://github.com/Soy-Robotics/roch_robot</url>
 
   <buildtool_depend>catkin</buildtool_depend>
   <build_depend>controller_manager</build_depend>

@@ -9,7 +9,7 @@
 	    /dev/roch on the user's PC. 
   </description>
   <author email="yhju@yujinrobot.com">Younghun Ju</author>
-  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
+  <maintainer email="carlzhang@soyrobotics.com">Carl</maintainer>
 
   <url type="website">http://ros.org/wiki/roch_ftdi</url>
   <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>

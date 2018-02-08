@@ -8,7 +8,7 @@
 *  Auth: R. Gariepy
 *
 *  Copyright (c) 2010, Clearpath Robotics, Inc.
-*  Copyright (c) 2016, SawYer Robotics, Inc.
+*  Copyright (c) 2016, Soy Robotics, Inc.
 *  All Rights Reserved
 *
 * Redistribution and use in source and binary forms, with or without

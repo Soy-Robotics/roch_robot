@@ -37,7 +37,7 @@ Check if it is different from below
 
 <pre>
 Device #0
-  Manufacturer : SawYer Robot
+  Manufacturer : Soy Robot
   Product      : iClebo roch
   Serial Number: roch_A601D86G
 </pre>

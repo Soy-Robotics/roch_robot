@@ -3,15 +3,15 @@
   <name>roch_robot</name>
   <version>1.0.16</version>
 
-  <description>Metapackage for SawYer roch robot software</description>
+  <description>Metapackage for Soy roch robot software</description>
 
-  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
-  <author email="wzhang@softrobtech.com">Carl</author>
+  <maintainer email="carlzhang@soyrobotics.com">Carl</maintainer>
+  <author email="carlzhang@soyrobotics.com">Carl</author>
 
   <license>BSD</license>
 
-  <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
-  <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
+  <url type="bugtracker">https://github.com/Soy-Robotics/roch_robot/issues</url>
+  <url type="repository">https://github.com/Soy-Robotics/roch_robot</url>
   <url type="website">http://wiki.ros.org/roch_robot</url>
 
   <buildtool_depend>catkin</buildtool_depend>
