@@ -9,7 +9,6 @@ roch_robot
 Robot ROS packages for the Soy roch, for operating robot hardware.
 
  - roch_base : Hardware driver for communicating with the onboard MCU.
- - roch_ftdi : Udev rules files that how to identify /dev/roch.
  - roch_control : Control configuration
  - roch_description : Robot description (URDF)
  - roch_msgs : Message definitions
