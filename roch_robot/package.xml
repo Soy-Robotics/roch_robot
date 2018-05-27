@@ -5,8 +5,8 @@
 
   <description>Metapackage for Soy roch robot software</description>
 
-  <maintainer email="carlzhang@soyrobotics.com">Carl</maintainer>
-  <author email="carlzhang@soyrobotics.com">Carl</author>
+  <maintainer email="gchen@soyrobotics.com">Chen</maintainer>
+  <author email="gchen@soyrobotics.com">Chen</author>
 
   <license>BSD</license>
 
