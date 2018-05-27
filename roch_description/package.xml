@@ -6,9 +6,9 @@
   <description>Soy Roch URDF description</description>
 
 
-  <author email="carlzhang@soyrobotics.com">Carl</author>
+  <author email="gchen@soyrobotics.com">Chen</author>
   <author email="tli@softrobtech.com">Allen</author>
-  <maintainer email="carlzhang@soyrobotics.com">Carl</maintainer>
+  <maintainer email="gchen@soyrobotics.com">Chen</maintainer>
 
 
   <url type="bugtracker">https://github.com/Soy-Robotics/roch_robot/issues</url>
