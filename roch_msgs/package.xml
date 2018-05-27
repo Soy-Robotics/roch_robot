@@ -5,10 +5,10 @@
 
   <description>Messages, serivices and actions for SawYer roch</description>
 
-  <author email="wzhang@softrobtech.com">Carl</author>
+  <author email="gchen@softrobtech.com">Chen</author>
   <author email="pbovbel@clearpathrobotics.com">Paul Bovbel</author>
 
-  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
+  <maintainer email="gchen@softrobtech.com">Chen</maintainer>
   <url type="website">http://ros.org/wiki/roch_msgs</url>
   <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
   <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
