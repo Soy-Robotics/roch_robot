@@ -8,8 +8,8 @@
     for poor-man navigation. Implemented intended to run together with roch_base.
   </description>
 
-  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
-  <author email="wzhang@softrobtech.com">Carl</author>
+  <maintainer email="gchen@softrobtech.com">Chen</maintainer>
+  <author email="gchen@softrobtech.com">Chen</author>
   <author email="jorge@yujinrobot.com">Jorge Santos Simon</author>
 
   <license>BSD</license>
