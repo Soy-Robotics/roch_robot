@@ -6,9 +6,9 @@
   <description>SawYer Roch URDF description</description>
 
 
-  <author email="wzhang@softrobtech.com">Carl</author>
+  <author email="gchen@softrobtech.com">Chen</author>
   <author email="tli@softrobtech.com">Allen</author>
-  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
+  <maintainer email="gchen@softrobtech.com">Chen</maintainer>
 
 
   <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
