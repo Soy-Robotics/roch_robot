@@ -1,8 +1,13 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_base</name>
+<<<<<<< HEAD
   <version>1.0.17</version>
   <description>Soy Roch robot driver</description>
+=======
+  <version>2.0.15</version>
+  <description>Sawyer Roch robot driver</description>
+>>>>>>> kinetic
 
   <author email="mpurvis@clearpathrobotics.com">Mike Purvis</author>
   <author email="pbovbel@clearpathrobotics.com">Paul Bovbel</author>

@@ -181,12 +181,21 @@ namespace roch_base
 
   void rochHardware::getPlatAccData()
   {
+<<<<<<< HEAD
 
     core::Channel<sawyer::DataPlatformAcceleration>::Ptr getPlatformAccData = 
     core::Channel<sawyer::DataPlatformAcceleration>::requestData(polling_timeout_);
     publishRawData();
     if(getPlatformAccData){
 
+=======
+
+    core::Channel<sawyer::DataPlatformAcceleration>::Ptr getPlatformAccData = 
+    core::Channel<sawyer::DataPlatformAcceleration>::requestData(polling_timeout_);
+    publishRawData();
+    if(getPlatformAccData){
+
+>>>>>>> kinetic
       ROS_DEBUG_STREAM("Received acc_x:"<<getPlatformAccData->getX()<<", acc_y:"<<getPlatformAccData->getY()<<", acc_z:"<<getPlatformAccData->getZ()<<".");
  
       sixGyro.acc.X = getPlatformAccData->getX() - sixGyro.acc.X_Offset;
@@ -212,6 +221,23 @@ namespace roch_base
     }
 
   }
+<<<<<<< HEAD
+=======
+
+  void rochHardware::getDifferentControlConstantData()
+  {
+
+    core::Channel<sawyer::DataDifferentialControl>::Ptr getDifferentControlConstantData = 
+    core::Channel<sawyer::DataDifferentialControl>::requestData(polling_timeout_);
+    publishRawData();
+    if(getDifferentControlConstantData){
+       ROS_DEBUG_STREAM("Received Data of Differential Control Data, Left_P:"<<getDifferentControlConstantData->getLeftP()<<", Left_I:"<<getDifferentControlConstantData->getLeftI()<<", Left_D:"<<getDifferentControlConstantData->getLeftD()<<
+       ",right_P:"<<getDifferentControlConstantData->getRightP()<<", right_I:"<<getDifferentControlConstantData->getRightI()<<", right_D:"<<getDifferentControlConstantData->getRightD()<<".");
+ 
+     }
+    
+   }
+>>>>>>> kinetic
 
   void rochHardware::getDifferentControlConstantData()
   {
@@ -647,6 +673,7 @@ namespace roch_base
     }
   }
 
+<<<<<<< HEAD
   /*****************************************************************************
   ** Publish Motor Encoders
   *****************************************************************************/
@@ -674,6 +701,8 @@ namespace roch_base
     } 
   }
 
+=======
+>>>>>>> kinetic
   void rochHardware::publishPSDEvent(const double& left, const double& center, const double& right)
   {
   

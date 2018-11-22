@@ -28,3 +28,11 @@
     uri: https://github.com/SawYer-Robotics/roch_robot.git
     local-name: roch_robot
     version: indigo
+<<<<<<< HEAD
+=======
+
+- git:
+    uri: https://github.com/SawYer-Robotics/roch_concert.git
+    local-name: roch_concert
+    version: indigo
+>>>>>>> kinetic

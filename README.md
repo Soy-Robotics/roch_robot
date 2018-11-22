@@ -14,5 +14,9 @@ Robot ROS packages for the Soy roch, for operating robot hardware.
  - roch_msgs : Message definitions
  - roch_safety_controller : Roch safety controller avoid collision.
  - roch_sensorpc : Roch sensors publisher using with navigation.
+<<<<<<< HEAD
 
 This update solves some of the previous problems.
+=======
+ - roch_bringup: Bringup launch files and scripts.
+>>>>>>> kinetic

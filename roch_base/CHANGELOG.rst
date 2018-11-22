@@ -1,6 +1,7 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+<<<<<<< HEAD
 1.0.17 (2018-03-28)
 -------------------
 * Remap email and website.
@@ -18,6 +19,17 @@ Changelog for package roch_base
 -------------------
 * Add PID and Wheel Info protocol.
 
+=======
+2.0.15 (2017-09-18)
+-------------------
+
+2.0.14 (2017-09-18)
+-------------------
+
+2.0.13 (2017-03-23)
+-------------------
+
+>>>>>>> kinetic
 1.0.13 (2017-03-23)
 -------------------
 * Fixed odom rotation which combine encoders and imu, only enconders great errors.
