@@ -1,8 +1,0 @@
-<!-- 
-  Launchers for Roch's 3D camera.
- -->
-<launch>
-    <!-- TODO: start the depthimage_to_laserscan nodelete here -->
-    <!-- rather than having it started with the 3dsensor.la	unch -->
-    <node pkg="roch_capabilities" type="placeholder.py" name="placeholder"/>
-</launch>

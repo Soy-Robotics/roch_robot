@@ -87,7 +87,7 @@ void speedCallBack(const geometry_msgs::Twist::ConstPtr& speed){
 ros::Subscriber speedSubscriber_;
 int main(int argc, char** argv){
   
-  ros::init(argc,argv,"test_imu");
+  ros::init(argc,argv,"test_pid");
   std::string port = "/dev/roch";
   core::connect(port);
   

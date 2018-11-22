@@ -1,6 +1,16 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.17 (2018-03-28)
+-------------------
+* Remap email and website.
+* Contributors: doudou0114
+
+1.0.16 (2017-11-16)
+-------------------
+* Add PID publish for Roch.
+* Add motor encoders publish.
+
 1.0.15 (2017-09-18)
 -------------------
 

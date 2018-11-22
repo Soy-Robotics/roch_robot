@@ -1,6 +1,16 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package roch_robot
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.0.17 (2018-03-28)
+-------------------
+* Deprecated roch_capabilities.
+* Discard unused packages: roch_ftdi.
+* Remap email and website.
+* Contributors: SawYer-Robotics, doudou0114
+
+1.0.16 (2017-11-16)
+-------------------
+
 1.0.15 (2017-09-18)
 -------------------
 
