@@ -2,11 +2,7 @@
 *
 *  \author     Paul Bovbel <pbovbel@clearpathrobotics.com>
 *  \copyright  Copyright (c) 2014-2015, Clearpath Robotics, Inc.
-<<<<<<< HEAD
-*  \copyright  Copyright (c) 2017-2018, Soy Robotics, Inc.
-=======
 *  \copyright  Copyright (c) 2017-2018, SawYer Robotics, Inc.
->>>>>>> kinetic
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
@@ -57,8 +53,6 @@ namespace core
   void controlSpeed(double speed_left, double speed_right, double accel_left, double accel_right);
   
   void controloverallSpeed(double speed_left, double speed_right, double accel_left, double accel_right);
-
-  void setControlData(double left_p, double left_i, double left_d, double right_p, double right_i, double right_d);
 
   template<typename T>
   struct Channel

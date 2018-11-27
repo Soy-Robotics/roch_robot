@@ -117,24 +117,4 @@ namespace core
     }
   }
 
-  void setControlData(double left_p, double left_i, double left_d, double right_p, double right_i, double right_d)
-  {
-    bool success = false;
-    
-    while (!success)
-    {
-      try
-      {
-	    sawyer::SetDifferentialControl(left_p, left_i, left_d, right_p, right_i, right_d).send();
-        success = true;
-      }
-      catch (sawyer::Exception *ex)
-      {
-        ROS_ERROR_STREAM("Error sending control data: " << ex->message);
-        reconnect();
-      }
-    }
-
-  }
-
 }

@@ -4,11 +4,7 @@
 *  Auth: Iain Peet, Mike Purvis
 *
 *  Copyright (c) 2010, Clearpath Robotics, Inc.
-<<<<<<< HEAD
-*  Copyright (c) 2016, Soy Robotics, Inc.
-=======
 *  Copyright (c) 2016, SawYer Robotics, Inc.
->>>>>>> kinetic
 *  All Rights Reserved
 *
 * Redistribution and use in source and binary forms, with or without
