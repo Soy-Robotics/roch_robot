@@ -1,6 +1,10 @@
 <package>
   <name>roch_sensorpc</name>
-  <version>1.0.15</version>
+<<<<<<< HEAD
+  <version>1.0.17</version>
+=======
+  <version>2.0.15</version>
+>>>>>>> kinetic
 
   <description>
     Ult/psd/cliff to pointcloud:
@@ -8,8 +12,8 @@
     for poor-man navigation. Implemented intended to run together with roch_base.
   </description>
 
-  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
-  <author email="wzhang@softrobtech.com">Carl</author>
+  <maintainer email="gchen@soyrobotics.com">Chen</maintainer>
+  <author email="gchen@soyrobotics.com">Chen</author>
   <author email="jorge@yujinrobot.com">Jorge Santos Simon</author>
 
   <license>BSD</license>

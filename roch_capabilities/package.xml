@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_capabilities</name>
-  <version>1.0.15</version>
+  <version>2.0.15</version>
   <description>Capabilities for Roch</description>
 
   <author email="wzhang@softrobtech.com">Carl</author> 
@@ -19,8 +19,7 @@
   <buildtool_depend>catkin</buildtool_depend>
   
   <run_depend>roch_base</run_depend>
-<!--  <run_depend>roch_bringup</run_depend> --><!-- comment due to circle dependencies-->
-<!--  <run_depend>roch_navigation</run_depend> --> <!-- comment due to circle dependencies with roch_bringup and roch_navigation -->
+  <!--<run_depend>roch_bringup</run_depend> --><!-- comment due to circle dependencies with roch_bringup-->
   <run_depend>nodelet</run_depend>
   <run_depend>rocon_app_manager</run_depend>
   <run_depend>rocon_apps</run_depend>

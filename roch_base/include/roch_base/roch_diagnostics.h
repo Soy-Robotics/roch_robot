@@ -2,7 +2,11 @@
 *
 *  \author     Paul Bovbel <pbovbel@clearpathrobotics.com>
 *  \copyright  Copyright (c) 2014-2015, Clearpath Robotics, Inc.
+<<<<<<< HEAD
+*  \copyright  Copyright (c) 2017-2018, Soy Robotics, Inc.
+=======
 *  \copyright  Copyright (c) 2017-2018, SawYer Robotics, Inc.
+>>>>>>> kinetic
 *
 * Redistribution and use in source and binary forms, with or without
 * modification, are permitted provided that the following conditions are met:
