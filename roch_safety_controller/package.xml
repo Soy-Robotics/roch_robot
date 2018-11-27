@@ -1,6 +1,10 @@
 <package>
   <name>roch_safety_controller</name>
-  <version>1.0.15</version>
+<<<<<<< HEAD
+  <version>1.0.17</version>
+=======
+  <version>2.0.15</version>
+>>>>>>> kinetic
 
   <description>
     A controller ensuring the safe operation of roch.
@@ -12,8 +16,8 @@
     Refrence with yujinrobot' kobuki.
   </description>
   <author email="marcus.liebhardt@yujinrobot.com">Marcus Liebhardt</author>
-  <author email="wzhang@softrobtech.com">Carl</author>
-  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
+  <author email="gchen@soyrobotics.com">Chen</author>
+  <maintainer email="gchen@soyrobotics.com">Chen</maintainer>
 
   <license>BSD</license>
 

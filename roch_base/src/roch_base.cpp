@@ -53,6 +53,7 @@ void controlLoop(roch_base::rochHardware &roch,
   // Process control loop
   roch.reportLoopDuration(elapsed);
   roch.updateJointsFromHardware();
+  roch.updateMotorControData();
   cm.update(ros::Time::now(), elapsed);
   roch.writeCommandsToHardware(); //for difference driver
   //roch.writeOverallSpeedCommandsToHardware(); //for overall speed
