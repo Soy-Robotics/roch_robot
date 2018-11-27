@@ -1,0 +1,12 @@
+%YAML 1.1
+---
+name: RochUlt
+spec_version: 1
+spec_type: interface
+description: "Check ultrasonic"
+interface:
+  topics:
+    provides:
+      '/roch_ult_event':
+        type: 'roch_msgs/UltEvent'
+        description: "Event is always contains state and data"

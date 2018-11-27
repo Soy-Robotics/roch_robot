@@ -1,0 +1,11 @@
+<!--
+  Launcher for the Roch's diagnostics provider
+-->
+<launch>
+  <arg name="base"  default="$(optenv ROCH_BASE roch)"/>  
+
+  <node pkg="diagnostic_aggregator" type="aggregator_node" name="diagnostic_aggregator" >
+    <rosparam command="load" file="$(find roch_bringup)/param/diagnostics.yaml" />
+  </node>
+</launch>
+

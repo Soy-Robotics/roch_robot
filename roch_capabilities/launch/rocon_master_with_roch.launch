@@ -1,0 +1,8 @@
+<!-- -->
+<launch>
+  <include file="$(find rocon_master_info)/launch/rocon_master_info.launch">
+    <arg name="name" value="SawYer Roch Master"/>
+    <arg name="icon" value="roch_base/roch_icon.png"/>
+    <arg name="description" value="Roch in concert."/>
+  </include>
+</launch>

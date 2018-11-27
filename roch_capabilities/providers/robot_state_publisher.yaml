@@ -1,0 +1,11 @@
+%YAML 1.1
+---
+name: robot_state_publisher
+spec_version: 1
+spec_type: provider
+description: 'RobotStatePublisher capability for Roch'
+implements: std_capabilities/RobotStatePublisher
+launch_file: 'launch/robot_state_publisher.launch'
+depends_on:
+  'std_capabilities/DifferentialMobileBase':
+    provider: 'roch_capabilities/roch_differential_mobile_base'
