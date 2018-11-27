@@ -1,9 +1,0 @@
-<!--
-  Launchers for Roch's 2d laser
--->
-<launch>
-    <!-- TODO: start the laser here -->
-    <!-- rather than having it started with the sensor.launch -->
-    <include file="$(find roch_bringup)/launch/sensor.launch">
-    </include>
-</launch>

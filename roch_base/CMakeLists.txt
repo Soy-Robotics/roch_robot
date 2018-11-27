@@ -2,13 +2,15 @@ cmake_minimum_required(VERSION 2.8.3)
 project(roch_base)
 
 find_package(catkin REQUIRED COMPONENTS controller_manager hardware_interface roch_msgs
-  diagnostic_updater roslaunch roslint roscpp sensor_msgs geometry_msgs tf angles std_msgs)
+  diagnostic_updater roslaunch roslint roscpp sensor_msgs geometry_msgs tf angles std_msgs dynamic_reconfigure)
 find_package(Boost REQUIRED COMPONENTS chrono)
  
+generate_dynamic_reconfigure_options(config/PID.cfg)
+
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES core
-  CATKIN_DEPENDS diagnostic_updater hardware_interface roch_msgs roscpp sensor_msgs geometry_msgs tf angles std_msgs
+  CATKIN_DEPENDS diagnostic_updater hardware_interface roch_msgs roscpp sensor_msgs geometry_msgs tf angles std_msgs dynamic_reconfigure
   DEPENDS Boost
 )
 
@@ -32,7 +34,7 @@ add_executable(roch_node
   src/roch_diagnostics.cpp
   src/core_wrapper.cpp)
 target_link_libraries(roch_node core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-add_dependencies(roch_node roch_msgs_gencpp)
+add_dependencies(roch_node roch_msgs_gencpp roch_base_gencfg)
 
 add_executable(test_encoder 
   test/test_encoder.cpp

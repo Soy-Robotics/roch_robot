@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
 <package>
   <name>roch_description</name>
-  <version>1.0.15</version>
-
-  <description>SawYer Roch URDF description</description>
+  <version>2.0.15</version>
 
 
-  <author email="wzhang@softrobtech.com">Carl</author>
+  <description>Soy Roch URDF description</description>
+
+
+  <author email="gchen@soyrobotics.com">Chen</author>
   <author email="tli@softrobtech.com">Allen</author>
-  <maintainer email="wzhang@softrobtech.com">Carl</maintainer>
+  <maintainer email="gchen@soyrobotics.com">Chen</maintainer>
 
 
-  <url type="bugtracker">https://github.com/SawYer-Robotics/roch_robot/issues</url>
-  <url type="repository">https://github.com/SawYer-Robotics/roch_robot</url>
+  <url type="bugtracker">https://github.com/Soy-Robotics/roch_robot/issues</url>
+  <url type="repository">https://github.com/Soy-Robotics/roch_robot</url>
   <url type="website">http://ros.org/wiki/roch_descrption</url>
 
   <license>BSD</license>
