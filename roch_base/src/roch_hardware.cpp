@@ -181,21 +181,11 @@ namespace roch_base
 
   void rochHardware::getPlatAccData()
   {
-<<<<<<< HEAD
-
     core::Channel<sawyer::DataPlatformAcceleration>::Ptr getPlatformAccData = 
     core::Channel<sawyer::DataPlatformAcceleration>::requestData(polling_timeout_);
     publishRawData();
     if(getPlatformAccData){
 
-=======
-
-    core::Channel<sawyer::DataPlatformAcceleration>::Ptr getPlatformAccData = 
-    core::Channel<sawyer::DataPlatformAcceleration>::requestData(polling_timeout_);
-    publishRawData();
-    if(getPlatformAccData){
-
->>>>>>> kinetic
       ROS_DEBUG_STREAM("Received acc_x:"<<getPlatformAccData->getX()<<", acc_y:"<<getPlatformAccData->getY()<<", acc_z:"<<getPlatformAccData->getZ()<<".");
  
       sixGyro.acc.X = getPlatformAccData->getX() - sixGyro.acc.X_Offset;
