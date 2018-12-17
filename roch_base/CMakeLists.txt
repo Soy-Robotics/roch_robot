@@ -64,6 +64,12 @@ add_executable(test_wheelinfo
   src/core_wrapper.cpp)
 target_link_libraries(test_wheelinfo core ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 #add_dependencies(test_encoder roch_msgs_gencpp)
+
+ add_executable(odom_fix src/odom.cpp)
+ target_link_libraries(odom_fix
+   ${catkin_LIBRARIES}
+ )
+
 roslint_cpp(
   src/roch_base.cpp
   src/roch_hardware.cpp

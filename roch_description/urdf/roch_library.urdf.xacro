@@ -20,6 +20,5 @@
   <!-- 2D Laser -->
   <xacro:include filename="$(find roch_description)/urdf/sensors/ls_ls01c.urdf.xacro"/>
   <xacro:include filename="$(find roch_description)/urdf/sensors/rplidar.urdf.xacro"/>
-  <xacro:include filename="$(find roch_description)/urdf/sensors/sick_lmsxx.urdf.xacro"/>
 
 </robot>

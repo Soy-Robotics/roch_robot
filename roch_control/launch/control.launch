@@ -10,9 +10,9 @@
   <!-- The odometry estimator using robot_localization package -->
   <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
     <rosparam command="load" file="$(find roch_control)/config/localization.yaml" />
-    <param name="publish_tf" value="true"/>
+    <param name="publish_tf" value="false"/>
     <param name="output_frame" value="odom"/>
-    <remap from="/odometry/filtered" to="odom"/>
+    <remap from="/odometry/filtered" to="odom_old"/>
   </node>
 
   <node pkg="interactive_marker_twist_server" type="marker_server" name="twist_marker_server" output="screen"/>
